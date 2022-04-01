@@ -4,6 +4,7 @@ market = {
 		isDecor = false,
 		Price = "100",
 		forSale = true,
+		desc = "A tasty fruit all chao know and love,",
 	}
 }
 
