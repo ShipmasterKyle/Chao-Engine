@@ -15,7 +15,7 @@ while wait(1) do
 	else
 		if script.Parent.Parent:FindFirstChild("HumanoidRootPart") then
 			local velo = script.Parent.Parent.HumanoidRootPart.Velocity.Magnitude
-			print("Velo")
+			print("Velocity: "..velo)
 			if velo >= 2 then
 				if pickupStatus ~= "Throw" then
 					UIService.updateContextMenu(script.Parent.Pickup,"Context","Throw")
