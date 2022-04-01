@@ -1,7 +1,8 @@
 local service = {}
 
 local wait = task.wait
-local marketplace = require(game.ReplicatedStorage.MarketPlace.MarketData)
+local market = require(game.ReplicatedStorage.MarketPlace.MarketData)
+local class = require(game.ReplicatedStorage.PublicDependancies.ClassService)
 
 function service:Initialize(plr)
 	--Initialize the system
@@ -17,10 +18,81 @@ function service:Initialize(plr)
 end
 
 function service:LoadMarket(frame,template)
+	--loop through the marketplace and add all for sale items to the ui
 	if frame and template then
-		
+		for i,v in pairs(market) do
+			local copy = template:Clone()
+			copy.Name = v.Name
+			copy.NameBox.Text = v.Name
+			copy.Desc.Text = v.desc
+			-- TODO: Use UI Service to make a viewport frame.
+			copy.Parent = frame
+		end
 	else
 		return "Build Error."
+	end
+end
+
+function service:getItemDesc(item)
+	--Get the description of items.
+	local itemExist = table.find(market,item)
+	if itemExist then
+		return market[item].desc
+	else
+		return nil
+	end
+end
+
+function getInventory(plr,frame,template)
+	if plr then
+		if workspace:FindFirstChild(tostring(plr.Name.." Inventory")) then
+			for i,v in pairs(workspace[plr.Name.." Inventory"]:GetChildren()) do
+				if v:FindFirstChild("className") then
+					print(v.Name)
+					if frame and template then
+						local copy = template:Clone()
+						copy.Name = v.Name
+						copy.NameBox.Text = v.Name
+						copy.Desc.Text = v.desc
+						copy.Parent = frame
+					end
+				end
+			end
+		end
+	else
+		warn("No player found.")
+	end
+end
+
+function service:PurchaseItem(item,plr)
+	--Purchase the item and add it to the inventory folder.
+	local itemExist = table.find(market,item)
+	if item and plr and itemExist then
+		local money = plr.ChaoStats.Rings -->Use a temporary ring system now 
+		if money and money.Value >=  item.Price then
+			money.Value -= item.Price
+			local myItem = class:GetItem(item)
+			myItem.Parent = workspace[plr.Name.." Inventory"]
+		end
+	else
+		warn("PurchaseItem run error. Item: "..item.."plr "..plr.Name)
+	end
+end
+
+function service:SellItem(item,plr)
+	--Sell an item for 70% of its origin value.
+	local itemExist = table.find(market,item)
+	if itemExist then
+		local salePrice = (market[item].Price * 70)/100
+		local money = plr.ChaoStats.Rings
+		money.Value += salePrice
+		if workspace[plr.Name.." Inventory"]:FindFirstChild(item.Name) then
+			--Delete the item when they sell it.
+			workspace[plr.Name.." Inventory"][item.Name]:Destroy()
+			if salePrice >= 10000 then
+				money.Value += 2500 -- A small bonus for selling an expensive item
+			end
+		end
 	end
 end
 
