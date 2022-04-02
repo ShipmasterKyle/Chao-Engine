@@ -7,6 +7,15 @@ local pathinprogress = false
 --update wait()
 local wait = task.wait
 
+--TODO: Add states that the chao can use to show the correct animation.
+--[[
+	States
+	Walk --> Chao is walking around.
+	Normal --> The Idle State.
+	Thinking --> The State that comes right before the walk state. The chao is deciding what to do.
+	Sleeping --> The chao is recharging it energy.
+]]
+
 function followPath(object, goal)
 	local waypoints
 	local hum = object.Parent.Humanoid

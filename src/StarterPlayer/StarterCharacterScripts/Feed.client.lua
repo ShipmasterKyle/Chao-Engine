@@ -9,6 +9,7 @@ local classService = require(game.ReplicatedStorage.PublicDependancies.ClassServ
 math.randomseed(tick())
 local wait = task.wait
 
+--run the function forever without crashing.
 while wait() do
 	for i,v in pairs(workspace:GetChildren()) do
 		local myClass = classService:GetItemsClass(v.ChaoClass)

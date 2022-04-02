@@ -619,22 +619,6 @@ function onSwimming(speed)
 	end
 end
 
-function animateTool()
-	if (toolAnim == "None") then
-		playToolAnimation("toolnone", toolTransitionTime, Humanoid, Enum.AnimationPriority.Idle)
-		return
-	end
-
-	if (toolAnim == "Slash") then
-		playToolAnimation("toolslash", 0, Humanoid, Enum.AnimationPriority.Action)
-		return
-	end
-
-	if (toolAnim == "Lunge") then
-		playToolAnimation("toollunge", 0, Humanoid, Enum.AnimationPriority.Action)
-		return
-	end
-end
 
 function getToolAnim(tool)
 	for _, c in ipairs(tool:GetChildren()) do
@@ -673,31 +657,6 @@ function stepAnimate(currentTime)
 		frequency = 1
 		setAngles = true
 	end
-
-	-- Tool Animation handling
-	local tool = Character:FindFirstChildOfClass("Tool")
-	if tool and tool:FindFirstChild("Handle") then
-		local animStringValueObject = getToolAnim(tool)
-
-		if animStringValueObject then
-			toolAnim = animStringValueObject.Value
-			-- message recieved, delete StringValue
-			animStringValueObject.Parent = nil
-			toolAnimTime = currentTime + .3
-		end
-
-		if currentTime > toolAnimTime then
-			toolAnimTime = 0
-			toolAnim = "None"
-		end
-
-		animateTool()		
-	else
-		stopToolAnimations()
-		toolAnim = "None"
-		toolAnimInstance = nil
-		toolAnimTime = 0
-	end
 end
 
 -- connect events
@@ -711,44 +670,6 @@ Humanoid.FallingDown:connect(onFallingDown)
 Humanoid.Seated:connect(onSeated)
 Humanoid.PlatformStanding:connect(onPlatformStanding)
 Humanoid.Swimming:connect(onSwimming)
-
--- setup emote chat hook
-game:GetService("Players").LocalPlayer.Chatted:connect(function(msg)
-	local emote = ""
-	if (string.sub(msg, 1, 3) == "/e ") then
-		emote = string.sub(msg, 4)
-	elseif (string.sub(msg, 1, 7) == "/emote ") then
-		emote = string.sub(msg, 8)
-	end
-	
-	if (pose == "Standing" and emoteNames[emote] ~= nil) then
-		playAnimation(emote, EMOTE_TRANSITION_TIME, Humanoid)
-	end
-end)
-
--- emote bindable hook
-if FFlagAnimateScriptEmoteHook then
-	script:WaitForChild("PlayEmote").OnInvoke = function(emote)
-		-- Only play emotes when idling
-		if pose ~= "Standing" then
-			return
-		end
-	
-		if emoteNames[emote] ~= nil then
-			-- Default emotes
-			playAnimation(emote, EMOTE_TRANSITION_TIME, Humanoid)
-			
-			return true
-		elseif typeof(emote) == "Instance" and emote:IsA("Animation") then
-			-- Non-default emotes
-			playEmote(emote, EMOTE_TRANSITION_TIME, Humanoid)
-			return true
-		end
-		
-		-- Return false to indicate that the emote could not be played
-		return false
-	end
-end
 
 -- initialize to idle
 playAnimation("idle", 0.1, Humanoid)
