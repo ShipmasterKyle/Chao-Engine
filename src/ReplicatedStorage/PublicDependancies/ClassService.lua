@@ -54,6 +54,7 @@ function service:GetItemDetails(class,item)
     end
 end
 
+--Returns the class an item belongs to.
 function service:GetItemsClass(item)
     local class
     if table.find(items.Chao,item) then
