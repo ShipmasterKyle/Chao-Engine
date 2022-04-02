@@ -21,4 +21,3 @@ while wait(1) do
 		end
 	end
 end
-
