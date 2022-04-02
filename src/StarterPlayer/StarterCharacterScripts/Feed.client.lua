@@ -1,12 +1,18 @@
 --Checks when the player gives a Chao a drive
-local debound = false
-local remote = game.ReplicatedStorage.Remotes.Eat
-math.randomseed(tick())
 
+--Prevents the same even from firing forever.
+local debound = false
+--The remote event that the chao drive handler uses.
+local remote = game.ReplicatedStorage.Remotes.Eat
+--Get ClassService
+local classService = require(game.ReplicatedStorage.PublicDependancies.ClassService)
+math.randomseed(tick())
+local wait = task.wait
 
 while wait() do
 	for i,v in pairs(workspace:GetChildren()) do
-		if v:GetAttribute("Class") == "Drive" then
+		local myClass = classService:GetItemsClass(v.ChaoClass)
+		if myClass == "Drive" then
 			if debound == false then
 				debound = true
 				if v.Name == "FlyDrive" then
@@ -40,7 +46,7 @@ while wait() do
 				debound = false
 			end
 		end
-		if v:GetAttribute("Class") == "Fruit" then
+		if myClass == "Fruit" then
 			if debound == false then
 				debound = true
 				if v.Name == "SkillsFruit" then
