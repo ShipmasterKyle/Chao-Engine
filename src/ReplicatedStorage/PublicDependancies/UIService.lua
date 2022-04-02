@@ -88,11 +88,12 @@ function module.getContextMenuProperty(obj,property)
 	end
 end
 
-function module:CreateViewPort(chao, object, corner)
+function module:CreateChaoViewPort(chao, object, corner)
 	if chao and chao:FindFirstChild("HumanoidRootPart") and object then
 		local copyChao = chao:Clone()
 		copyChao:MoveTo(Vector3.new(0,0,0))
 		local frame = Instance.new("ViewportFrame")
+		--TODO: Make this simply fill a frame
 		frame.AnchorPoint = UDim.new(0.5,0.5)
 		frame.Size = UDim2.new(0.128,0,0.226,0)
 		frame.Position = UDim2.new(0.756,0,0.532,0)
