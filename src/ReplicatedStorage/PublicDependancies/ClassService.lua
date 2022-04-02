@@ -54,4 +54,22 @@ function service:GetItemDetails(class,item)
     end
 end
 
+function service:GetItemsClass(item)
+    local class
+    if table.find(items.Chao,item) then
+        class = "Chao"
+    elseif table.find(items.Food,item) then
+        class = "Food"
+    elseif table.find(items.Animals,item) then
+        class = "Animals"
+    elseif table.find(items.Toys) then
+        class = "Toys"
+    elseif table.find(items.Medals,item) then
+        class = "Medals"
+    else
+        class = nil
+    end
+    return class
+end
+
 return service
