@@ -1,4 +1,4 @@
---Makes it so you can pick up the egg and throw it
+--Makes it so you can pick up your chao and throw it
 local wait = task.wait
 --dependancies
 local UIService = require(game.ReplicatedStorage.PublicDependancies.UIService)
@@ -15,7 +15,7 @@ while wait(1) do
 	else
 		if script.Parent.Parent:FindFirstChild("HumanoidRootPart") then
 			local velo = script.Parent.Parent.HumanoidRootPart.Velocity.Magnitude
-			print("Velocity: "..velo)
+			print("Velocity: "..velo)--Actually print the velocity.
 			if velo >= 2 then
 				if pickupStatus ~= "Throw" then
 					UIService.updateContextMenu(script.Parent.Pickup,"Context","Throw")
