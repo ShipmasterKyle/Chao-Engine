@@ -1,4 +1,5 @@
 local chaoService = require(game.ReplicatedStorage.PublicDependancies.ChaoModule)
+local UIService = require(game.ReplicatedStorage.PublicDependancies.UIService)
 local UIS = game:GetService("UserInputService")
 
 local on = true
@@ -20,6 +21,10 @@ function write()
 		wait(0.03)
 	end
 	on = false
+end
+
+function fillData(chaoData)
+	--Uses the chaoService:GetStat() to set the data of the pages. Also UIService:CreateChaoViewPort() for the first page with the visial of your chao. 
 end
 
 while wait() do
