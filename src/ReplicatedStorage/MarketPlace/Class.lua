@@ -105,7 +105,33 @@ local tree = {
                 isDecor = false,
                 Value = "250"
             }
-        } 
+        },
+        ChaoDrives = {
+            Run = {
+                Name = "RunDrive",
+                Desc = "The run chao drive. Increases your chao's running skill. Effectiveness depends on Chao's rank in running.",
+                isDecor = false,
+                Value = "-1"
+            },
+            Fly = {
+                Name = "FlyDrive",
+                Desc = "The fly chao drive. Increases your chao's flying skill. Effectiveness depends on Chao's rank in flying.",
+                isDecor = false,
+                Value = "-1"
+            },
+            Swim = {
+                Name = "SwimDrive",
+                Desc = "The swim chao drive. Increases your chao's swimming skill. Effectiveness depends on Chao's rank in swimming.",
+                isDecor = false,
+                Value = "-1"
+            },
+            Power = {
+                Name = "PowerDrive",
+                Desc = "The power chao drive. Increases your chao's power skill. Effectiveness depends on Chao's rank in power.",
+                isDecor = false,
+                Value = "-1"
+            },
+        },
     },
     Medals = {}
 }
