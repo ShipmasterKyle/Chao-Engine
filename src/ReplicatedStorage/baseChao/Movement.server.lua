@@ -22,7 +22,7 @@ function followPath(object, goal)
 	local success, failed = pcall(function()
 		path:ComputeAsync(object.Position, goal)
 	end)
-	
+
 	if success and path.Status == Enum.PathStatus.Success then
 		waypoints = path:GetWaypoints()
 		for i, waypoint in pairs(waypoints) do

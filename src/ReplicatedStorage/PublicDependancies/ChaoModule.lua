@@ -183,3 +183,78 @@ function module:GetStats(ChaoData,player, stat)
 end
 
 return module
+
+--[[
+local rigObj = script.Parent:WaitForChild("CurrentRigObject")
+local Shirt = workspace:WaitForChild("Shirt")
+local Pants = workspace:WaitForChild("Pants")
+local Colors = script.Parent:WaitForChild("Colors")
+local obj = workspace:FindFirstChild(rigObj.Value)
+local frame = Instance.new("ViewportFrame")
+frame.Size = UDim2.new(0,1049,1,0)
+frame.Position = UDim2.new(0.227,0,0,0)
+frame.BackgroundColor3 = Color3.fromRGB(0,255,0)
+frame.BorderSizePixel = 0
+frame.BackgroundTransparency = 0.25
+frame.ZIndex = 1
+frame.Parent = script.Parent
+local cam = Instance.new("Camera")
+cam.Parent = frame
+print(cam.Parent.Name)
+cam.FieldOfView = 45
+
+local humroot = obj:FindFirstChild("HumanoidRootPart")
+frame.CurrentCamera = cam
+local copy = obj:Clone()
+copy.Parent = frame
+copy.Name = "Rig"
+cam.CFrame = CFrame.new(Vector3.new(0,2,12), humroot.Position)
+
+rigObj.Changed:Connect(function()
+    frame:ClearAllChildren() --removes every onject inside the frame
+    local copyTarget = workspace:FindFirstChild(rigObj.Value)
+    local copy = copyTarget:Clone()
+    copy.Name = "Rig"
+    humroot = copy:FindFirstChild("HumanoidRootPart")
+    copy.Parent = frame
+    local cam = Instance.new("Camera")
+    cam.Parent = frame
+    print(cam.Parent.Name)
+    cam.FieldOfView = 45
+    cam.CFrame = CFrame.new(Vector3.new(0,2,12), copy.HumanoidRootPart.Position)
+    print("Trigger Recieved")
+end)
+
+Shirt.Changed:Connect(function()
+    local copy = frame:FindFirstChild("Rig")
+    local target = copy:FindFirstChild("Shirt")
+    local tater = workspace:FindFirstChild("Shirt")
+    if target and tater then
+        target:Destroy()
+        tater.Parent = copy
+        print("Shirt Changed")
+    end
+end)
+
+Pants.Changed:Connect(function()
+    local copy = frame:FindFirstChild("Rig")
+    local target = copy:FindFirstChild("Pants")
+    local tater = workspace:FindFirstChild("Pants")
+    if target and tater then
+        target:Destroy()
+        tater.Parent = copy
+        print("Pants Changed")
+    end
+end) 
+
+Colors.Changed:Connect(function()
+    local copy = frame:FindFirstChild("Rig")
+    local target = copy.SkinColor
+    target.HeadColor3 = Colors.Value
+    target.LeftArmColor3 = Colors.Value
+    target.RightArmColor3 = Colors.Value
+    target.LeftLegColor3 = Colors.Value
+    target.RightLegColor3 = Colors.Value
+    target.TorsoColor3 = Colors.Value
+end)
+]]
