@@ -3,7 +3,6 @@ local UIService = require(game.ReplicatedStorage.PublicDependancies.UIService)
 local UIS = game:GetService("UserInputService")
 
 local on = true
-local canScroll = false
 
 normalReply = {
 	"Oh no! Your chao is perfectly healthy.";
@@ -25,6 +24,11 @@ end
 
 function fillData(chaoData)
 	--Uses the chaoService:GetStat() to set the data of the pages. Also UIService:CreateChaoViewPort() for the first page with the visial of your chao. 
+	--Basic Frame
+	local topFrame = script.Parent.Frame
+	local basic = topFrame.Basic
+	local chao = workspace.TempChao
+	basic.Attributes.Text = chaoService:GetStats(chao.Id.Value,game.Players.LocalPlayer,"Attribute")
 end
 
 while wait() do
@@ -43,33 +47,10 @@ while wait() do
 						write()
 					elseif v.Name == "Charts" then
 						script.Parent.Start.Visible = false
-						canScroll = true
 						script.Parent.Frame.Visible = true
-						script.Parent.Frame.UIPageLayout:JumpToIndex(0)
 					end
 				end)
 			end
 		end
 	end
 end
-
-
-UIS.InputBegan:Connect(function(input)
-	if input.KeyCode == Enum.KeyCode.E or input.KeyCode == Enum.KeyCode.ButtonR1 then
-		if canScroll then
-			script.Parent.Frame.UIPageLayout:Next()
-		end
-	end
-	if input.KeyCode == Enum.KeyCode.Q or input.KeyCode == Enum.KeyCode.ButtonL1 then
-		if canScroll then
-			script.Parent.Frame.UIPageLayout:Previous()
-		end
-	end
-	if input.KeyCode == Enum.KeyCode.B or input.KeyCode == Enum.KeyCode.ButtonB then
-		if canScroll then
-			script.Parent.Frame.Visible = false
-			canScroll = false
-			script.Parent.Start.Visible = true
-		end
-	end
-end)
