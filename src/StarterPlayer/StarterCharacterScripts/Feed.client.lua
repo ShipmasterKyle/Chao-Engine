@@ -19,28 +19,28 @@ while wait() do
 				if v.Name == "FlyDrive" then
 					v.Touched:Connect(function(hit)
 						if hit:FindFirstChild("Held") then
-							remote:FireServer("Fly",math.random(3,6),game.Players.LocalPlayer.ChaoData,"Drive",v)
+							remote:FireServer("Fly",math.random(3,6),v.Name,"Drive",v)
 						end
 					end)
 				end
 				if v.Name == "PowerDrive" then
 					v.Touched:Connect(function(hit)
 						if hit.Parent:FindFirstChild("Held") then
-							remote:FireServer("Power",math.random(3,6),game.Players.LocalPlayer.ChaoData,"Drive",v)
+							remote:FireServer("Power",math.random(3,6),v.Name,"Drive",v)
 						end
 					end)
 				end
 				if v.Name == "RunDrive" then
 					v.Touched:Connect(function(hit)
 						if hit.Parent:FindFirstChild("Held") then
-							remote:FireServer("Run",math.random(3,6),game.Players.LocalPlayer.ChaoData,"Drive",v)
+							remote:FireServer("Run",math.random(3,6),v.Name,"Drive",v)
 						end
 					end)
 				end
 				if v.Name == "SwimDrive" then
 					v.Touched:Connect(function(hit)
 						if hit.Parent:FindFirstChild("Held") then
-							remote:FireServer("Swim",math.random(3,6),game.Players.LocalPlayer.ChaoData,"Drive",v)
+							remote:FireServer("Swim",math.random(3,6),v.Name,"Drive",v)
 						end
 					end)
 				end
@@ -53,7 +53,7 @@ while wait() do
 				if v.Name == "SkillsFruit" then
 					v.Touched:Connect(function(hit)
 						if hit.Parent:FindFirstChild("Held") then
-							remote:FireServer("Skill",math.random(3,10),game.Players.LocalPlayer.ChaoData,"Fruit",v)
+							remote:FireServer("Skill",math.random(3,10),v.Name,"Fruit",v)
 						end
 					end)
 				end
