@@ -92,11 +92,15 @@ function module:CreateChaoViewPort(chao, object, corner)
 	if chao and chao:FindFirstChild("HumanoidRootPart") and object then
 		local copyChao = chao:Clone()
 		copyChao:MoveTo(Vector3.new(0,0,0))
+		local id = Instance.new("StringValue", copyChao)
+		id.Value = chao.Name
+		id.Name = "Id"
+		copyChao.Name = "TempChao"
+		copyChao.Parent = workspace
 		local frame = Instance.new("ViewportFrame")
-		--TODO: Make this simply fill a frame
-		frame.AnchorPoint = UDim.new(0.5,0.5)
-		frame.Size = UDim2.new(0.128,0,0.226,0)
-		frame.Position = UDim2.new(0.756,0,0.532,0)
+		frame.AnchorPoint = UDim.new(0,0)
+		frame.Size = UDim2.new(1,0,1,0)
+		frame.Position = UDim2.new(0,0,0,0)
 		frame.BackgroundTransparency = 1
 		frame.Parent = object
 		local cam = Instance.new("Camera")
