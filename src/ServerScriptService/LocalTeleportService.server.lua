@@ -1,5 +1,3 @@
---TODO: Finish this. Use Goals to teleport the player to the corect door.
-
 local debound = false
 local wait = task.wait
 local garden = workspace.currentGarden
