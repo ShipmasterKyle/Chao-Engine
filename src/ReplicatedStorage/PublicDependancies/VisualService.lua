@@ -26,13 +26,17 @@ function service.GetArrayItem(item,array)
     end
 end
 
-function service:changeHeadType(chao,headType)
+function service:ChangeHeadType(chao,headType)
     if service.GetArrayItem(headTypes,headType)  then
         chao.Emotion.MeshPart.Mesh = service.GetArrayItem(headTypes,headType).ID
         print("HeadType Changed")
     else
         warn("Invalid HeadType")
     end
+end
+
+function service:ChangeChaoType(chao,chaoType)
+    
 end
 
 return service

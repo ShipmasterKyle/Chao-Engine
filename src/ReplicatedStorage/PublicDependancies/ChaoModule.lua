@@ -2,7 +2,7 @@ print("Alive!")
 math.randomseed(tick())
 
 local repl = game.ReplicatedStorage
-
+local visualService = require(script.Parent.VisualService)
 
 local module = {}
 function module.chaoDataexport()
@@ -185,6 +185,8 @@ end
 
 function module:Evo(chaoData,chao,player)
 	if player and chao then
+		--Prevent the chao from Aging while evolving
+		chaoData.canAge = false
 		--Change ChaoState to sitting and play anim
 
 		--Create Chao Cocoon
@@ -192,8 +194,41 @@ function module:Evo(chaoData,chao,player)
 		cocoon:Clone()
 		coccon.Parent = workspace
 		cocoon.Position  = chao.HumanoidRootPart.Position
-		--Apply Visual Changes
 
+		--Determine Ability Evolution
+		local chaoType
+		if chaoData.AbilityDirection.Value >= 0.5 then
+			chaoType = "Hero"
+		elseif chaoData.AbilityDirection.Value <= -0.5 then
+			chaoType = "Dark"
+		else
+			chaoType = "Normal"
+		end 
+		--Apply Visual Changes
+		visualService:ChangeHeadType(chao,chaoType)
+		--Apply SaveData Changes
+		chaoData.Ability.Value = chaoType
+		--Determine Type Evolution
+		if chaoData.LastUpgraded == "Swim" then
+			chaoType = "Swim"
+		elseif chaoData.LastUpgraded == "Fly" then
+			chaoType = "Fly"
+		elseif chaoData.LastUpgraded == "Run" then
+			chaoType = "Run"
+		elseif chaoData.LastUpgraded == "Power" then
+			chaoType = "Power"
+		end
+		--Apply Visual Changes
+		visualService:ChangeChaoType(chao,chaoType)
+		--Apply SaveData Changes
+		chaoData.Attribute.Value = chaoType
+		--Remove Cocoon
+		for count = 1,100 do
+			cocoon.Transparency -= 0.01
+		end
+		cocoon:Destroy()
+		--Clean up
+		chaoData.canAge = true
 	end
 end
 
