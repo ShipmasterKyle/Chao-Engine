@@ -19,6 +19,7 @@ local wait = task.wait
 function followPath(object, goal)
 	local waypoints
 	local hum = object.Parent.Humanoid
+	local humroot = object.Parent.HumanoidRootPart
 	local success, failed = pcall(function()
 		path:ComputeAsync(object.Position, goal)
 	end)
@@ -31,8 +32,8 @@ function followPath(object, goal)
 					wait(1) --make the chao pause before jumping
 					hum:ChangeState(Enum.HumanoidStateType.Jumping)
 				end
-				hum:MoveTo(waypoint.Position)
-				hum.MoveToFinished:Wait(1)
+				humroot:MoveTo(waypoint.Position)
+				humroot.MoveToFinished:Wait(1)
 			else
 				break
 			end
