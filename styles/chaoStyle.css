@@ -1,0 +1,173 @@
+html {
+  font-family:sans-serif;
+  -ms-text-size-adjust:100%;
+  -webkit-text-size-adjust:100%
+}
+body {
+  margin:0;
+  background-color: #1381f8;
+}
+footer {
+  display: block;
+}
+video {
+  display: inline-block;
+  vertical-align: baseline;
+}
+a {
+  background-color: transparent;
+}
+a:active,a:hover {
+  outline:0
+}
+a {
+  color:#1b2ab3;
+  text-decoration:none;
+  font-family: Ubuntu;
+}
+a:focus,a:hover {
+  color:#c3ede8;
+  text-decoration:underline
+}
+a:focus{
+  outline:5px auto -webkit-focus-ring-color;outline-offset:-2px
+}
+b {
+  font-weight: 700;
+}
+.button {
+  background-color: #7EBCFF; /* Green */
+  border: none;
+  color: white;
+  padding: 16px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  transition-duration: 0.4s;
+  cursor: pointer;
+  border-radius: 8px;
+}
+
+.button:hover {
+  background-color: white; 
+  color: black; 
+  border: 2px solid #7EBCFF;
+  border-radius: 8px;
+}
+
+h1,h2,h3,h4,h5,h6{
+  color:#888;
+  font-family:Dosis;
+  font-weight:500;
+  line-height:1.1
+}
+h1 {
+  font-size:2em;
+  margin:.67em 0;
+  color:#0774EA
+}
+h2 {
+  color:#75baff
+}
+hr {
+  display: block;
+  margin-top: 1em;
+  margin-bottom: 1em;
+  margin-left: auto;
+  margin-right: auto;
+  border-style: inset;
+  border-width: 1px;
+}
+p {
+  margin:0 0 10px;
+  color:#171717;
+  font-size:14px;
+  font-family: Ubuntu;
+}
+.entry{
+  box-sizing:border-box;
+  padding-bottom:64px
+}
+
+.centerBox{
+  background-color:#81d8d0;
+  float:left;
+  display: inline-block;
+  width: 50%;
+}
+.centerBox-middle{
+  background-color:#81d8d0;
+  display: inline-block;
+  float: left;
+  padding: 2%;
+  width: 71%;
+}
+.leftBox{
+  background-color: #1381f8;
+  float: left;
+  display: inline-block;
+  width: 25%;
+  height: auto;
+}
+.rightBox{
+  display: inline;
+  float: right;
+  width: 25%;
+}
+.ImgFan {
+  background-color:#fff;
+  border: 5px solid #fff;
+  height: auto;
+}
+.thumbcaption{
+  font-family: Ubuntu;
+  border:0;
+  line-height:1.4em
+  padding:3px;
+  font-size:94%;
+  text-align:left
+}
+div.Title {
+  width: 100%;
+  height: auto;
+}
+.responsive {
+  width: 100%;
+  height: auto;
+}
+.ci-footer-nav{
+  background-color:#212121;
+  color:#fff;
+  font-family:Roboto,Helvetica Neue,Helvetica,Arial,sans-serif
+}
+.ci-footer-social__link{
+  display:inline-block;
+  width:3.2rem;
+  height:3.2rem;
+  font-size:1.6rem;
+  text-align:center
+}
+.ci-footer-copyright{
+  float:right
+}
+.ci-footer-copyright__highlight{
+  color:hsla(0,0%,100%,.7)
+}
+.ci-footer-social{
+  margin:0 .8rem;padding:.4rem 0 1.2rem
+}
+.ci-footer-social{
+  padding:1.2rem 0;float:right
+}
+.ci-footer-social{
+  float:left
+}
+.ci-footer-social__link{
+  display:inline-block;
+  width:3.2rem;
+  height:3.2rem;
+  font-size:1.6rem;
+  text-align:center
+}
