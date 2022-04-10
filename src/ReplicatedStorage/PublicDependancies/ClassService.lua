@@ -3,9 +3,18 @@ local service = {}
 local items = require(game.ReplicatedStorage.MarketPlace.Class)
 local rawItems = game.ReplicatedStorage.MarketPlace.rawItems
 
+function service.GetArrayItem(array,item)
+    for i,v in pairs(array) do
+        if v.Name == item then
+            return v
+        else end
+    return false
+    end
+end
+
 --Clone and object and return it
 function service:GetItem(item)
-    local itemExist = table.find(items,item)
+    local itemExist = service.GetArrayItem(items,item)
     if itemExist then
         if rawItems:FindFirstChild(item) then
             local myItem = rawItems[item]:Clone()
@@ -18,9 +27,9 @@ end
 
 --Return the description of an item
 function service:GetItemInfo(class,item)
-    local classExist = table.find(items,class)
+    local classExist = service.GetArrayItem(items,class)
     if classExist then
-        local itemExist = table.find(items[class],item)
+        local itemExist = service.GetArrayItem(items[class],item)
         if itemExist then
             return items[class][item].Desc
         else
@@ -33,7 +42,7 @@ end
 
 --Return all members of a class
 function service:GetChildrenOfClass(class)
-    local classExist = table.find(items,class)
+    local classExist = service.GetArrayItem(items,class)
     if classExist then
         return items[class]
     else
@@ -43,9 +52,9 @@ end
 
 --Return an items stats (such as isDecor)
 function service:GetItemDetails(class,item)
-    local classExist = table.find(items,class)
+    local classExist = service.GetArrayItem(items,class)
     if classExist then
-        local itemExist = table.find(items[class],item)
+        local itemExist = service.GetArrayItem(items[class],item)
         if itemExist then
             return items[class][item]
         end
@@ -57,15 +66,15 @@ end
 --Returns the class an item belongs to.
 function service:GetItemsClass(item)
     local class
-    if table.find(items.Chao,item) then
+    if service.GetArrayItem(items.Chao,item) then
         class = "Chao"
-    elseif table.find(items.Food,item) then
+    elseif service.GetArrayItem(items.Food,item) then
         class = "Food"
-    elseif table.find(items.Animals,item) then
+    elseif service.GetArrayItem(items.Animals,item) then
         class = "Animals"
-    elseif table.find(items.Toys) then
+    elseif service.GetArrayItem(items.Toys) then
         class = "Toys"
-    elseif table.find(items.Medals,item) then
+    elseif service.GetArrayItem(items.Medals,item) then
         class = "Medals"
     else
         class = nil

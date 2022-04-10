@@ -1,5 +1,6 @@
 local tree = {
     Chao = {
+        Name = "Chao",
         WoolHat = {
             Name = "Wool Hat",
             Desc = "A warm hat for your chao.",
@@ -8,6 +9,7 @@ local tree = {
         }
     },
     Food = {
+        Name = "Food",
         Fruit = {
             Name = "Garden Fruit",
             Desc = "A regular fruit.",
@@ -64,6 +66,7 @@ local tree = {
         }
     },
     Toys = {
+        Name = "Toys",
         Car = {
             Name = "Toy Car",
             Desc = "A Toy Car that can be won from Chao Races",
@@ -72,7 +75,9 @@ local tree = {
         }
     },
     Animals = {
+        Name = "Animal",
         Wisps = {
+            Name = "Wisps",
             White = {
                 Name = "White Wisp",
                 Desc = "The White Wisp. Helps make your chao faster. (Running +3)",
@@ -99,6 +104,7 @@ local tree = {
             }
         },
         Animals = {
+            Name = "Animals",
             Gorrilla = {
                 Name = "Monke",
                 Desc = "The Gorrilla Animal. Found thoughout stages. Helps make your chao stronger at the cost of its flying skill. (Power +7) (Flying -3)",
@@ -107,6 +113,7 @@ local tree = {
             }
         },
         ChaoDrives = {
+            Name = "ChaoDrive",
             Run = {
                 Name = "RunDrive",
                 Desc = "The run chao drive. Increases your chao's running skill. Effectiveness depends on Chao's rank in running.",
@@ -133,7 +140,9 @@ local tree = {
             },
         },
     },
-    Medals = {}
+    Medals = {
+        Name = "Medals"
+    }
 }
 
 return tree

@@ -4,6 +4,15 @@ local wait = task.wait
 local market = require(game.ReplicatedStorage.MarketPlace.MarketData)
 local class = require(game.ReplicatedStorage.PublicDependancies.ClassService)
 
+function service.GetArrayItem(array,item)
+    for i,v in pairs(array) do
+        if v.Name == item then
+            return v
+        else end
+    return false
+    end
+end
+
 function service:Initialize(plr)
 	--Initialize the system
 	warn("This system is experimental. It does not save any data at all. Make sure you use everything as you will lose it upon leaving the game.")
@@ -35,7 +44,7 @@ end
 
 function service:getItemDesc(item)
 	--Get the description of items.
-	local itemExist = table.find(market,item)
+	local itemExist = service.GetArrayItem(market,item)
 	if itemExist then
 		return market[item].desc
 	else
@@ -66,7 +75,7 @@ end
 
 function service:PurchaseItem(item,plr)
 	--Purchase the item and add it to the inventory folder.
-	local itemExist = table.find(market,item)
+	local itemExist = service.GetArrayItem(market,item)
 	if item and plr and itemExist then
 		local money = plr.ChaoStats.Rings -->Use a temporary ring system now 
 		if money and money.Value >=  item.Price then
@@ -81,7 +90,7 @@ end
 
 function service:SellItem(item,plr)
 	--Sell an item for 70% of its origin value.
-	local itemExist = table.find(market,item)
+	local itemExist = service.GetArrayItem(market,item)
 	if itemExist then
 		local salePrice = (market[item].Price * 70)/100
 		local money = plr.ChaoStats.Rings
