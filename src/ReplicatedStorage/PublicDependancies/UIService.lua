@@ -8,7 +8,7 @@ local changeSignals = {
 	"Name"
 }
 
-function module.generateContextMenu(context,obj,Input,cInput,objectText)
+function module:GenerateContextMenu(context,obj,Input,cInput,objectText)
 	if context and obj then
 		local contextMenu = Instance.new("ProximityPrompt")
 		contextMenu.Name = context
@@ -29,7 +29,7 @@ function module.generateContextMenu(context,obj,Input,cInput,objectText)
 	end
 end
 
-function module.updateContextMenu(obj,changeSignal,ctx)
+function module:UpdateContextMenu(obj,changeSignal,ctx)
 	if obj and obj:IsA("ProximityPrompt") then
 		if table.find(changeSignals,changeSignal,1) then
 			if changeSignal == "Context" then
@@ -55,7 +55,7 @@ function module.updateContextMenu(obj,changeSignal,ctx)
 	end
 end
 
-function module.destroyContextMenu(contextMenu)
+function module:DestroyContextMenu(contextMenu)
 	if contextMenu and contextMenu:IsA("ProximityPrompt") then
 		contextMenu:Destroy()
 		print("Destoyed Secessfully.")
@@ -64,7 +64,7 @@ function module.destroyContextMenu(contextMenu)
 	end
 end
 
-function module.getContextMenuProperty(obj,property)
+function module:GetContextMenuProperty(obj,property)
 	if obj and obj:IsA("ProximityPrompt") then
 		if table.find(changeSignals,property,1) then
 			if property == "Context" then
