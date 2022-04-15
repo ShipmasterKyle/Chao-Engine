@@ -4,7 +4,16 @@ local chaoModule = require(game.ReplicatedStorage.PublicDependancies.ChaoModule)
 
 PromptService.PromptTriggered:Connect(function(prompt, player)
 	if prompt and player then
-		local promptStatus = UIService.getContextMenuProperty(prompt,"Context")
+		local promptStatus = UIService:GetContextMenuProperty(prompt,"Context")
+		if prompt.Name == "Pet" then
+			local chao = prompt.Parent
+			chao.Held.Value = true
+			--Play petting anim and sound
+			wait(1)
+			chaoModule.changeData("Happiness",1,player.ChaoData)
+			chaoModule.changeData("AbilityDirection",0.01,player.ChaoData)
+			chao.Held.Value = false
+		end
 		if prompt.Name == "Pickup" then
 			if promptStatus == "Pick" then
 				prompt.Parent.Held.Value = true
@@ -36,7 +45,7 @@ PromptService.PromptTriggered:Connect(function(prompt, player)
 					chao.Weld:Destroy()
 					chao.Parent = workspace
 					chao.Velocity = chao.CFrame:VectorToWorldSpace(Vector3.new(0, 0, -300))
-					chaoModule.changeData("Happiness",-10,player.ChaoData)
+					chaoModule.changeData("Happiness",-1,player.ChaoData)
 					if chao.Name == "Egg" then
 						chaoModule.newChao()
 						chaoModule.Hatch(chao)
@@ -45,7 +54,7 @@ PromptService.PromptTriggered:Connect(function(prompt, player)
 			end
 		end
 		if prompt.Name == "ChaoDrive" then
-			local promptStatus = UIService.getContextMenuProperty(prompt,"Context")
+			local promptStatus = UIService:GetContextMenuProperty(prompt,"Context")
 			if promptStatus == "Pickup" then
 				prompt.Parent.Held.Value = true
 				prompt.Parent.Parent = player.Character
