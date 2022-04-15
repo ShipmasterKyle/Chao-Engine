@@ -3,8 +3,29 @@ math.randomseed(tick())
 
 local repl = game.ReplicatedStorage
 local visualService = require(script.Parent.VisualService)
-
+local Datastore = game:GetService("DataStoreService")
+local saveData = Datastore:GetDataStore("Sonic Earth Chao Garden Alpha")
 local module = {}
+
+--Moved out of the createChao function since we need this in the rebirth.
+local personalityTable = {
+	--Adding more in the future.
+	"Gentle",
+	"Naughty",
+	"Energetic",
+	"Quiet",
+	"Big Eater",
+	"Chatty",
+	"Easily Bored",
+	"Curious",
+	"Carefree",
+	"Careless",
+	"Smart",
+	"Cry Baby",
+	"Lonely",
+	"Naive"
+}
+
 function module.chaoDataexport()
 	--Format the save data to a file that can be transered throughtout games using HTTPservice. I'll work on this later on.
 	print("Ready.")
@@ -91,23 +112,6 @@ function module.newChao()
 		1,
 		1
 	}
-	local personalityTable = {
-		--Adding more in the future.
-		"Gentle",
-		"Naughty",
-		"Energetic",
-		"Quiet",
-		"Big Eater",
-		"Chatty",
-		"Easily Bored",
-		"Curious",
-		"Carefree",
-		"Careless",
-		"Smart",
-		"Cry Baby",
-		"Lonely",
-		"Naive"
-	}
 	--fills the stats table and makes it so only one stat can be an A. This isn't for the genepool.
 	local hasfive = false
 	for i,v in pairs(statTable) do
@@ -141,10 +145,8 @@ function module.newChao()
 end
 
 function module.spawnChao(chao) --chaoData
-	--needed files
-	--Interact Script
-	--Emotions Script
 	if chao.Hatched.Value == true then
+		--spawn a chao
 		local copy = repl.baseChao:Clone()
 		copy.Parent = workspace
 		copy.HumanoidRootPart.Position = Vector3.new(10,0,10) --TODO: Randomize this
@@ -229,6 +231,81 @@ function module:Evo(chaoData,chao,player)
 		cocoon:Destroy()
 		--Clean up
 		chaoData.canAge = true
+	end
+end
+
+function module:Rebirth(chaoData,chao,player)
+	if player and chao then
+		--Prevent the chao from Aging while evolving
+		chaoData.canAge = false
+		--Change ChaoState to sitting and play anim
+
+		--Create Pink Cocoon
+		local cocoon --Path to chao cocoon.
+		cocoon:Clone()
+		coccon.Parent = workspace
+		cocoon.Position  = chao.HumanoidRootPart.Position
+		--Reset every stat to 10 percent of its current value
+		chaoData.FlyXP.Value = math.floor(chaoData.FlyXP.Value*10/100)
+		chaoData.SwimXP.Value = math.floor(chaoData.SwimXP.Value*10/100)
+		chaoData.RunXP.Value = math.floor(chaoData.RunXP.Value*10/100)
+		chaoData.PowerXP.Value = math.floor(chaoData.PowerXP.Value*10/100)
+		chaoData.StaminaXP.Value = math.floor(chaoData.StaminaXP.Value*10/100)
+		--Reset personaility
+		local prng = math.random(#personalityTable)
+		chaoData.Personality.Value = personalityTable[prng]
+		--Reset Age
+		chaoData.Age.Value = 0
+		--Reset attribute and ablility
+		chaoData.Attribute.Value = "Child"
+		chaoData.AbilityDirection = 0
+		chaoData.Ability.Value = ""
+		--Remove Cocoon
+		for count = 1,100 do
+			cocoon.Transparency -= 0.01
+		end
+		cocoon:Destroy()
+		--Clean up
+		chaoData.canAge = true
+	end
+end
+
+function module:RemoveChao(chaoData,chao,player)
+	if chaoData and chao then
+		--Prevent the chao from Aging while evolving
+		chaoData.canAge = false
+		--Change ChaoState to sitting and play anim
+
+		--Create White Cocoon
+		local cocoon --Path to chao cocoon.
+		cocoon:Clone()
+		coccon.Parent = workspace
+		cocoon.Position  = chao.HumanoidRootPart.Position
+		--Destroy ChaoData
+		local wasInterupted = false
+		for i,v in pairs(chaoData:GetChildren()) do
+			local success, response = pcall(function(v)
+				local save_data = saveData:GetAsync("User_"..player.UserId)
+				save_data.Data[v] = nil
+				saveData:SetAsync("User_"..player.UserId,save_data)
+			end)
+			if not success then
+				print(response)
+				wasInterupted = true
+				break
+			else end
+		end
+		--destroy the folder itself
+		if wasInterupted == false then --ensure the data actually got deleted
+			chaoData:Destroy()
+		end
+		--remove chao
+		chao:Destroy()
+		--Remove Cocoon
+		for count = 1,100 do
+			cocoon.Transparency -= 0.01
+		end
+		cocoon:Destroy()
 	end
 end
 

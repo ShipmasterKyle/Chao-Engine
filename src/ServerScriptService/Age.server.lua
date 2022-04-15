@@ -13,6 +13,14 @@ game.Players.PlayerAdded:Connect(function(player)
                 if player.Leaderstats[chaoData].Age.Value >= 1 and script.Parent.Held == false and player.Leaderstats[chaoData].Ability == "Child" then
                     -- chaoModule
                     chaoModule:Evo(player.Leaderstats[chaoData],script.Parent,player)
+                elseif player.Leaderstats[chaoData].Age.Value >= 4 and script.Parent.Held == false then
+                    if player.Leaderstats[chaoData].Happiness.Value >= 50 then
+                        --Pink Cocoon (Rebirth)
+                        chaoModule:Rebirth(player.Leaderstats[chaoData],script.Parent,player)
+                    else
+                        --White cocoon (death)
+                        chaoModule:RemoveChao(player.Leaderstats[chaoData],script.Parent,player)
+                    end
                 end
             end
         end
