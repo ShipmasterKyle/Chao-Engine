@@ -1,12 +1,8 @@
-local module = require(game.ReplicatedStorage.PublicDependancies.ChaoModule)
-local garden = workspace.currentGarden
+-- local chaoModule = require(game.ReplicatedStorage.PublicDependancies.ChaoModule)
 
-game.Players.PlayerAdded:Connect(function(player)
-	garden.Value = "none"
-	wait(2)
-	if module then
-		wait(2)
-		local chaodata = player:WaitForChild("ChaoData")
-		module.spawnChao(chaodata)
-	end
-end)
+-- game.Players.PlayerAdded:Connect(function(plr)
+-- 	if plr then
+-- 		wait(1)
+-- 		if plr:FindFirstChild("Leaderstats")
+-- 	end
+-- end)
