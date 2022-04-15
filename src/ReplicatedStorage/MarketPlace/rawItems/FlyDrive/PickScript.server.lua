@@ -2,11 +2,11 @@
 local wait = task.wait
 --dependancies
 local UIService = require(game.ReplicatedStorage.PublicDependancies.UIService)
-UIService.generateContextMenu("Pick",script.Parent,Enum.KeyCode.E,Enum.KeyCode.ButtonX,"Pick up your chao.")
+UIService:GenerateContextMenu("Pick",script.Parent,Enum.KeyCode.E,Enum.KeyCode.ButtonX,"Pick up your chao.")
 UIService.updateContextMenu(script.Parent.Pick,"Name","ChaoDrive")
 
 while wait(1) do
-	local pickupStatus = UIService.getContextMenuProperty(script.Parent.Pickup,"Context")
+	local pickupStatus = UIService:GetContextMenuProperty(script.Parent.Pickup,"Context")
 	if script.Parent.Held.Value == false then
 		if pickupStatus ~= "Pick" then
 			UIService.updateContextMenu(script.Parent.Pickup,"Context","Pick")
