@@ -11,7 +11,7 @@ PromptService.PromptTriggered:Connect(function(prompt, player)
 			--Play petting anim and sound
 			wait(1)
 			chaoModule.changeData("Happiness",1,player.ChaoData)
-			chaoModule.changeData("AbilityDirection",0.01,player.ChaoData)
+			chaoModule.changeData("AbilityDirection",0.33,player.ChaoData)
 			chao.Held.Value = false
 		end
 		if prompt.Name == "Pickup" then
@@ -46,6 +46,7 @@ PromptService.PromptTriggered:Connect(function(prompt, player)
 					chao.Parent = workspace
 					chao.Velocity = chao.CFrame:VectorToWorldSpace(Vector3.new(0, 0, -300))
 					chaoModule.changeData("Happiness",-1,player.ChaoData)
+					chaoModule.changeData("AbilityDirection",-0.03,player.ChaoData)
 					if chao.Name == "Egg" then
 						chaoModule.newChao()
 						chaoModule.Hatch(chao)
