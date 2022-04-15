@@ -4,6 +4,7 @@ local saveData = Datastore:GetDataStore("Sonic Earth Chao Garden Alpha")
 local module = require(game.ReplicatedStorage.PublicDependancies.ChaoModule)
 
 game.Players.PlayerAdded:Connect(function(player)
+	workspace.currentGarden.Value = "Lobby"
 	if player and module then
 		--Create a chaoData folder
 		local main = Instance.new("Folder")
