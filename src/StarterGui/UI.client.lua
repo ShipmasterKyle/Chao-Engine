@@ -1,3 +1,8 @@
+--[[
+	UI
+	Handles UI
+]]
+
 local UIService = require(game.ReplicatedStorage.PublicDependancies.UIService)
 
 local ui = script.Parent.ScreenGui.Frame.GardenLogo

@@ -1,3 +1,8 @@
+--[[
+	LocalTeleportService
+	Handles when people open doors
+]]
+
 local debound = false
 local wait = task.wait
 local garden = workspace.currentGarden

@@ -1,3 +1,8 @@
+--[[
+    Class
+    A simple class tree for every item in the game.
+]]
+
 local tree = {
     Chao = {
         Name = "Chao",

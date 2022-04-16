@@ -1,4 +1,8 @@
---A service used to changethe visual appearance of chao based on their stats
+--[[
+    VisualService
+    A service used to changethe visual appearance of chao based on their stats
+]]
+
 local service = {}
 
 --A Class Table for Emotion Ball Types
@@ -17,6 +21,7 @@ local headTypes = {
     },
 }
 
+--Alternative table.find
 function service.GetArrayItem(item,array)
     for i,v in pairs(array) do
         if v.Name == item then
@@ -26,6 +31,7 @@ function service.GetArrayItem(item,array)
     end
 end
 
+--Changes the emotion ball
 function service:ChangeHeadType(chao,headType)
     if service.GetArrayItem(headTypes,headType)  then
         chao.Emotion.MeshPart.Mesh = service.GetArrayItem(headTypes,headType).ID

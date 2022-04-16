@@ -1,3 +1,8 @@
+--[[
+	DoctorUI
+	Handles the Doctor Office.
+]]
+
 local chaoService = require(game.ReplicatedStorage.PublicDependancies.ChaoModule)
 local UIService = require(game.ReplicatedStorage.PublicDependancies.UIService)
 local UIS = game:GetService("UserInputService")

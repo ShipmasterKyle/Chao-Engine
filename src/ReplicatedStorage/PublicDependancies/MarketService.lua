@@ -1,3 +1,8 @@
+--[[
+	MaketService
+	Handles the Chao Black Market
+]]
+
 local service = {}
 
 local wait = task.wait
@@ -52,6 +57,7 @@ function service:getItemDesc(item)
 	end
 end
 
+--Create the Inventory UI
 function getInventory(plr,frame,template)
 	if plr then
 		if workspace:FindFirstChild(tostring(plr.Name.." Inventory")) then

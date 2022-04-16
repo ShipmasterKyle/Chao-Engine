@@ -1,8 +1,14 @@
+--[[
+    ClassService
+    The Module that uses the ClassTree and makes it usable by other scripts
+]]
+
 local service = {}
 
 local items = require(game.ReplicatedStorage.MarketPlace.Class)
 local rawItems = game.ReplicatedStorage.MarketPlace.rawItems
 
+--table.find alternative
 function service.GetArrayItem(array,item)
     for i,v in pairs(array) do
         if v.Name == item then

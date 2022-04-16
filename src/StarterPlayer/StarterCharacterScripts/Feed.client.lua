@@ -1,4 +1,7 @@
---Checks when the player gives a Chao a drive
+--[[
+	Feed
+	Checks when the player gives a Chao a drive
+]]
 
 --Prevents the same even from firing forever.
 local debound = false

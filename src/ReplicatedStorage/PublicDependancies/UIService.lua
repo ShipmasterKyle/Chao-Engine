@@ -1,5 +1,11 @@
+--[[
+	UIService
+	Handles general UI operations like viewport frames and ContextMenus
+]]
+
 local module = {}
 
+--Change Signals
 local changeSignals = {
 	"Context",
 	"Input",
@@ -8,6 +14,7 @@ local changeSignals = {
 	"Name"
 }
 
+--Creates the ContextMenu
 function module:GenerateContextMenu(context,obj,Input,cInput,objectText)
 	if context and obj then
 		local contextMenu = Instance.new("ProximityPrompt")
@@ -29,6 +36,7 @@ function module:GenerateContextMenu(context,obj,Input,cInput,objectText)
 	end
 end
 
+--Allows you edit ContextMenu
 function module:UpdateContextMenu(obj,changeSignal,ctx)
 	if obj and obj:IsA("ProximityPrompt") then
 		if table.find(changeSignals,changeSignal,1) then
@@ -55,6 +63,7 @@ function module:UpdateContextMenu(obj,changeSignal,ctx)
 	end
 end
 
+--Delete the ContextMenu
 function module:DestroyContextMenu(contextMenu)
 	if contextMenu and contextMenu:IsA("ProximityPrompt") then
 		contextMenu:Destroy()
@@ -64,6 +73,7 @@ function module:DestroyContextMenu(contextMenu)
 	end
 end
 
+--Return the ContextMenu's Data
 function module:GetContextMenuProperty(obj,property)
 	if obj and obj:IsA("ProximityPrompt") then
 		if table.find(changeSignals,property,1) then
@@ -88,6 +98,7 @@ function module:GetContextMenuProperty(obj,property)
 	end
 end
 
+--Create Viewport Frame
 function module:CreateChaoViewPort(chao, object, corner)
 	if chao and chao:FindFirstChild("HumanoidRootPart") and object then
 		local copyChao = chao:Clone()

@@ -1,3 +1,8 @@
+--[[
+	ChaoModule
+	The main module for the garden. Handles stats
+]]
+
 print("Alive!")
 math.randomseed(tick())
 
@@ -31,6 +36,7 @@ function module.chaoDataexport()
 	print("Ready.")
 end
 
+--Change any data
 function module.changeData(stat,value,chaoData)
 	if chaoData then
 		if stat and value then
@@ -51,6 +57,7 @@ function module.changeData(stat,value,chaoData)
 	end
 end
 
+--Level up on core stats
 function module.changeStat(stat,value,chaoData)
 	if chaoData then
 		if stat and value then
@@ -100,6 +107,7 @@ function module.changeStat(stat,value,chaoData)
 	end
 end
 
+--Create a chao
 function module.newChao()
 	print("Ready!")
 	--generate stats
@@ -144,6 +152,7 @@ function module.newChao()
 	return folder
 end
 
+--Spawn chao
 function module.spawnChao(chao) --chaoData
 	if chao.Hatched.Value == true then
 		--spawn a chao
@@ -158,6 +167,7 @@ function module.spawnChao(chao) --chaoData
 	end
 end
 
+--hatch a chao egg
 function module.Hatch(Egg)
 	if Egg then
 		local hatchedEgg = repl.Broken_Egg:Clone()
@@ -175,6 +185,7 @@ function module.Hatch(Egg)
 	end
 end
 
+--Return a stat
 function module:GetStats(ChaoData,player, stat)
 	if player and stat then
 		if player:FindFirstChild(ChaoData) then
@@ -185,6 +196,7 @@ function module:GetStats(ChaoData,player, stat)
 	end
 end
 
+--Chao Evolution
 function module:Evo(chaoData,chao,player)
 	if player and chao then
 		--Prevent the chao from Aging while evolving
@@ -234,6 +246,7 @@ function module:Evo(chaoData,chao,player)
 	end
 end
 
+--Chao Reincarnation
 function module:Rebirth(chaoData,chao,player)
 	if player and chao then
 		--Prevent the chao from Aging while evolving
@@ -270,6 +283,7 @@ function module:Rebirth(chaoData,chao,player)
 	end
 end
 
+--Chao Death
 function module:RemoveChao(chaoData,chao,player)
 	if chaoData and chao then
 		--Prevent the chao from Aging while evolving

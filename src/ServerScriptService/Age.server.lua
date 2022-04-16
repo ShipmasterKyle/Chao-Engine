@@ -1,3 +1,8 @@
+--[[
+    Age
+    Handle Chao Aging
+]]
+
 --Define the player and the chao's Data
 local chaoData = script.Parent.Name
 local chaoModule = require(game.ReplicatedStorage.PublicDependancies.ChaoModule)

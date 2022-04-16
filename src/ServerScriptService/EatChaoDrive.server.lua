@@ -1,3 +1,7 @@
+--[[
+	EatChaoDrive
+	Handles chao eating or absords things
+]]
 local remote = game.ReplicatedStorage.Remotes.Eat
 local chaoModule = require(game.ReplicatedStorage.PublicDependancies.ChaoModule)
 

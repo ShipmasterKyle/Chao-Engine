@@ -2,6 +2,7 @@
 local wait = task.wait
 --dependancies
 local UIService = require(game.ReplicatedStorage.PublicDependancies.UIService)
+--Use UIService to create ContextMenues
 UIService:GenerateContextMenu("Pick",script.Parent,Enum.KeyCode.E,Enum.KeyCode.ButtonX,"Pick up your chao.")
 UIService:UpdateContextMenu(script.Parent.Pick,"Name","Pickup")
 UIService:GenerateContextMenu("Pet",script.Parent,Enum.KeyCode.Q,Enum.KeyCode.ButtonY, "Pet Your Chao.")
