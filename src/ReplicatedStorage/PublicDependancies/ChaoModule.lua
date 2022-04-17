@@ -132,11 +132,80 @@ local traitLoadout = {
 	}
 }
 
-function module:Export(chaoData)
-	--Format the save data to a file that can be transfered throughtout games using HTTPservice. I'll work on this later on.
+function module:Export(chaoData,chao)
+	--Format the save data to a file that can be transfered to ChaoLink.
 	print("Ready.")
-	local string = ""
-	chaoData
+	local chaostring = ""
+	--Store stats
+	chaostring = chaostring.."ARx"..chaoData.SwimRank.Value..";"
+	chaostring = chaostring.."BRx"..chaoData.FlyRank.Value..";"
+	chaostring = chaostring.."CRx"..chaoData.RunRank.Value..";"
+	chaostring = chaostring.."DRx"..chaoData.PowerRank.Value..";"
+	chaostring = chaostring.."FRx"..chaoData.StaminaRank.Value..";"
+	--TODO: Support intelligence and luck stats
+	chaostring = chaostring.."ALxt"..chaoData.SwimXP.Value..";"
+	chaostring = chaostring.."BLxt"..chaoData.FlyXP.Value..";"
+	chaostring = chaostring.."CLxt"..chaoData.RunXP.Value..";"
+	chaostring = chaostring.."DLxt"..chaoData.PowerXP.Value..";"
+	chaostring = chaostring.."FLxt"..chaoData.StaminaXP.Value..";"
+	--TODO: Support intelligence and luck stats
+	chaostring = chaostring.."ALx"..chaoData.SwimLevel.Value..";"
+	chaostring = chaostring.."BLx"..chaoData.FlyLevel.Value..";"
+	chaostring = chaostring.."CLx"..chaoData.RunLevel.Value..";"
+	chaostring = chaostring.."DLx"..chaoData.PowerLevel.Value..";"
+	chaostring = chaostring.."FLx"..chaoData.StaminaLevel.Value..";"
+	--Store color data
+	--TODO: Support shiny and jewel chao
+	local tone = visualService:returnTone(chao)
+	if tone == "mono" then
+		chaostring = chaostring.."iTSxF;"
+	else
+		chaostring = chaostring.."iTSxT;"
+	end
+	--Store chao types
+	if chaoData.Ability.Value == "Hero" then
+		chaostring = chaostring.."alRxH;"
+	elseif chaoData.Ability.Value == "Dark" then
+		chaostring = chaostring.."alRxD;"
+	elseif chaoData.Ability.Value == "Normal" then
+		chaostring = chaostring.."alRxN"
+	else
+		chaostring = chaostring.."alRxC"
+	end
+	if chaoData.Attribute.Value == "Swim" then
+		chaostring = chaostring.."TRxA"
+	elseif chaoData.Attribute.Value == "Fly" then
+		chaostring = chaostring.."TRxB"
+	elseif chaoData.Attribute.Value == "Run" then
+		chaostring = chaostring.."TRxC"
+	elseif chaoData.Attribute.Value == "Power" then
+		chaostring = chaostring.."TRxD"
+	elseif chaoData.Attribute.Value == "Stamina" then
+		chaostring = chaostring.."TRxF"
+	end
+	--TODO: Support Chaos Chao
+	chaostring = chaostring.."CCSxF"
+	--TODO: Support Second Evolutions
+	--Store Name
+	chaostring = chaostring.."Namex"..chaoData.ChaoName.Value
+	--Store Personality
+	local person
+	for i,v in pairs(personalityTable) do
+		if v == chaoData.Personality.Value then
+			person = i
+		break
+		else end
+	end
+	chaostring = chaostring.."PTRx"..person..";"
+	--Store static variables
+	chaostring = chaostring.."HzSX"..chaoData.Hunger.Value
+	chaostring = chaostring.."TzSx"..chaoData.Tiredness.Value
+	chaostring = chaostring.."CzSx"..chaoData.Condition.Value
+	chaostring = chaostring.."HHSx"..chaoData.Happiness.Value
+	chaostring = chaostring.."AzSX"..chaoData.Age.value
+	--TODO: Support a Daycare system
+	--chaostring = chaostring.."OzSX"..player.UserId
+	return chaostring
 end
 
 --Change any data
@@ -255,7 +324,7 @@ function module.newChao()
 	return folder
 end
 
---Spawn chao
+--Spawn a chao
 function module.spawnChao(chao) --chaoData
 	if chao.Hatched.Value == true then
 		--spawn a chao
@@ -271,18 +340,38 @@ function module.spawnChao(chao) --chaoData
 end
 
 --hatch a chao egg
-function module.Hatch(Egg)
+function module.Hatch(Egg,baseChao)
 	if Egg then
-		local hatchedEgg = repl.Broken_Egg:Clone()
-		local goalPos = Egg.Position
-		print(tostring(goalPos))
-		hatchedEgg.Parent = workspace
-		hatchedEgg:MoveTo(goalPos)
-		Egg:Destroy()
-		wait(3)
-		local copy = repl.baseChao:Clone()
-		copy.Parent = workspace
-		copy.HumanoidRootPart.Position = goalPos
+		if baseChao then
+			local hatchedEgg = repl.Broken_Egg:Clone()
+			local goalPos = Egg.Position
+			print(tostring(goalPos))
+			hatchedEgg.Parent = workspace
+			hatchedEgg:MoveTo(goalPos)
+			Egg:Destroy()
+			wait(3)
+			local copy
+			for i,v in pairs(repl.chaoStore:GetDescendants()) do
+				if v:IsA("StringValue") then
+					if v.Value == Egg.Identifier.Value then
+						copy = v.Parent
+					end
+				end
+			end
+			copy.Parent = workspace
+			copy.HumanoidRootPart.Position = goalPos
+		else
+			local hatchedEgg = repl.Broken_Egg:Clone()
+			local goalPos = Egg.Position
+			print(tostring(goalPos))
+			hatchedEgg.Parent = workspace
+			hatchedEgg:MoveTo(goalPos)
+			Egg:Destroy()
+			wait(3)
+			local copy = repl.baseChao:Clone()
+			copy.Parent = workspace
+			copy.HumanoidRootPart.Position = goalPos
+		end
 	else
 		warn("No Egg to Hatch!")
 	end
@@ -451,8 +540,51 @@ function module:BreedChao(chaoData1,chaoData2,chao1,chao2)
 		end
 	end
 	--Decide the chao's color and color it with visual service
+	local newChao = repl.baseChao:Clone()
 	local rand = math.random(2)
+	local color
+	local isTwoTone
 	if rand == 1 then
+		for i,v in pairs(monoColors) do
+			if v.Id = chao1.Head.HeadMesh.Id then
+				color = v.Name
+				isTwoTone = false
+				break
+			else end
+		end
+		for i,v in pairs(twotoneColor) do
+			if v.Head = chao1.Head.HeadMesh.Id then
+				color = v.Name
+				isTwoTone = true
+				break
+			else end
+		end
+	else
+		for i,v in pairs(monoColors) do
+			if v.Id = chao2.Head.HeadMesh.Id then
+				color = v.Name
+				isTwoTone = false
+				break
+			else end
+		end
+		for i,v in pairs(twotoneColor) do
+			if v.Head = chao2.Head.HeadMesh.Id then
+				color = v.Name
+				isTwoTone = true
+				break
+			else end
+		end
+	end
+	visualService:ColorChao(newChao,color,isTwoTone)
+	newChao.Parent = game.ReplicatedStorage.chaoStore
+	local vEx = Instance.new("StringValue")
+	vEx.Name = "Identifier"
+	vEx.Value = chao1.Name.."-"..chao2.Name
+	local newEgg = repl.Egg:Clone()
+	local tagCopy = vEx:Clone()
+	tagCopy.Parent = newEgg
+	tagCopy.Position = chao1.Position
+	newEgg.Parent = workspace
 end
 
 return module

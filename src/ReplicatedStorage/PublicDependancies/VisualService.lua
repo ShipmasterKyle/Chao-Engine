@@ -403,6 +403,33 @@ function service:ChangeHeadType(chao,headType)
     end
 end
 
+function service:returnTone(chao)
+    local item = chao.Head.HeadMesh.Id
+    for i,v in pairs(monoColors) do
+        if v.Id == item then
+            return "mono"
+        end
+    end
+    for i,v in pairs(twotoneColor) do
+        if v.Head == item then
+            return "two"
+        end
+    end
+end
+
+function service:returnColor(chao)
+    local item = chao.Head.HeadMesh.Id
+    for i,v in pairs(monoColors) do
+        if v.Id == item then
+            return v.Name
+        end
+    end
+    for i,v in pairs(twotoneColor) do
+        if v.Head == item then
+            return v.Name
+        end
+    end
+end
 --Changes parts of the chao to animal parts
 function service:ChangeBodyPart(chao,part)
     if service.GetArrayItem(chao,part) then
