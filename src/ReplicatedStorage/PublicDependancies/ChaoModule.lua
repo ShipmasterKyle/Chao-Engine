@@ -541,43 +541,30 @@ function module:BreedChao(chaoData1,chaoData2,chao1,chao2)
 	end
 	--Decide the chao's color and color it with visual service
 	local newChao = repl.baseChao:Clone()
-	local rand = math.random(2)
 	local color
 	local isTwoTone
-	--TODO: Write a punett square
-	if rand == 1 then
-		for i,v in pairs(monoColors) do
-			if v.Id = chao1.Head.HeadMesh.Id then
-				color = v.Name
-				isTwoTone = false
-				break
-			else end
-		end
-		for i,v in pairs(twotoneColor) do
-			if v.Head = chao1.Head.HeadMesh.Id then
-				color = v.Name
-				isTwoTone = true
-				break
-			else end
-		end
-	else
-		for i,v in pairs(monoColors) do
-			if v.Id = chao2.Head.HeadMesh.Id then
-				color = v.Name
-				isTwoTone = false
-				break
-			else end
-		end
-		for i,v in pairs(twotoneColor) do
-			if v.Head = chao2.Head.HeadMesh.Id then
-				color = v.Name
-				isTwoTone = true
-				break
-			else end
+	--Basic Chao Punett Sqaure
+	local chao1Color = chao1.Head.HeadMesh.Id
+	local chao2Color = chao2.Head.HeadMesh.Id
+	local compare1
+	local compare2
+	for i,v in pairs(traitLoadout) do
+		if v.Id = chao1Color then
+			compare1 = v.Dom
+		elseif v.Id = chao2Color then
+			compare2 = v.Dom
 		end
 	end
+	if compare1 > compare2 then
+		color = visualService:returnColor(chao1)
+	elseif compare2 > compare1 then
+		color = visualService:returnColor(chao2)
+	end
+	--Color chao with correct alleles
 	visualService:ColorChao(newChao,color,isTwoTone)
+	--add the newChao to cache
 	newChao.Parent = game.ReplicatedStorage.chaoStore
+	--add a few tags to link the chao to the egg.
 	local vEx = Instance.new("StringValue")
 	vEx.Name = "Identifier"
 	vEx.Value = chao1.Name.."-"..chao2.Name
