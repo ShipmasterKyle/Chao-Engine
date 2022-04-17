@@ -544,6 +544,7 @@ function module:BreedChao(chaoData1,chaoData2,chao1,chao2)
 	local rand = math.random(2)
 	local color
 	local isTwoTone
+	--TODO: Write a punett square
 	if rand == 1 then
 		for i,v in pairs(monoColors) do
 			if v.Id = chao1.Head.HeadMesh.Id then
