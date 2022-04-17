@@ -31,9 +31,112 @@ local personalityTable = {
 	"Naive"
 }
 
-function module.chaoDataexport()
-	--Format the save data to a file that can be transered throughtout games using HTTPservice. I'll work on this later on.
+--Table that handles traits
+--Contains the headTexture as Id
+local traitLoadout = {
+	RedMono = {
+		Id = "",
+		Dom = 50
+	},
+	RedTwo = {
+		Id = "",
+		Dom = 65
+	},
+	OrangeMono = {
+		Id = "",
+		Dom = 45
+	},
+	OrangeTwo = {
+		Id = "",
+		Dom = 24
+	},
+	YellowMono = {
+		Id = "",
+		Dom = 70
+	},
+	YellowTwo = {
+		Id = "",
+		Dom = 30
+	},
+	GreenMono = {
+		Id = "",
+		Dom = 65
+	},
+	GreenTwo = {
+		Id = "",
+		Dom = 54
+	},
+	BlueMono = {
+		Id = "",
+		Dom = 75
+	},
+	BlueTwo = {
+		Id = "",
+		Dom = 51
+	},
+	SkyBlueMono = {
+		Id = "",
+		Dom = 80
+	},
+	SkyBlueTwo = {
+		Id = "",
+		Dom = 68
+	},
+	LimeMono = {
+		Id = "",
+		Dom = 40
+	},
+	LimeTwo = {
+		Id = "",
+		Dom = 35
+	},
+	PurpleMono = {
+		Id = "",
+		Dom = 25
+	},
+	PurpleTwo = {
+		Id = "",
+		Dom = 15
+	},
+	BrownMono = {
+		Id = "",
+		Dom = 10
+	},
+	BrownTwo = {
+		Id = "",
+		Dom = 9
+	},
+	GreyMono = {
+		Id = "",
+		Dom = 5
+	},
+	GreyTwo = {
+		Id = "",
+		Dom = 4
+	},
+	BlackMono = {
+		Id = "",
+		Dom = 17
+	},
+	BlackTwo = {
+		Id = "",
+		Dom = 20
+	},
+	WhiteMono = {
+		Id = "",
+		Dom = 90
+	},
+	WhiteTwo = {
+		Id = "",
+		Dom = 2
+	}
+}
+
+function module:Export(chaoData)
+	--Format the save data to a file that can be transfered throughtout games using HTTPservice. I'll work on this later on.
 	print("Ready.")
+	local string = ""
+	chaoData
 end
 
 --Change any data
@@ -321,6 +424,35 @@ function module:RemoveChao(chaoData,chao,player)
 		end
 		cocoon:Destroy()
 	end
+end
+
+--Handle Breeding chao stats
+function module:BreedChao(chaoData1,chaoData2,chao1,chao2)
+	--Determine what stats to take from who
+	local chao1Stats = {}
+	chao1Stats[1] = chaoData1.FlyXP.Value
+	chao1Stats[2] = chaoData1.SwimXP.Value
+	chao1Stats[3] = chaoData1.RunXP.Value
+	chao1Stats[4] = chaoData1.PowerXP.Value
+	chao1Stats[5] = chaoData1.StaminaXP.Value
+	local chao2Stats = {}
+	chao2Stats[1] = chaoData2.FlyXP.Value
+	chao2Stats[2] = chaoData2.SwimXP.Value
+	chao2Stats[3] = chaoData2.RunXP.Value
+	chao2Stats[4] = chaoData2.PowerXP.Value
+	chao2Stats[5] = chaoData2.StaminaXP.Value
+	local newChaoStats = {}
+	for count = 1,5 do
+		local rand = math.random(2)
+		if rand == 1 then
+			newChaoStats[count] = chao1Stats[count]
+		elseif rand == 2 then
+			newChaoStats[count] = chao2Stats[count]
+		end
+	end
+	--Decide the chao's color and color it with visual service
+	local rand = math.random(2)
+	if rand == 1 then
 end
 
 return module
