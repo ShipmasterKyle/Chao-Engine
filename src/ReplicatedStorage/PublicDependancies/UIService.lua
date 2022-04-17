@@ -124,6 +124,7 @@ function module:CreateChaoViewPort(chao, object, corner)
 		if corner then
 			local uicorner = Instance.new("UICorner")
 			uicorner.CornerRadius = UDim.new(0,20)
+			uicorner.Parent = object
 		end
 	end
 end
