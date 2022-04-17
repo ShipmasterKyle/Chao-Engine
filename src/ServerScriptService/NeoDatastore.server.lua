@@ -15,13 +15,15 @@ game.Players.PlayerAdded:Connect(function(player)
 		local main = Instance.new("Folder")
 		main.Name = "Leaderstats"
 		main.Parent = player
+		local lastlt = Instance.new("IntValue")
+		lastlt.Name = "lastLogTime"
 		--Create the folder for the data
 		local folder = game.ReplicatedStorage.Folder:Clone()
 		--Don't change the name. We'll be naming it to the chao's name
 		folder.Parent = main
 		--load data
 		local data = saveData:GetAsync("User_"..player.UserId)
-		
+
 		if data then
 			for i,v in pairs(folder:GetChildren()) do
 				v.Value = data[v]
@@ -36,8 +38,9 @@ game.Players.PlayerAdded:Connect(function(player)
 end)
 
 function createSaveTable(player)
+	player.Leaderstats.lastLogTime.Value = os.time()
 	local saveTable = {}
-	for i,v in pairs(player.Main:GetDescendants()) do
+	for i,v in pairs(player.Leaderstats:GetDescendants()) do
 		if not v:IsA("Folder") then
 			saveTable[v.Name] = v.Value
 		end
