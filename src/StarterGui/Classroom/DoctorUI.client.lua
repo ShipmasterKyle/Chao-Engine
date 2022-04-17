@@ -17,6 +17,15 @@ normalReply = {
 	"Your chao isn't sick."
 }
 
+images = {
+	"http://www.roblox.com/asset/?id=8888502969",
+	"http://www.roblox.com/asset/?id=8888496721",
+	"http://www.roblox.com/asset/?id=7921523503",
+	"http://www.roblox.com/asset/?id=8888481815",
+	"http://www.roblox.com/asset/?id=8888475280",
+	"http://www.roblox.com/asset/?id=8888468390"
+}
+
 function write()
 	local rng = math.random(#normalReply)
 	local text = normalReply[rng]
@@ -32,8 +41,21 @@ function fillData(chaoData)
 	--Basic Frame
 	local topFrame = script.Parent.Frame
 	local basic = topFrame.Basic
-	local chao = workspace.TempChao
-	basic.Attributes.Text = chaoService:GetStats(chao.Id.Value,game.Players.LocalPlayer,"Attribute")
+	local chao = game.Players.LocalPlayer.Character:FindFirstChild("Held",true)
+	if chao then
+		UIService:CreateChaoViewPort(chao,basic.Viewport,true)
+		chao = workspace.TempChao
+		for i,v in pairs(script.Parent.Frame.Basic:GetChildren()) do
+			if v:IsA("TextLabel") then
+				if chaoService:GetStats(chao.Id.Value,game.Players.LocalPlayer,v.Name) then
+					v.Text = chaoService:GetStats(chao.Id.Value,game.Players.LocalPlayer,v.Name)
+				end
+			end
+			if v:IsA("ImageLabel") then
+				v.Image = images[chaoService:GetStats(chao.Id.Value,game.Players.LocalPlayer,v.Name)]
+			end
+		end
+	end
 end
 
 while wait() do
@@ -51,8 +73,10 @@ while wait() do
 						on = false
 						write()
 					elseif v.Name == "Charts" then
+						local chao = game.Players.LocalPlayer.Character:FindFirstChild("Held",true)
 						script.Parent.Start.Visible = false
 						script.Parent.Frame.Visible = true
+						fillData(chao.Name)
 					end
 				end)
 			end
