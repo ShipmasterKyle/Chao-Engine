@@ -10,14 +10,25 @@
       <Item class="Script" referent="2">
         <Properties>
           <string name="Name">AutoHatch</string>
-          <string name="Source">local UIService = require(game.ReplicatedStorage.PublicDependancies.UIService)
+          <string name="Source">--[[
+	AutoHatch
+	Handles hatching the egg without shaking it.
+]]
+
+--Get Dependancies
+local UIService = require(game.ReplicatedStorage.PublicDependancies.UIService)
 local chaoModule = require(game.ReplicatedStorage.PublicDependancies.ChaoModule)
 local wait = task.wait
 
+--Runs every second
 while wait(1) do
 	if script.Parent.Held.Value == false then
 		if script.Parent.HatchTime.Value &lt;= 0 then
-			chaoModule.Hatch(script.Parent)
+			if script.Parent:FindFirstChild("Identifier") then
+				chaoModule.Hatch(script.Parent,true)
+			else
+				chaoModule.Hatch(script.Parent)
+			end
 		else
 			script.Parent.HatchTime.Value -= 1
 		end
@@ -28,11 +39,15 @@ end</string>
       <Item class="Script" referent="3">
         <Properties>
           <string name="Name">Killvelocity</string>
-          <string name="Source"><![CDATA[ script.Parent.Touched:Connect(function(hit)
+          <string name="Source">--[[
+	KillVelocity
+	Stops Velocity when throughing the egg.
+]]
+script.Parent.Touched:Connect(function(hit)
 	if hit.Parent.Name == "Wall" then
 		script.Parent.Velocity *= 0
 	end
-end)]]></string>
+end)</string>
         </Properties>
       </Item>
       <Item class="Script" referent="4">
@@ -45,6 +60,7 @@ local UIService = require(game.ReplicatedStorage.PublicDependancies.UIService)
 UIService:GenerateContextMenu("Pick",script.Parent,Enum.KeyCode.E,Enum.KeyCode.ButtonX,"Pick up your chao.")
 UIService:UpdateContextMenu(script.Parent.Pick,"Name","Pickup")
 
+--Run every second
 while wait(1) do
 	local pickupStatus = UIService:GetContextMenuProperty(script.Parent.Pickup,"Context")
 	if script.Parent.Held.Value == false then
@@ -82,7 +98,12 @@ end
       <Item class="ModuleScript" referent="6">
         <Properties>
           <string name="Name">Class</string>
-          <string name="Source">local tree = {
+          <string name="Source">--[[
+    Class
+    A simple class tree for every item in the game.
+]]
+
+local tree = {
     Chao = {
         Name = "Chao",
         WoolHat = {
@@ -189,12 +210,78 @@ end
         },
         Animals = {
             Name = "Animals",
+            Otter = {
+                Name = "Otter",
+                Desc = "The Otter Animal. Found thoughout stages. Helps make your chao better at swimming at the cost of its power skill. (Swimming +7) (Power -3)",
+                isDecor = false,
+                Value = "250"
+            },
+            Penguin = {
+                Name = "Penguin",
+                Desc = "The Penguin Animal. Found thoughout stages. Helps make your chao better at swimming at the cost of its power skill. (Swimming +7) (Power -3)",
+                isDecor = false,
+                Value = "250"
+            },
+            Seal = {
+                Name = "Seal",
+                Desc = "The Seal Animal. Found thoughout stages. Helps make your chao better at swimming at the cost of its power skill. (Swimming +7) (Power -3)",
+                isDecor = false,
+                Value = "250"
+            },
+            Condor = {
+                Name = "Condor",
+                Desc = "The Condor Animal. Found thoughout stages. Helps make your chao better at flying at the cost of its power skill. (Flying +7) (Power -3)",
+                isDecor = false,
+                Value = "250"
+            },
+            Parrot = {
+                Name = "Parrot",
+                Desc = "The Parrot Animal. Found thoughout stages. Helps make your chao better at flying at the cost of its power skill. (Flying +7) (Power -3)",
+                isDecor = false,
+                Value = "250"
+            },
+            Peacock = {
+                Name = "Peacock",
+                Desc = "The Peacock Animal. Found thoughout stages. Helps make your chao better at flying at the cost of its power skill. (Flying +7) (Power -3)",
+                isDecor = false,
+                Value = "250"
+            },
+            Cheatah = {
+                Name = "Cheatah",
+                Desc = "The Cheatah Animal. Found thoughout stages. Helps make your chao better at running at the cost of its swimming skill. (Run +7) (Swim -3)",
+                isDecor = false,
+                Value = "250"
+            },
+            Boar = {
+                Name = "Boar",
+                Desc = "The Boar Animal. Found thoughout stages. Helps make your chao better at running at the cost of its swimming skill. (Run +7) (Swim -3)",
+                isDecor = false,
+                Value = "250"
+            },
+            Rabbit = {
+                Name = "Rabbit",
+                Desc = "The Rabbit Animal. Found thoughout stages. Helps make your chao better at running at the cost of its swimming skill. (Run +7) (Swim -3)",
+                isDecor = false,
+                Value = "250"
+            },
+            Bear = {
+                Name = "Bear",
+                Desc = "The Bear Animal. Found thoughout stages. Helps make your chao better at stronger at the cost of its swimming skill. (Power +7) (Flying -3)",
+                isDecor = false,
+                Value = "250"
+            },
             Gorrilla = {
                 Name = "Monke",
                 Desc = "The Gorrilla Animal. Found thoughout stages. Helps make your chao stronger at the cost of its flying skill. (Power +7) (Flying -3)",
                 isDecor = false,
                 Value = "250"
-            }
+            },
+            Tiger = {
+                Name = "Tiger",
+                Desc = "The Tiger Animal. Found thoughout stages. Helps make your chao stronger at the cost of its flying skill. (Power +7) (Flying -3)",
+                isDecor = false,
+                Value = "250"
+            },
         },
         ChaoDrives = {
             Name = "ChaoDrive",
@@ -235,13 +322,74 @@ return tree</string>
       <Item class="ModuleScript" referent="7">
         <Properties>
           <string name="Name">MarketData</string>
-          <string name="Source">market = {
+          <string name="Source">--[[
+	MarketData
+	Simular class but this table is specifically used for the the market.
+]]
+
+market = {
 	Fruit = {
 		Name = "Chao Fruit",
 		isDecor = false,
 		Price = "100",
 		forSale = true,
 		desc = "A tasty fruit all chao know and love,",
+	},
+	SFruit = {
+		Name = "Square Fruit",
+		desc = "A square shaped fruit. Some chao love this.",
+		isDecor = false,
+		Price = "100",
+		forSale = true
+	},
+	RFruit = {
+		Name = "Round Fruit",
+		desc = "A round shaped fruit. Some chao love this.",
+		isDecor = false,
+		Price = "125",
+		forSale = true
+	},
+	TFruit = {
+		Name = "Triangle Fruit",
+		desc = "A triangle shaped fruit. Some chao love this.",
+		isDecor = false,
+		Price = "150",
+		forSale = true
+	},
+	StFruit = {
+		Name = "Strong Fruit",
+		desc = "Help your chao grow stronger. (Power +4)",
+		isDecor = false,
+		Price = "200",
+		forSale = false
+	},
+	TaFruit = {
+		Name = "Tasty Fruit",
+		desc = "A tasty fruit that all chao love. Its great for their health too.",
+		isDecor = false,
+		Price = "350",
+		forSale = false
+	},
+	HFruit = {
+		Name = "Heart Fruit",
+		desc = "A sweet tasting fruit that gets chao ready to mate.",
+		isDecor = false,
+		Price = "500",
+		forSale = false
+	},
+	SMFruit = {
+		Name = "Smart Fruit",
+		desc = "A fruit with riveting flavor that helps your chao learn.",
+		isDecor = false,
+		Price = "500",
+		forSale = false
+	},
+	Mint = {
+		Name = "Mint Candy",
+		desc = "A lucky piece of candy sure to give your chao tons of energy. (Luck +25)",
+		isDecor = false,
+		Price = "800"
+		forSale = false
 	}
 }
 
@@ -931,7 +1079,12 @@ end</string>
       <Item class="ModuleScript" referent="46">
         <Properties>
           <string name="Name">ChaoModule</string>
-          <string name="Source">print("Alive!")
+          <string name="Source">--[[
+	ChaoModule
+	The main module for the garden. Handles stats
+]]
+
+print("Alive!")
 math.randomseed(tick())
 
 local repl = game.ReplicatedStorage
@@ -959,11 +1112,184 @@ local personalityTable = {
 	"Naive"
 }
 
-function module.chaoDataexport()
-	--Format the save data to a file that can be transered throughtout games using HTTPservice. I'll work on this later on.
+--Table that handles traits
+--Contains the headTexture as Id
+local traitLoadout = {
+	RedMono = {
+		Id = "",
+		Dom = 50
+	},
+	RedTwo = {
+		Id = "",
+		Dom = 65
+	},
+	OrangeMono = {
+		Id = "",
+		Dom = 45
+	},
+	OrangeTwo = {
+		Id = "",
+		Dom = 24
+	},
+	YellowMono = {
+		Id = "",
+		Dom = 70
+	},
+	YellowTwo = {
+		Id = "",
+		Dom = 30
+	},
+	GreenMono = {
+		Id = "",
+		Dom = 65
+	},
+	GreenTwo = {
+		Id = "",
+		Dom = 54
+	},
+	BlueMono = {
+		Id = "",
+		Dom = 75
+	},
+	BlueTwo = {
+		Id = "",
+		Dom = 51
+	},
+	SkyBlueMono = {
+		Id = "",
+		Dom = 80
+	},
+	SkyBlueTwo = {
+		Id = "",
+		Dom = 68
+	},
+	LimeMono = {
+		Id = "",
+		Dom = 40
+	},
+	LimeTwo = {
+		Id = "",
+		Dom = 35
+	},
+	PurpleMono = {
+		Id = "",
+		Dom = 25
+	},
+	PurpleTwo = {
+		Id = "",
+		Dom = 15
+	},
+	BrownMono = {
+		Id = "",
+		Dom = 10
+	},
+	BrownTwo = {
+		Id = "",
+		Dom = 9
+	},
+	GreyMono = {
+		Id = "",
+		Dom = 5
+	},
+	GreyTwo = {
+		Id = "",
+		Dom = 4
+	},
+	BlackMono = {
+		Id = "",
+		Dom = 17
+	},
+	BlackTwo = {
+		Id = "",
+		Dom = 20
+	},
+	WhiteMono = {
+		Id = "",
+		Dom = 90
+	},
+	WhiteTwo = {
+		Id = "",
+		Dom = 2
+	}
+}
+
+function module:Export(chaoData,chao)
+	--Format the save data to a file that can be transfered to ChaoLink.
 	print("Ready.")
+	local chaostring = ""
+	--Store stats
+	chaostring = chaostring.."ARx"..chaoData.SwimRank.Value..";"
+	chaostring = chaostring.."BRx"..chaoData.FlyRank.Value..";"
+	chaostring = chaostring.."CRx"..chaoData.RunRank.Value..";"
+	chaostring = chaostring.."DRx"..chaoData.PowerRank.Value..";"
+	chaostring = chaostring.."FRx"..chaoData.StaminaRank.Value..";"
+	--TODO: Support intelligence and luck stats
+	chaostring = chaostring.."ALxt"..chaoData.SwimXP.Value..";"
+	chaostring = chaostring.."BLxt"..chaoData.FlyXP.Value..";"
+	chaostring = chaostring.."CLxt"..chaoData.RunXP.Value..";"
+	chaostring = chaostring.."DLxt"..chaoData.PowerXP.Value..";"
+	chaostring = chaostring.."FLxt"..chaoData.StaminaXP.Value..";"
+	--TODO: Support intelligence and luck stats
+	chaostring = chaostring.."ALx"..chaoData.SwimLevel.Value..";"
+	chaostring = chaostring.."BLx"..chaoData.FlyLevel.Value..";"
+	chaostring = chaostring.."CLx"..chaoData.RunLevel.Value..";"
+	chaostring = chaostring.."DLx"..chaoData.PowerLevel.Value..";"
+	chaostring = chaostring.."FLx"..chaoData.StaminaLevel.Value..";"
+	--Store color data
+	--TODO: Support shiny and jewel chao
+	local tone = visualService:returnTone(chao)
+	if tone == "mono" then
+		chaostring = chaostring.."iTSxF;"
+	else
+		chaostring = chaostring.."iTSxT;"
+	end
+	--Store chao types
+	if chaoData.Ability.Value == "Hero" then
+		chaostring = chaostring.."alRxH;"
+	elseif chaoData.Ability.Value == "Dark" then
+		chaostring = chaostring.."alRxD;"
+	elseif chaoData.Ability.Value == "Normal" then
+		chaostring = chaostring.."alRxN"
+	else
+		chaostring = chaostring.."alRxC"
+	end
+	if chaoData.Attribute.Value == "Swim" then
+		chaostring = chaostring.."TRxA"
+	elseif chaoData.Attribute.Value == "Fly" then
+		chaostring = chaostring.."TRxB"
+	elseif chaoData.Attribute.Value == "Run" then
+		chaostring = chaostring.."TRxC"
+	elseif chaoData.Attribute.Value == "Power" then
+		chaostring = chaostring.."TRxD"
+	elseif chaoData.Attribute.Value == "Stamina" then
+		chaostring = chaostring.."TRxF"
+	end
+	--TODO: Support Chaos Chao
+	chaostring = chaostring.."CCSxF"
+	--TODO: Support Second Evolutions
+	--Store Name
+	chaostring = chaostring.."Namex"..chaoData.ChaoName.Value
+	--Store Personality
+	local person
+	for i,v in pairs(personalityTable) do
+		if v == chaoData.Personality.Value then
+			person = i
+		break
+		else end
+	end
+	chaostring = chaostring.."PTRx"..person..";"
+	--Store static variables
+	chaostring = chaostring.."HzSX"..chaoData.Hunger.Value
+	chaostring = chaostring.."TzSx"..chaoData.Tiredness.Value
+	chaostring = chaostring.."CzSx"..chaoData.Condition.Value
+	chaostring = chaostring.."HHSx"..chaoData.Happiness.Value
+	chaostring = chaostring.."AzSX"..chaoData.Age.value
+	--TODO: Support a Daycare system
+	--chaostring = chaostring.."OzSX"..player.UserId
+	return chaostring
 end
 
+--Change any data
 function module.changeData(stat,value,chaoData)
 	if chaoData then
 		if stat and value then
@@ -984,6 +1310,7 @@ function module.changeData(stat,value,chaoData)
 	end
 end
 
+--Level up on core stats
 function module.changeStat(stat,value,chaoData)
 	if chaoData then
 		if stat and value then
@@ -1033,6 +1360,7 @@ function module.changeStat(stat,value,chaoData)
 	end
 end
 
+--Create a chao
 function module.newChao()
 	print("Ready!")
 	--generate stats
@@ -1077,6 +1405,7 @@ function module.newChao()
 	return folder
 end
 
+--Spawn a chao
 function module.spawnChao(chao) --chaoData
 	if chao.Hatched.Value == true then
 		--spawn a chao
@@ -1091,23 +1420,45 @@ function module.spawnChao(chao) --chaoData
 	end
 end
 
-function module.Hatch(Egg)
+--hatch a chao egg
+function module.Hatch(Egg,baseChao)
 	if Egg then
-		local hatchedEgg = repl.Broken_Egg:Clone()
-		local goalPos = Egg.Position
-		print(tostring(goalPos))
-		hatchedEgg.Parent = workspace
-		hatchedEgg:MoveTo(goalPos)
-		Egg:Destroy()
-		wait(3)
-		local copy = repl.baseChao:Clone()
-		copy.Parent = workspace
-		copy.HumanoidRootPart.Position = goalPos
+		if baseChao then
+			local hatchedEgg = repl.Broken_Egg:Clone()
+			local goalPos = Egg.Position
+			print(tostring(goalPos))
+			hatchedEgg.Parent = workspace
+			hatchedEgg:MoveTo(goalPos)
+			Egg:Destroy()
+			wait(3)
+			local copy
+			for i,v in pairs(repl.chaoStore:GetDescendants()) do
+				if v:IsA("StringValue") then
+					if v.Value == Egg.Identifier.Value then
+						copy = v.Parent
+					end
+				end
+			end
+			copy.Parent = workspace
+			copy.HumanoidRootPart.Position = goalPos
+		else
+			local hatchedEgg = repl.Broken_Egg:Clone()
+			local goalPos = Egg.Position
+			print(tostring(goalPos))
+			hatchedEgg.Parent = workspace
+			hatchedEgg:MoveTo(goalPos)
+			Egg:Destroy()
+			wait(3)
+			local copy = repl.baseChao:Clone()
+			copy.Parent = workspace
+			copy.HumanoidRootPart.Position = goalPos
+		end
 	else
 		warn("No Egg to Hatch!")
 	end
 end
 
+--Return a stat
 function module:GetStats(ChaoData,player, stat)
 	if player and stat then
 		if player:FindFirstChild(ChaoData) then
@@ -1118,6 +1469,7 @@ function module:GetStats(ChaoData,player, stat)
 	end
 end
 
+--Chao Evolution
 function module:Evo(chaoData,chao,player)
 	if player and chao then
 		--Prevent the chao from Aging while evolving
@@ -1167,6 +1519,7 @@ function module:Evo(chaoData,chao,player)
 	end
 end
 
+--Chao Reincarnation
 function module:Rebirth(chaoData,chao,player)
 	if player and chao then
 		--Prevent the chao from Aging while evolving
@@ -1203,6 +1556,7 @@ function module:Rebirth(chaoData,chao,player)
 	end
 end
 
+--Chao Death
 function module:RemoveChao(chaoData,chao,player)
 	if chaoData and chao then
 		--Prevent the chao from Aging while evolving
@@ -1242,17 +1596,83 @@ function module:RemoveChao(chaoData,chao,player)
 	end
 end
 
+--Handle Breeding chao stats
+function module:BreedChao(chaoData1,chaoData2,chao1,chao2)
+	--Determine what stats to take from who
+	local chao1Stats = {}
+	chao1Stats[1] = chaoData1.FlyXP.Value
+	chao1Stats[2] = chaoData1.SwimXP.Value
+	chao1Stats[3] = chaoData1.RunXP.Value
+	chao1Stats[4] = chaoData1.PowerXP.Value
+	chao1Stats[5] = chaoData1.StaminaXP.Value
+	local chao2Stats = {}
+	chao2Stats[1] = chaoData2.FlyXP.Value
+	chao2Stats[2] = chaoData2.SwimXP.Value
+	chao2Stats[3] = chaoData2.RunXP.Value
+	chao2Stats[4] = chaoData2.PowerXP.Value
+	chao2Stats[5] = chaoData2.StaminaXP.Value
+	local newChaoStats = {}
+	for count = 1,5 do
+		local rand = math.random(2)
+		if rand == 1 then
+			newChaoStats[count] = chao1Stats[count]
+		elseif rand == 2 then
+			newChaoStats[count] = chao2Stats[count]
+		end
+	end
+	--Decide the chao's color and color it with visual service
+	local newChao = repl.baseChao:Clone()
+	local color
+	local isTwoTone
+	--Basic Chao Punett Sqaure
+	local chao1Color = chao1.Head.HeadMesh.Id
+	local chao2Color = chao2.Head.HeadMesh.Id
+	local compare1
+	local compare2
+	for i,v in pairs(traitLoadout) do
+		if v.Id == chao1Color then
+			compare1 = v.Dom
+		elseif v.Id == chao2Color then
+			compare2 = v.Dom
+		end
+	end
+	if compare1 > compare2 then
+		color = visualService:returnColor(chao1)
+	elseif compare2 > compare1 then
+		color = visualService:returnColor(chao2)
+	end
+	--Color chao with correct alleles
+	visualService:ColorChao(newChao,color,isTwoTone)
+	--add the newChao to cache
+	newChao.Parent = game.ReplicatedStorage.chaoStore
+	--add a few tags to link the chao to the egg.
+	local vEx = Instance.new("StringValue")
+	vEx.Name = "Identifier"
+	vEx.Value = chao1.Name.."-"..chao2.Name
+	local newEgg = repl.Egg:Clone()
+	local tagCopy = vEx:Clone()
+	tagCopy.Parent = newEgg
+	tagCopy.Position = chao1.Position
+	newEgg.Parent = workspace
+end
+
 return module</string>
         </Properties>
       </Item>
       <Item class="ModuleScript" referent="47">
         <Properties>
           <string name="Name">ClassService</string>
-          <string name="Source">local service = {}
+          <string name="Source">--[[
+    ClassService
+    The Module that uses the ClassTree and makes it usable by other scripts
+]]
+
+local service = {}
 
 local items = require(game.ReplicatedStorage.MarketPlace.Class)
 local rawItems = game.ReplicatedStorage.MarketPlace.rawItems
 
+--table.find alternative
 function service.GetArrayItem(array,item)
     for i,v in pairs(array) do
         if v.Name == item then
@@ -1337,8 +1757,60 @@ return service</string>
       </Item>
       <Item class="ModuleScript" referent="48">
         <Properties>
-          <string name="Name">MarketService</string>
+          <string name="Name">Classroom</string>
           <string name="Source">local service = {}
+
+local current = script.Parent.currentClass
+
+local lessons = {
+    "Song",
+    "Shake Dance",
+    "Drawing",
+    "Bell",
+    "Drum",
+    "Song",
+    "Spin Dance",
+    "Tambourine",
+    "Drawing",
+    "Trumpet",
+}
+
+function service:GetCurrentLesson()
+    return current
+end
+
+function service:ChangeClass(currentClass)
+    local lastClass = lessons[current]
+    local newClass = lastClass += 1
+    current.Value = newClass 
+end
+
+function service:LearnLesson(chaoData)
+    chaoData.InProgressLesson.Value = current
+    chaoData.LessonStartTime.Value = os.time()
+end
+
+function service:IsLessonDone(chaoData)
+    local finishTime = LessonStartTime + 14400
+    if os.time > finishTime then
+        return "Done"
+    else
+        return "Incomplete"
+    end
+end
+
+return service</string>
+        </Properties>
+      </Item>
+      <Item class="ModuleScript" referent="49">
+        <Properties>
+          <string name="Name">MarketService</string>
+          <string name="Source">--[[
+	MaketService
+	Handles the Chao Black Market
+]]
+
+local service = {}
 
 local wait = task.wait
 local market = require(game.ReplicatedStorage.MarketPlace.MarketData)
@@ -1392,6 +1864,7 @@ function service:getItemDesc(item)
 	end
 end
 
+--Create the Inventory UI
 function getInventory(plr,frame,template)
 	if plr then
 		if workspace:FindFirstChild(tostring(plr.Name.." Inventory")) then
@@ -1448,11 +1921,125 @@ end
 return service</string>
         </Properties>
       </Item>
-      <Item class="ModuleScript" referent="49">
+      <Item class="ModuleScript" referent="50">
+        <Properties>
+          <string name="Name">NameSpaceService</string>
+          <string name="Source">--[[
+    NameSpaceService
+    Handles naming chao
+]]
+
+math.randomseed(tick())
+local TS = game:GetService("TextService")
+
+local module = {}
+
+local Names = {
+    "Ajax",
+    "Atom",
+    "Bingo",
+    "Brandy",
+    "Bruno",
+    "Bubbles",
+    "Buddy",
+    "Buzzy",
+    "Cash",
+    "Casino",
+    "Chacha",
+    "Chacky",
+    "Chaggy",
+    "Chai",
+    "Chalulu",
+    "Cham",
+    "Champ",
+    "Chang",
+    "Chaofun",
+    "Chaoko",
+    "Chaolin",
+    "Chaorro",
+    "Chaosky",
+    "Chap",
+    "Chapon",
+    "Chappy",
+    "Charon",
+    "Chasm",
+    "Chaz",
+    "Cheng",
+    "Choc",
+    "Cholly",
+    "Chucky",
+    "Cody",
+    "Cuckoo",
+    "DEJIME",
+    "Dash",
+    "Dingy",
+    "Dino",
+    "Dixie",
+    "Echo",
+    "Edge",
+    "Elvis",
+    "Emmy",
+    "Flamingo",
+    "Fuzzie",
+    "Groom",
+    "HITM",
+    "Hiya",
+    "Honey",
+    "Jojo",
+    "Keno",
+    "Kosmo",
+    "Loose",
+    "Melody",
+    "NAGOSHI",
+    "OVER",
+    "Papoose",
+    "Peaches",
+    "Pebbles",
+    "Pinky",
+    "Quartz",
+    "Quincy",
+    "RUSSO",
+    "Rascal",
+    "Rocky",
+    "Rover",
+    "Roxy",
+    "Rusty",
+    "SMILEB",
+    "SOUL",
+    "Spike",
+    "Star",
+    "Tango",
+    "Tiny",
+    "WOW",
+    "Woody",
+    "YS",
+    "Zack",
+    "Zippy"
+}
+
+function module:GenerateName()
+    local rng = math.random(#Names)
+    return Names[rng]
+end
+
+function module:ModerateName(name,player)
+    return TS:FilterStringAsync(name,player.UserId)
+end
+
+return module</string>
+        </Properties>
+      </Item>
+      <Item class="ModuleScript" referent="51">
         <Properties>
           <string name="Name">UIService</string>
-          <string name="Source"><![CDATA[local module = {}
+          <string name="Source"><![CDATA[--[[
+	UIService
+	Handles general UI operations like viewport frames and ContextMenus
+]]
 
+local module = {}
+
+--Change Signals
 local changeSignals = {
 	"Context",
 	"Input",
@@ -1461,6 +2048,7 @@ local changeSignals = {
 	"Name"
 }
 
+--Creates the ContextMenu
 function module:GenerateContextMenu(context,obj,Input,cInput,objectText)
 	if context and obj then
 		local contextMenu = Instance.new("ProximityPrompt")
@@ -1482,6 +2070,7 @@ function module:GenerateContextMenu(context,obj,Input,cInput,objectText)
 	end
 end
 
+--Allows you edit ContextMenu
 function module:UpdateContextMenu(obj,changeSignal,ctx)
 	if obj and obj:IsA("ProximityPrompt") then
 		if table.find(changeSignals,changeSignal,1) then
@@ -1508,6 +2097,7 @@ function module:UpdateContextMenu(obj,changeSignal,ctx)
 	end
 end
 
+--Delete the ContextMenu
 function module:DestroyContextMenu(contextMenu)
 	if contextMenu and contextMenu:IsA("ProximityPrompt") then
 		contextMenu:Destroy()
@@ -1517,6 +2107,7 @@ function module:DestroyContextMenu(contextMenu)
 	end
 end
 
+--Return the ContextMenu's Data
 function module:GetContextMenuProperty(obj,property)
 	if obj and obj:IsA("ProximityPrompt") then
 		if table.find(changeSignals,property,1) then
@@ -1541,6 +2132,7 @@ function module:GetContextMenuProperty(obj,property)
 	end
 end
 
+--Create Viewport Frame
 function module:CreateChaoViewPort(chao, object, corner)
 	if chao and chao:FindFirstChild("HumanoidRootPart") and object then
 		local copyChao = chao:Clone()
@@ -1566,6 +2158,7 @@ function module:CreateChaoViewPort(chao, object, corner)
 		if corner then
 			local uicorner = Instance.new("UICorner")
 			uicorner.CornerRadius = UDim.new(0,20)
+			uicorner.Parent = object
 		end
 	end
 end
@@ -1575,10 +2168,14 @@ return module
 ]]></string>
         </Properties>
       </Item>
-      <Item class="ModuleScript" referent="50">
+      <Item class="ModuleScript" referent="52">
         <Properties>
           <string name="Name">VisualService</string>
-          <string name="Source">--A service used to changethe visual appearance of chao based on their stats
+          <string name="Source">--[[
+    VisualService
+    A service used to changethe visual appearance of chao based on their stats
+]]
+
 local service = {}
 
 --A Class Table for Emotion Ball Types
@@ -1597,6 +2194,369 @@ local headTypes = {
     },
 }
 
+local monoColors = {
+    White = {
+        Name = "White",
+        ID = ""
+    },
+    Blue = {
+        Name = "Blue",
+        ID = ""
+    },
+    Red = {
+        Name = "Red",
+        ID = ""
+    },
+    Yellow = {
+        Name = "Yellow",
+        ID = ""
+    },
+    Orange = {
+        Name = "Orange",
+        ID = ""
+    },
+    Sky Blue = {
+        Name = "Sky Blue",
+        ID = ""
+    },
+    Pink = {
+        Name = "Pink",
+        ID = ""
+    },
+    Green = {
+        Name = "Green",
+        ID = ""
+    },
+    Brown = {
+        Name = "Brown",
+        ID = ""
+    },
+    Purple = {
+        Name = "Purple",
+        ID = ""
+    },
+    Grey = {
+        Name = "Grey",
+        ID = ""
+    },
+    Lime = {
+        Name = "Lime",
+        ID = ""
+    },
+    Black = {
+        Name = "Black",
+        ID = ""
+    }
+}
+
+local twotoneColor = {
+    White = {
+        Name = "White",
+        Head = "",
+        LeftArm = "",
+        RightArm = "",
+        Body = "",
+        LLeg = "",
+        RLeg = "",
+        Tail = ""
+    },
+    Blue = {
+        Name = "Blue",
+        Head = "",
+        LeftArm = "",
+        RightArm = "",
+        Body = "",
+        LLeg = "",
+        RLeg = "",
+        Tail = ""
+    },
+    Red = {
+        Name = "Red",
+        Head = "",
+        LeftArm = "",
+        RightArm = "",
+        Body = "",
+        LLeg = "",
+        RLeg = "",
+        Tail = ""
+    },
+    Yellow = {
+        Name = "Yellow",
+        Head = "",
+        LeftArm = "",
+        RightArm = "",
+        Body = "",
+        LLeg = "",
+        RLeg = "",
+        Tail = ""
+    },
+    Orange = {
+        Name = "Orange",
+        Head = "",
+        LeftArm = "",
+        RightArm = "",
+        Body = "",
+        LLeg = "",
+        RLeg = "",
+        Tail = ""
+    },
+    Sky Blue = {
+        Name = "Sky Blue",
+        Head = "",
+        LeftArm = "",
+        RightArm = "",
+        Body = "",
+        LLeg = "",
+        RLeg = "",
+        Tail = ""
+    },
+    Pink = {
+        Name = "Pink",
+        Head = "",
+        LeftArm = "",
+        RightArm = "",
+        Body = "",
+        LLeg = "",
+        RLeg = "",
+        Tail = ""
+    },
+    Green = {
+        Name = "Green",
+        Head = "",
+        LeftArm = "",
+        RightArm = "",
+        Body = "",
+        LLeg = "",
+        RLeg = "",
+        Tail = ""
+    },
+    Brown = {
+        Name = "Brown",
+        Head = "",
+        LeftArm = "",
+        RightArm = "",
+        Body = "",
+        LLeg = "",
+        RLeg = "",
+        Tail = ""
+    },
+    Purple = {
+        Name = "Purple",
+        Head = "",
+        LeftArm = "",
+        RightArm = "",
+        Body = "",
+        LLeg = "",
+        RLeg = "",
+        Tail = ""
+    },
+    Grey = {
+        Name = "Grey",
+        Head = "",
+        LeftArm = "",
+        RightArm = "",
+        Body = "",
+        LLeg = "",
+        RLeg = "",
+        Tail = ""
+    },
+    Lime = {
+        Name = "Lime",
+        Head = "",
+        LeftArm = "",
+        RightArm = "",
+        Body = "",
+        LLeg = "",
+        RLeg = "",
+        Tail = ""
+    },
+    Black = {
+        Name = "Black",
+        Head = "",
+        LeftArm = "",
+        RightArm = "",
+        Body = "",
+        LLeg = "",
+        RLeg = "",
+        Tail = ""
+    },
+}
+
+local jewels = {
+    Gold = {
+        Name = "Gold",
+        ID = ""
+    },
+    Silver = {
+        Name = "Silver",
+        ID = ""
+    },
+    Emerald = {
+        Name = "Emerald",
+        ID = ""
+    },
+    Garnet = {
+        Name = "Garnet",
+        ID = ""
+    },
+    Amethyst = {
+        Name = "Amethyst",
+        ID = ""
+    },
+    Sapphire = {
+        Name = "Sapphire",
+        ID = ""
+    },
+    Peridot = {
+        Name = "Peridot",
+        ID = ""
+    },
+    Ruby = {
+        Name = "Ruby",
+        ID = ""
+    },
+    Topaz = {
+        Name = "Topaz",
+        ID = ""
+    },
+    Aquamarine = {
+        Name = "Aquamarine",
+        ID = ""
+    },
+    Onyx = {
+        Name = "Onyx",
+        ID = ""
+    },
+    Moon = {
+        Name = "Moon",
+        ID = ""
+    }
+}
+
+local animalParts = {
+    Otter = {
+        Name = "Otter",
+        Head = "",
+        LeftArm = "",
+        RightArm = "",
+        Body = "",
+        LLeg = "",
+        RLeg = "",
+        Tail = ""
+    },
+    Penguin = {
+        Name = "Penguin",
+        Head = "",
+        LeftArm = "",
+        RightArm = "",
+        Body = "",
+        LLeg = "",
+        RLeg = "",
+        Tail = ""
+    },
+    Seal = {
+        Name = "Seal",
+        Head = "",
+        LeftArm = "",
+        RightArm = "",
+        Body = "",
+        LLeg = "",
+        RLeg = "",
+        Tail = ""
+    },
+    Condor = {
+        Name = "Condor",
+        Head = "",
+        LeftArm = "",
+        RightArm = "",
+        Body = "",
+        LLeg = "",
+        RLeg = "",
+        Tail = ""
+    },
+    Parrot = {
+        Name = "Parrot",
+        Head = "",
+        LeftArm = "",
+        RightArm = "",
+        Body = "",
+        LLeg = "",
+        RLeg = "",
+        Tail = ""
+    },
+    Peacock = {
+        Name = "Peacock",
+        Head = "",
+        LeftArm = "",
+        RightArm = "",
+        Body = "",
+        LLeg = "",
+        RLeg = "",
+        Tail = ""
+    },
+    Cheetah = {
+        Name = "Cheatah",
+        Head = "",
+        LeftArm = "",
+        RightArm = "",
+        Body = "",
+        LLeg = "",
+        RLeg = "",
+        Tail = ""
+    },
+    Boar = {
+        Name = "Boar",
+        Head = "",
+        LeftArm = "",
+        RightArm = "",
+        Body = "",
+        LLeg = "",
+        RLeg = "",
+        Tail = ""
+    },
+    Rabbit = {
+        Name = "Rabbit",
+        Head = "",
+        LeftArm = "",
+        RightArm = "",
+        Body = "",
+        LLeg = "",
+        RLeg = "",
+        Tail = ""
+    },
+    Bear = {
+        Name = "Bear",
+        Head = "",
+        LeftArm = "",
+        RightArm = "",
+        Body = "",
+        LLeg = "",
+        RLeg = "",
+        Tail = ""
+    },
+    Gorilla = {
+        Name = "Gorilla",
+        Head = "",
+        LeftArm = "",
+        RightArm = "",
+        Body = "",
+        LLeg = "",
+        RLeg = "",
+        Tail = ""
+    },
+    Tiger = {
+        Name = "Tiger",
+        Head = "",
+        LeftArm = "",
+        RightArm = "",
+        Body = "",
+        LLeg = "",
+        RLeg = "",
+        Tail = ""
+    }
+}
+
+--Alternative table.find
 function service.GetArrayItem(item,array)
     for i,v in pairs(array) do
         if v.Name == item then
@@ -1606,6 +2566,7 @@ function service.GetArrayItem(item,array)
     end
 end
 
+--Changes the emotion ball
 function service:ChangeHeadType(chao,headType)
     if service.GetArrayItem(headTypes,headType)  then
         chao.Emotion.MeshPart.Mesh = service.GetArrayItem(headTypes,headType).ID
@@ -1615,29 +2576,122 @@ function service:ChangeHeadType(chao,headType)
     end
 end
 
-function service:ChangeChaoType(chao,chaoType)
-    
+function service:returnTone(chao)
+    local item = chao.Head.HeadMesh.Id
+    for i,v in pairs(monoColors) do
+        if v.Id == item then
+            return "mono"
+        end
+    end
+    for i,v in pairs(twotoneColor) do
+        if v.Head == item then
+            return "two"
+        end
+    end
+end
+
+function service:returnColor(chao)
+    local item = chao.Head.HeadMesh.Id
+    for i,v in pairs(monoColors) do
+        if v.Id == item then
+            return v.Name
+        end
+    end
+    for i,v in pairs(twotoneColor) do
+        if v.Head == item then
+            return v.Name
+        end
+    end
+end
+--Changes parts of the chao to animal parts
+function service:ChangeBodyPart(chao,part)
+    if service.GetArrayItem(chao,part) then
+    end
+end
+
+--Changes chao color
+function service:ColorChao(chao,color,isTwoTone)
+    if isTwoTone == false then
+        if service.GetArrayItem(monoColors,color) then
+            for i,v in pairs(chao:GetDescendants()) do
+                if v:IsA("SpecialMesh") then
+                    if not v.Name == "Eyes" then
+                        v.TextureId = service.GetArrayItem(monoColors,color).ID
+                        print("Changed Chao Part")
+                    end
+                end
+            end
+        end
+    else
+        if service.GetArrayItem(monoColors,color) then
+            for i,v in pairs(chao:GetDescendants()) do
+                if v:IsA("SpecialMesh") then
+                    if not v.Name == "Eyes" then
+                        if service.GetArrayItem(monoColors[color],v.Name) then
+                            v.TextureId = service.GetArrayItem(monoColors,color)[v.Name]
+                            print("Changed Chao Part")
+                        end
+                    end
+                end
+            end
+        end
+    end
+end
+
+--Colors Shiny or Jewel Chao
+function service:ShineChao(chao,color,class)
+    if class == "Jewel" then
+        if service.GetArrayItem(jewels,color) then
+            for i,v in pairs(chao:GetDescendants()) do
+                if v:IsA("SpecialMesh") then
+                    if not v.Name == "Eyes" then
+                        v.TextureId = service.GetArrayItem(jewels,color).ID
+                    end
+                end
+            end
+        end
+    elseif class == "Shiny" then
+        if service.GetArrayItem(monoColors,color) then
+            for i,v in pairs(chao:GetDescendants()) do
+                if v:IsA("SpecialMesh") then
+                    if not v.Name == "Eyes" then
+                        v.TextureId = service.GetArrayItem(monoColors,color)[v.Name]
+                        v.Material = Enum.Material.SmoothPlastic
+                        v.Reflectance = 1
+                        print("Shiny Chao Made")
+                    end
+                end
+            end
+        end
+    end
 end
 
 return service</string>
         </Properties>
       </Item>
+      <Item class="StringValue" referent="53">
+        <Properties>
+          <string name="Name">currentClass</string>
+          <string name="Value">Song</string>
+        </Properties>
+      </Item>
     </Item>
-    <Item class="Model" referent="51">
+    <Item class="Model" referent="54">
       <Properties>
         <string name="Name">baseChao</string>
       </Properties>
-      <Item class="Part" referent="52">
+      <Item class="Part" referent="55">
         <Properties>
           <string name="Name">HumanoidRootPart</string>
         </Properties>
-        <Item class="Script" referent="53">
+        <Item class="Script" referent="56">
           <Properties>
             <string name="Name">PickScript</string>
             <string name="Source">--Makes it so you can pick up your chao and throw it
 local wait = task.wait
 --dependancies
 local UIService = require(game.ReplicatedStorage.PublicDependancies.UIService)
+--Use UIService to create ContextMenues
 UIService:GenerateContextMenu("Pick",script.Parent,Enum.KeyCode.E,Enum.KeyCode.ButtonX,"Pick up your chao.")
 UIService:UpdateContextMenu(script.Parent.Pick,"Name","Pickup")
 UIService:GenerateContextMenu("Pet",script.Parent,Enum.KeyCode.Q,Enum.KeyCode.ButtonY, "Pet Your Chao.")
@@ -1670,7 +2724,7 @@ end</string>
           </Properties>
         </Item>
       </Item>
-      <Item class="Script" referent="54">
+      <Item class="Script" referent="57">
         <Properties>
           <string name="Name">Movement</string>
           <string name="Source">math.randomseed(tick())
@@ -1691,23 +2745,28 @@ local wait = task.wait
 	Sleeping --> The chao is recharging it energy.
 ]]
 
+--Makes chao move
 function followPath(object, goal)
+	--Calculate the path
 	local waypoints
 	local hum = object.Parent.Humanoid
 	local humroot = object.Parent.HumanoidRootPart
 	local success, failed = pcall(function()
 		path:ComputeAsync(object.Position, goal)
 	end)
-
+	--Make sure the calculations actually work.
 	if success and path.Status == Enum.PathStatus.Success then
 		waypoints = path:GetWaypoints()
 		for i, waypoint in pairs(waypoints) do
+			--Make sure no one picked up the chao since the last waypoint
 			if script.Parent.Held.Value == false then
 				if waypoint.Action == Enum.PathWaypointAction.Jump then
 					wait(1) --make the chao pause before jumping
 					hum:ChangeState(Enum.HumanoidStateType.Jumping)
 				end
+				--Move to the waypoint
 				humroot:MoveTo(waypoint.Position)
+				--wait until the walk is finished
 				humroot.MoveToFinished:Wait(1)
 			else
 				break
@@ -1719,7 +2778,9 @@ function followPath(object, goal)
 	end
 end
 
+--Make sure the boundaries are not in the path
 local function generateMovement()
+	--Do some math to make sure we're not too close to walls
 	local startPos = script.Parent.HumanoidRootPart.Position
 	local walls = workspace.Walls
 	local outsideForce = false
@@ -1739,9 +2800,10 @@ local function generateMovement()
 	followPath(script.Parent.HumanoidRootPart, randomVector)
 end
 
-
+--Delay 5 seconds before running
 wait(5)
 
+--Run every second.
 while wait(1) do
 	if script.Parent.Parent == workspace then
 		if script.Parent.Held.Value == false then
@@ -1753,20 +2815,67 @@ while wait(1) do
 end</string>
         </Properties>
       </Item>
-      <Item class="Script" referent="55">
+      <Item class="Script" referent="58">
+        <Properties>
+          <string name="Name">Sounds</string>
+          <string name="Source">--[[
+    Sounds
+    Handles chao's sounds
+]]</string>
+        </Properties>
+      </Item>
+      <Item class="Script" referent="59">
         <Properties>
           <string name="Name">States</string>
-          <string name="Source">local chao = script.Parent
-local hum = script.Parent.Humanoid
-local RS = game:GetService("RunService")
+          <string name="Source">--[[
+    States
+    Handles animating the chao
+]]
 
+--Collect the chao and the HumanoidObject
+local chao = script.Parent
+local hum = script.Parent.Humanoid
+--Get the runtime.
+local RS = game:GetService("RunService")
+--ChaoState
+local ChaoState = "none"
+
+--Runs on every frame.
 RS.Heartbeat:Connect(function()
     local currentlyPlaying = nil
+    --Create an Animation Object
     local anim = Instance.new("Animation")
+    --Define the hum's State
     local humState = hum:GetState()
+    --Check the humState
     if humState == Enum.HumanoidStateType.Running then
-        if currentlyPlaying ~= "Running" then
-            currentlyPlaying =  "Running"
+        if ChaoState == "Swimming" then
+            if currentlyPlaying ~= "Swimming" then
+                currentlyPlaying =  "Swimming"
+                if anim.IsPlaying == true then
+                    anim:Stop()
+                end
+                --TODO: Show different anims depending on chaos skill
+                anim.Id = "rbxassetid://" --Make anim
+                hum.Animator:LoadAnimation(anim)
+                anim:Play()
+            end
+        elseif ChaoState == "none" then
+            if currentlyPlaying ~= "Running" then
+                currentlyPlaying =  "Running"
+                if anim.IsPlaying == true then
+                    anim:Stop()
+                end
+                --TODO: Show different anims depending on chaos skill
+                anim.Id = "rbxassetid://" --Make anim
+                hum.Animator:LoadAnimation(anim)
+                anim:Play()
+            end
+        end
+    elseif humState == Enum.HumanoidStateType.Freefall then
+        if currentlyPlaying ~= "Flying" then
+            --TODO: Check if they can actually fly
+            currentlyPlaying = "Flying"
             if anim.IsPlaying == true then
                 anim:Stop()
             end
@@ -1785,19 +2894,33 @@ RS.Heartbeat:Connect(function()
             anim:Play()
         end
     end
+end)
+
+--Change the chao's state to swimming if they're touching a part named "Water"
+script.Parent.Touched:Connect(function(hit)
+    if hit.Name == "Water" then
+        ChaoState = "Swimming"
+    else
+        ChaoState = "none"
+    end
 end)</string>
         </Properties>
       </Item>
     </Item>
   </Item>
-  <Item class="ServerScriptService" referent="56">
+  <Item class="ServerScriptService" referent="60">
     <Properties>
       <string name="Name">ServerScriptService</string>
     </Properties>
-    <Item class="Script" referent="57">
+    <Item class="Script" referent="61">
       <Properties>
         <string name="Name">Age</string>
-        <string name="Source">--Define the player and the chao's Data
+        <string name="Source">--[[
+    Age
+    Handle Chao Aging
+]]
+
+--Define the player and the chao's Data
 local chaoData = script.Parent.Name
 local chaoModule = require(game.ReplicatedStorage.PublicDependancies.ChaoModule)
 
@@ -1827,10 +2950,28 @@ game.Players.PlayerAdded:Connect(function(player)
 end)</string>
       </Properties>
     </Item>
-    <Item class="Script" referent="58">
+    <Item class="Script" referent="62">
+      <Properties>
+        <string name="Name">ClassroomServerHandle</string>
+        <string name="Source">local classroomService = require(game.ReplicatedStorage.PublicDependancies.Classroom)
+
+game.Players.PlayersAdded:Connect(function(player)
+    if player then
+        local lastLogTime = player.Leaderstats.lastLogTime
+        
+    end
+end)</string>
+      </Properties>
+    </Item>
+    <Item class="Script" referent="63">
       <Properties>
         <string name="Name">ContextMenuController</string>
-        <string name="Source">local PromptService = game:GetService("ProximityPromptService")
+        <string name="Source">--[[
+	ContextMenuController
+	Controls Context Menus created with UIService.
+]]
+
+local PromptService = game:GetService("ProximityPromptService")
 local UIService = require(game.ReplicatedStorage.PublicDependancies.UIService)
 local chaoModule = require(game.ReplicatedStorage.PublicDependancies.ChaoModule)
 
@@ -1913,7 +3054,7 @@ PromptService.PromptTriggered:Connect(function(prompt, player)
 end)</string>
       </Properties>
     </Item>
-    <Item class="Script" referent="59">
+    <Item class="Script" referent="64">
       <Properties>
         <string name="Name">Datastore</string>
         <string name="Source">--TODO: Improve this
@@ -1984,10 +3125,14 @@ end)
 --end)</string>
       </Properties>
     </Item>
-    <Item class="Script" referent="60">
+    <Item class="Script" referent="65">
       <Properties>
         <string name="Name">EatChaoDrive</string>
-        <string name="Source">local remote = game.ReplicatedStorage.Remotes.Eat
+        <string name="Source">--[[
+	EatChaoDrive
+	Handles chao eating or absords things
+]]
+local remote = game.ReplicatedStorage.Remotes.Eat
 local chaoModule = require(game.ReplicatedStorage.PublicDependancies.ChaoModule)
 
 remote.OnServerEvent:Connect(function(stat,value,chaoData,objClass,obj)
@@ -2013,10 +3158,15 @@ remote.OnServerEvent:Connect(function(stat,value,chaoData,objClass,obj)
 end)</string>
       </Properties>
     </Item>
-    <Item class="Script" referent="61">
+    <Item class="Script" referent="66">
       <Properties>
         <string name="Name">LocalTeleportService</string>
-        <string name="Source">local debound = false
+        <string name="Source">--[[
+	LocalTeleportService
+	Handles when people open doors
+]]
+
+local debound = false
 local wait = task.wait
 local garden = workspace.currentGarden
 
@@ -2071,7 +3221,7 @@ end
 --end</string>
       </Properties>
     </Item>
-    <Item class="Script" referent="62">
+    <Item class="Script" referent="67">
       <Properties>
         <string name="Name">Main</string>
         <string name="Source">-- local chaoModule = require(game.ReplicatedStorage.PublicDependancies.ChaoModule)
@@ -2084,10 +3234,15 @@ end
 -- end)</string>
       </Properties>
     </Item>
-    <Item class="Script" referent="63">
+    <Item class="Script" referent="68">
       <Properties>
         <string name="Name">NeoDatastore</string>
-        <string name="Source">local Datastore = game:GetService("DataStoreService")
+        <string name="Source">--[[
+	NeoDatastore
+	The new script responsible for saving.
+]]
+
+local Datastore = game:GetService("DataStoreService")
 local saveData = Datastore:GetDataStore("Sonic Earth Chao Garden Alpha")
 --Instead of generating a new folder every time with the old Main script simply generate a new folder only if we need to.
 local module = require(game.ReplicatedStorage.PublicDependancies.ChaoModule)
@@ -2143,10 +3298,15 @@ game.Players.PlayerRemoving:Connect(function(player)
 end)</string>
       </Properties>
     </Item>
-    <Item class="Script" referent="64">
+    <Item class="Script" referent="69">
       <Properties>
         <string name="Name">WorldHandle</string>
-        <string name="Source">local theme = workspace.Theme --No need for AudioAttempt for now.
+        <string name="Source">--[[
+	WorldHandle
+	Handles Changeing the garden
+]]
+
+local theme = workspace.Theme --No need for AudioAttempt for now.
 local garden = workspace.currentGarden
 local chaoWorld = "rbxassetid://397169354" --Temporary
 local neutGarden = "rbxassetid://186088305"
@@ -2169,44 +3329,23 @@ end)</string>
       </Properties>
     </Item>
   </Item>
-  <Item class="StarterGui" referent="65">
+  <Item class="StarterGui" referent="70">
     <Properties>
       <string name="Name">StarterGui</string>
     </Properties>
-    <Item class="ScreenGui" referent="66">
-      <Properties>
-        <string name="Name">Backpack</string>
-      </Properties>
-      <Item class="Frame" referent="67">
-        <Properties>
-          <string name="Name">Frame</string>
-        </Properties>
-        <Item class="LocalScript" referent="68">
-          <Properties>
-            <string name="Name">LocalScript</string>
-            <string name="Source">local UIS = game:GetService("UserInputService")
-
-UIS.InputBegan:Connect(function(input)
-	if input.KeyCode == Enum.KeyCode.E then
-		if script.Parent.Visible == true then
-			script.Parent.Visible = false
-		else
-			script.Parent.Visible = true
-		end
-	end
-end)</string>
-          </Properties>
-        </Item>
-      </Item>
-    </Item>
-    <Item class="ScreenGui" referent="69">
+    <Item class="ScreenGui" referent="71">
       <Properties>
         <string name="Name">Classroom</string>
       </Properties>
-      <Item class="LocalScript" referent="70">
+      <Item class="LocalScript" referent="72">
         <Properties>
           <string name="Name">DoctorUI</string>
-          <string name="Source">local chaoService = require(game.ReplicatedStorage.PublicDependancies.ChaoModule)
+          <string name="Source"><![CDATA[--[[
+	DoctorUI
+	Handles the Doctor Office.
+]]
+
+local chaoService = require(game.ReplicatedStorage.PublicDependancies.ChaoModule)
 local UIService = require(game.ReplicatedStorage.PublicDependancies.UIService)
 local UIS = game:GetService("UserInputService")
 
@@ -2218,6 +3357,15 @@ normalReply = {
 	"Nothing is wrong with your chao.";
 	"Your chao is very healthy!";
 	"Your chao isn't sick."
+}
+
+images = {
+	"http://www.roblox.com/asset/?id=8888502969",
+	"http://www.roblox.com/asset/?id=8888496721",
+	"http://www.roblox.com/asset/?id=7921523503",
+	"http://www.roblox.com/asset/?id=8888481815",
+	"http://www.roblox.com/asset/?id=8888475280",
+	"http://www.roblox.com/asset/?id=8888468390"
 }
 
 function write()
@@ -2235,8 +3383,21 @@ function fillData(chaoData)
 	--Basic Frame
 	local topFrame = script.Parent.Frame
 	local basic = topFrame.Basic
-	local chao = workspace.TempChao
-	basic.Attributes.Text = chaoService:GetStats(chao.Id.Value,game.Players.LocalPlayer,"Attribute")
+	local chao = game.Players.LocalPlayer.Character:FindFirstChild("Held",true)
+	if chao then
+		UIService:CreateChaoViewPort(chao,basic.Viewport,true)
+		chao = workspace.TempChao
+		for i,v in pairs(script.Parent.Frame.Basic:GetChildren()) do
+			if v:IsA("TextLabel") then
+				if chaoService:GetStats(chao.Id.Value,game.Players.LocalPlayer,v.Name) then
+					v.Text = chaoService:GetStats(chao.Id.Value,game.Players.LocalPlayer,v.Name)
+				end
+			end
+			if v:IsA("ImageLabel") then
+				v.Image = images[chaoService:GetStats(chao.Id.Value,game.Players.LocalPlayer,v.Name)]
+			end
+		end
+	end
 end
 
 while wait() do
@@ -2254,21 +3415,29 @@ while wait() do
 						on = false
 						write()
 					elseif v.Name == "Charts" then
+						local chao = game.Players.LocalPlayer.Character:FindFirstChild("Held",true)
 						script.Parent.Start.Visible = false
 						script.Parent.Frame.Visible = true
+						fillData(chao.Name)
 					end
 				end)
 			end
 		end
 	end
-end</string>
+end
+]]></string>
         </Properties>
       </Item>
     </Item>
-    <Item class="LocalScript" referent="71">
+    <Item class="LocalScript" referent="73">
       <Properties>
         <string name="Name">UI</string>
-        <string name="Source">local UIService = require(game.ReplicatedStorage.PublicDependancies.UIService)
+        <string name="Source">--[[
+	UI
+	Handles UI
+]]
+
+local UIService = require(game.ReplicatedStorage.PublicDependancies.UIService)
 
 local ui = script.Parent.ScreenGui.Frame.GardenLogo
 local garden = workspace.currentGarden
@@ -2318,15 +3487,15 @@ end)</string>
       </Properties>
     </Item>
   </Item>
-  <Item class="StarterPlayer" referent="72">
+  <Item class="StarterPlayer" referent="74">
     <Properties>
       <string name="Name">StarterPlayer</string>
     </Properties>
-    <Item class="StarterCharacterScripts" referent="73">
+    <Item class="StarterCharacterScripts" referent="75">
       <Properties>
         <string name="Name">StarterCharacterScripts</string>
       </Properties>
-      <Item class="LocalScript" referent="74">
+      <Item class="LocalScript" referent="76">
         <Properties>
           <string name="Name">Animate</string>
           <string name="Source"><![CDATA[local Character = script.Parent
@@ -3015,10 +4184,13 @@ end
 ]]></string>
         </Properties>
       </Item>
-      <Item class="LocalScript" referent="75">
+      <Item class="LocalScript" referent="77">
         <Properties>
           <string name="Name">Feed</string>
-          <string name="Source">--Checks when the player gives a Chao a drive
+          <string name="Source">--[[
+	Feed
+	Checks when the player gives a Chao a drive
+]]
 
 --Prevents the same even from firing forever.
 local debound = false
@@ -3083,10 +4255,15 @@ while wait() do
 end</string>
         </Properties>
       </Item>
-      <Item class="LocalScript" referent="76">
+      <Item class="LocalScript" referent="78">
         <Properties>
           <string name="Name">Shake</string>
-          <string name="Source">local UIS = game:GetService("UserInputService")
+          <string name="Source">--[[
+	Shake
+	Allows you to shake eggs
+]]
+
+local UIS = game:GetService("UserInputService")
 
 local shakeBind = Enum.KeyCode.X
 local debounce = false
