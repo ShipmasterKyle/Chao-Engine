@@ -12,7 +12,11 @@ local wait = task.wait
 while wait(1) do
 	if script.Parent.Held.Value == false then
 		if script.Parent.HatchTime.Value <= 0 then
-			chaoModule.Hatch(script.Parent)
+			if script.Parent:FindFirstChild("Identifier") then
+				chaoModule.Hatch(script.Parent,true)
+			else
+				chaoModule.Hatch(script.Parent)
+			end
 		else
 			script.Parent.HatchTime.Value -= 1
 		end
