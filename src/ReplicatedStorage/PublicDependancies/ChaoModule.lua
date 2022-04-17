@@ -193,7 +193,7 @@ function module:Export(chaoData,chao)
 	for i,v in pairs(personalityTable) do
 		if v == chaoData.Personality.Value then
 			person = i
-		break
+			break
 		else end
 	end
 	chaostring = chaostring.."PTRx"..person..";"
@@ -396,10 +396,10 @@ function module:Evo(chaoData,chao,player)
 		--Change ChaoState to sitting and play anim
 
 		--Create Chao Cocoon
-		local cocoon --Path to chao cocoon.
+		local cocoon = game.ReplicatedStorage.ChaoCocoon --Path to chao cocoon.
 		cocoon:Clone()
-		coccon.Parent = workspace
-		cocoon.Position  = chao.HumanoidRootPart.Position
+		cocoon.Parent = workspace
+		cocoon.Position  = chao.HumanoidRootPart.Position + Vector3.new(0,3,0)
 
 		--Determine Ability Evolution
 		local chaoType
@@ -446,9 +446,9 @@ function module:Rebirth(chaoData,chao,player)
 		--Change ChaoState to sitting and play anim
 
 		--Create Pink Cocoon
-		local cocoon --Path to chao cocoon.
+		local cocoon = game.ReplicatedStorage.PinkCocoon --Path to chao cocoon.
 		cocoon:Clone()
-		coccon.Parent = workspace
+		cocoon.Parent = workspace
 		cocoon.Position  = chao.HumanoidRootPart.Position
 		--Reset every stat to 10 percent of its current value
 		chaoData.FlyXP.Value = math.floor(chaoData.FlyXP.Value*10/100)
@@ -483,9 +483,9 @@ function module:RemoveChao(chaoData,chao,player)
 		--Change ChaoState to sitting and play anim
 
 		--Create White Cocoon
-		local cocoon --Path to chao cocoon.
+		local cocoon = game.ReplicatedStorage.Cocoon--Path to chao cocoon.
 		cocoon:Clone()
-		coccon.Parent = workspace
+		cocoon.Parent = workspace
 		cocoon.Position  = chao.HumanoidRootPart.Position
 		--Destroy ChaoData
 		local wasInterupted = false
@@ -551,8 +551,10 @@ function module:BreedChao(chaoData1,chaoData2,chao1,chao2)
 	for i,v in pairs(traitLoadout) do
 		if v.Id == chao1Color then
 			compare1 = v.Dom
+			isTwoTone = visualService:returnTone(chao1)
 		elseif v.Id == chao2Color then
 			compare2 = v.Dom
+			isTwoTone = visualService:returnTone(chao2)
 		end
 	end
 	if compare1 > compare2 then
@@ -561,6 +563,11 @@ function module:BreedChao(chaoData1,chaoData2,chao1,chao2)
 		color = visualService:returnColor(chao2)
 	end
 	--Color chao with correct alleles
+	if isTwoTone == "mono" then
+		isTwoTone = false
+	elseif isTwoTone == "two" then
+		isTwoTone = true
+	end
 	visualService:ColorChao(newChao,color,isTwoTone)
 	--add the newChao to cache
 	newChao.Parent = game.ReplicatedStorage.chaoStore
