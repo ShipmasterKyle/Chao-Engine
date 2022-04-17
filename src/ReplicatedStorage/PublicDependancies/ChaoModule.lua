@@ -549,9 +549,9 @@ function module:BreedChao(chaoData1,chaoData2,chao1,chao2)
 	local compare1
 	local compare2
 	for i,v in pairs(traitLoadout) do
-		if v.Id = chao1Color then
+		if v.Id == chao1Color then
 			compare1 = v.Dom
-		elseif v.Id = chao2Color then
+		elseif v.Id == chao2Color then
 			compare2 = v.Dom
 		end
 	end
