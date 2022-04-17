@@ -1,6 +1,11 @@
+--[[
+    Classroom
+    Not to be confused with ClassService, this handles the chao classroom
+]]
+
 local service = {}
 
-local current = script.Parent.currentClass
+local current = script.currentClass
 
 local lessons = {
     "Song",
@@ -19,9 +24,9 @@ function service:GetCurrentLesson()
     return current
 end
 
-function service:ChangeClass(currentClass)
+function service:ChangeClass()
     local lastClass = lessons[current]
-    local newClass = lastClass += 1
+    local newClass = lastClass + 1
     current.Value = newClass 
 end
 
@@ -31,8 +36,8 @@ function service:LearnLesson(chaoData)
 end
 
 function service:IsLessonDone(chaoData)
-    local finishTime = LessonStartTime + 14400
-    if os.time > finishTime then
+	local finishTime = chaoData.LessonStartTime.Value + 14400
+    if os.time() > finishTime then
         return "Done"
     else
         return "Incomplete"
