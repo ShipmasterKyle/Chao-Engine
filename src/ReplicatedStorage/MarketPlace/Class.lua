@@ -110,12 +110,78 @@ local tree = {
         },
         Animals = {
             Name = "Animals",
+            Otter = {
+                Name = "Otter",
+                Desc = "The Otter Animal. Found thoughout stages. Helps make your chao better at swimming at the cost of its power skill. (Swimming +7) (Power -3)",
+                isDecor = false,
+                Value = "250"
+            },
+            Penguin = {
+                Name = "Penguin",
+                Desc = "The Penguin Animal. Found thoughout stages. Helps make your chao better at swimming at the cost of its power skill. (Swimming +7) (Power -3)",
+                isDecor = false,
+                Value = "250"
+            },
+            Seal = {
+                Name = "Seal",
+                Desc = "The Seal Animal. Found thoughout stages. Helps make your chao better at swimming at the cost of its power skill. (Swimming +7) (Power -3)",
+                isDecor = false,
+                Value = "250"
+            },
+            Condor = {
+                Name = "Condor",
+                Desc = "The Condor Animal. Found thoughout stages. Helps make your chao better at flying at the cost of its power skill. (Flying +7) (Power -3)",
+                isDecor = false,
+                Value = "250"
+            },
+            Parrot = {
+                Name = "Parrot",
+                Desc = "The Parrot Animal. Found thoughout stages. Helps make your chao better at flying at the cost of its power skill. (Flying +7) (Power -3)",
+                isDecor = false,
+                Value = "250"
+            },
+            Peacock = {
+                Name = "Peacock",
+                Desc = "The Peacock Animal. Found thoughout stages. Helps make your chao better at flying at the cost of its power skill. (Flying +7) (Power -3)",
+                isDecor = false,
+                Value = "250"
+            },
+            Cheatah = {
+                Name = "Cheatah",
+                Desc = "The Cheatah Animal. Found thoughout stages. Helps make your chao better at running at the cost of its swimming skill. (Run +7) (Swim -3)",
+                isDecor = false,
+                Value = "250"
+            },
+            Boar = {
+                Name = "Boar",
+                Desc = "The Boar Animal. Found thoughout stages. Helps make your chao better at running at the cost of its swimming skill. (Run +7) (Swim -3)",
+                isDecor = false,
+                Value = "250"
+            },
+            Rabbit = {
+                Name = "Rabbit",
+                Desc = "The Rabbit Animal. Found thoughout stages. Helps make your chao better at running at the cost of its swimming skill. (Run +7) (Swim -3)",
+                isDecor = false,
+                Value = "250"
+            },
+            Bear = {
+                Name = "Bear",
+                Desc = "The Bear Animal. Found thoughout stages. Helps make your chao better at stronger at the cost of its swimming skill. (Power +7) (Flying -3)",
+                isDecor = false,
+                Value = "250"
+            },
             Gorrilla = {
                 Name = "Monke",
                 Desc = "The Gorrilla Animal. Found thoughout stages. Helps make your chao stronger at the cost of its flying skill. (Power +7) (Flying -3)",
                 isDecor = false,
                 Value = "250"
-            }
+            },
+            Tiger = {
+                Name = "Tiger",
+                Desc = "The Tiger Animal. Found thoughout stages. Helps make your chao stronger at the cost of its flying skill. (Power +7) (Flying -3)",
+                isDecor = false,
+                Value = "250"
+            },
         },
         ChaoDrives = {
             Name = "ChaoDrive",
