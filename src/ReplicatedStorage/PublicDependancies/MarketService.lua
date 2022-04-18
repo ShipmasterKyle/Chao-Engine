@@ -10,12 +10,12 @@ local market = require(game.ReplicatedStorage.MarketPlace.MarketData)
 local class = require(game.ReplicatedStorage.PublicDependancies.ClassService)
 
 function service.GetArrayItem(array,item)
-    for i,v in pairs(array) do
-        if v.Name == item then
-            return v
-        else end
-    return false
-    end
+	for i,v in pairs(array) do
+		if v.Name == item then
+			return v
+		else end
+		return false
+	end
 end
 
 function service:Initialize(plr)
@@ -38,7 +38,7 @@ function service:LoadMarket(frame,template)
 			local copy = template:Clone()
 			copy.Name = v.Name
 			copy.NameBox.Text = v.Name
-			copy.Desc.Text = v.desc
+			copy.Desc.Value = v.desc
 			-- TODO: Use UI Service to make a viewport frame.
 			copy.Parent = frame
 		end
@@ -57,8 +57,7 @@ function service:getItemDesc(item)
 	end
 end
 
---Create the Inventory UI
-function getInventory(plr,frame,template)
+function service:getInventory(plr,frame,template)
 	if plr then
 		if workspace:FindFirstChild(tostring(plr.Name.." Inventory")) then
 			for i,v in pairs(workspace[plr.Name.." Inventory"]:GetChildren()) do
