@@ -57,6 +57,16 @@ function service:getItemDesc(item)
 	end
 end
 
+function service:getItemValue(item)
+	--Get the description of items.
+	local itemExist = service.GetArrayItem(market,item)
+	if itemExist then
+		return market[item].Price
+	else
+		return nil
+	end
+end
+
 function service:getInventory(plr,frame,template)
 	if plr then
 		if workspace:FindFirstChild(tostring(plr.Name.." Inventory")) then
