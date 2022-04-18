@@ -4,6 +4,7 @@
 ]]
 
 local UIService = require(game.ReplicatedStorage.PublicDependancies.UIService)
+local MarketService = require(game.ReplicatedStorage.PublicDependancies.MarketService)
 
 local ui = script.Parent.ScreenGui.Frame.GardenLogo
 local garden = workspace.currentGarden
@@ -49,4 +50,14 @@ workspace.kinder.Doctor.Touched:Connect(function(hit)
 			UIService:CreateViewPort(chao,script.Parent.Basic,true)
 		end
 	end
+end)
+
+game.ReplicatedStorage.Remotes.BulletinBoard.OnClientEvent:Connect(function()
+	script.Parent.Bulletin.Board.Visible = true
+end)
+
+game.ReplicatedStorage.Remotes.Market.OnClientEvent:Connect(function()
+	local ourplate = script.Template
+	local ourFram = script.Parent.Market.ImageLabel.ScrollingFrame
+	MarketService:LoadMarket(ourFram,ourplate)
 end)
