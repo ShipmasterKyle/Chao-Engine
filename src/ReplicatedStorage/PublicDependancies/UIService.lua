@@ -5,7 +5,6 @@
 
 local module = {}
 
---Change Signals
 local changeSignals = {
 	"Context",
 	"Input",
@@ -14,7 +13,6 @@ local changeSignals = {
 	"Name"
 }
 
---Creates the ContextMenu
 function module:GenerateContextMenu(context,obj,Input,cInput,objectText)
 	if context and obj then
 		local contextMenu = Instance.new("ProximityPrompt")
@@ -36,7 +34,6 @@ function module:GenerateContextMenu(context,obj,Input,cInput,objectText)
 	end
 end
 
---Allows you edit ContextMenu
 function module:UpdateContextMenu(obj,changeSignal,ctx)
 	if obj and obj:IsA("ProximityPrompt") then
 		if table.find(changeSignals,changeSignal,1) then
@@ -63,7 +60,6 @@ function module:UpdateContextMenu(obj,changeSignal,ctx)
 	end
 end
 
---Delete the ContextMenu
 function module:DestroyContextMenu(contextMenu)
 	if contextMenu and contextMenu:IsA("ProximityPrompt") then
 		contextMenu:Destroy()
@@ -73,7 +69,6 @@ function module:DestroyContextMenu(contextMenu)
 	end
 end
 
---Return the ContextMenu's Data
 function module:GetContextMenuProperty(obj,property)
 	if obj and obj:IsA("ProximityPrompt") then
 		if table.find(changeSignals,property,1) then
@@ -98,7 +93,6 @@ function module:GetContextMenuProperty(obj,property)
 	end
 end
 
---Create Viewport Frame
 function module:CreateChaoViewPort(chao, object, corner)
 	if chao and chao:FindFirstChild("HumanoidRootPart") and object then
 		local copyChao = chao:Clone()
@@ -129,5 +123,29 @@ function module:CreateChaoViewPort(chao, object, corner)
 	end
 end
 
+function module:CreateItemViewport(item, object, corner)
+	if item and object then
+		local copyCat = item:Clone()
+		copyCat:MoveTo(Vector3.new(0,0,0))
+		copyCat.Parent = workspace.TempStorage
+		local frame = Instance.new("ViewportFrame")
+		frame.AnchorPoint = UDim.new(0,0)
+		frame.Size = UDim2.new(1,0,1,0)
+		frame.Position = UDim2.new(0,0,0,0)
+		frame.BackgroundTransparency = 1
+		frame.Parent = object
+		local cam = Instance.new("Camera")
+		cam.Parent = frame
+		print(cam.Parent.Name)
+		cam.FieldOfView = 45
+		frame.CurrentCamera = cam
+		cam.CFrame = CFrame.new(Vector3.new(0,2,12), item.Position)
+		if corner then
+			local uicorner = Instance.new("UICorner")
+			uicorner.CornerRadius = UDim.new(0,20)
+			uicorner.Parent = object
+		end
+	end
+end
 
 return module
