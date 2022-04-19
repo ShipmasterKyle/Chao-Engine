@@ -1,8 +1,3 @@
---[[
-    Classroom
-    Not to be confused with ClassService, this handles the chao classroom
-]]
-
 local service = {}
 
 local current = script.currentClass
@@ -17,7 +12,7 @@ local lessons = {
     "Spin Dance",
     "Tambourine",
     "Drawing",
-    "Trumpet",
+    "Trumpet"
 }
 
 function service:GetCurrentLesson()

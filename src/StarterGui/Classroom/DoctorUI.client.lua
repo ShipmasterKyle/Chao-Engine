@@ -1,8 +1,3 @@
---[[
-	DoctorUI
-	Handles the Doctor Office.
-]]
-
 local chaoService = require(game.ReplicatedStorage.PublicDependancies.ChaoModule)
 local UIService = require(game.ReplicatedStorage.PublicDependancies.UIService)
 local UIS = game:GetService("UserInputService")
@@ -41,10 +36,8 @@ function fillData(chaoData)
 	--Basic Frame
 	local topFrame = script.Parent.Frame
 	local basic = topFrame.Basic
-	local chao = game.Players.LocalPlayer.Character:FindFirstChild("Held",true)
+	local chao = workspace.TempChao
 	if chao then
-		UIService:CreateChaoViewPort(chao,basic.Viewport,true)
-		chao = workspace.TempChao
 		for i,v in pairs(script.Parent.Frame.Basic:GetChildren()) do
 			if v:IsA("TextLabel") then
 				if chaoService:GetStats(chao.Id.Value,game.Players.LocalPlayer,v.Name) then
@@ -73,10 +66,8 @@ while wait() do
 						on = false
 						write()
 					elseif v.Name == "Charts" then
-						local chao = game.Players.LocalPlayer.Character:FindFirstChild("Held",true)
 						script.Parent.Start.Visible = false
 						script.Parent.Frame.Visible = true
-						fillData(chao.Name)
 					end
 				end)
 			end

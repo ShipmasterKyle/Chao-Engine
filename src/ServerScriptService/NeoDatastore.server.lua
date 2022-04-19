@@ -1,8 +1,3 @@
---[[
-	NeoDatastore
-	The new script responsible for saving.
-]]
-
 local Datastore = game:GetService("DataStoreService")
 local saveData = Datastore:GetDataStore("Sonic Earth Chao Garden Alpha")
 --Instead of generating a new folder every time with the old Main script simply generate a new folder only if we need to.

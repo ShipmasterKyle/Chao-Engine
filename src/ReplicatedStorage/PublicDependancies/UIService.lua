@@ -1,8 +1,3 @@
---[[
-	UIService
-	Handles general UI operations like viewport frames and ContextMenus
-]]
-
 local module = {}
 
 local changeSignals = {

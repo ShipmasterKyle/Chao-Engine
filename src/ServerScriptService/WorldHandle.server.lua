@@ -1,8 +1,3 @@
---[[
-	WorldHandle
-	Handles Changeing the garden
-]]
-
 local theme = workspace.Theme --No need for AudioAttempt for now.
 local garden = workspace.currentGarden
 local chaoWorld = "rbxassetid://397169354" --Temporary

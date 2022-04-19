@@ -5,7 +5,6 @@ local UIService = require(game.ReplicatedStorage.PublicDependancies.UIService)
 UIService:GenerateContextMenu("Pick",script.Parent,Enum.KeyCode.E,Enum.KeyCode.ButtonX,"Pick up your chao.")
 UIService:UpdateContextMenu(script.Parent.Pick,"Name","Pickup")
 
---Run every second
 while wait(1) do
 	local pickupStatus = UIService:GetContextMenuProperty(script.Parent.Pickup,"Context")
 	if script.Parent.Held.Value == false then
@@ -31,4 +30,3 @@ while wait(1) do
 		end
 	end
 end
-

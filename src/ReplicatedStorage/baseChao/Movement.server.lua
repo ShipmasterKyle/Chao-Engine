@@ -16,29 +16,23 @@ local wait = task.wait
 	Sleeping --> The chao is recharging it energy.
 ]]
 
---Makes chao move
 function followPath(object, goal)
-	--Calculate the path
 	local waypoints
 	local hum = object.Parent.Humanoid
-	local humroot = object.Parent.HumanoidRootPart
 	local success, failed = pcall(function()
 		path:ComputeAsync(object.Position, goal)
 	end)
-	--Make sure the calculations actually work.
+
 	if success and path.Status == Enum.PathStatus.Success then
 		waypoints = path:GetWaypoints()
 		for i, waypoint in pairs(waypoints) do
-			--Make sure no one picked up the chao since the last waypoint
 			if script.Parent.Held.Value == false then
 				if waypoint.Action == Enum.PathWaypointAction.Jump then
 					wait(1) --make the chao pause before jumping
 					hum:ChangeState(Enum.HumanoidStateType.Jumping)
 				end
-				--Move to the waypoint
-				humroot:MoveTo(waypoint.Position)
-				--wait until the walk is finished
-				humroot.MoveToFinished:Wait(1)
+				hum:MoveTo(waypoint.Position)
+				hum.MoveToFinished:Wait(1)
 			else
 				break
 			end
@@ -49,9 +43,7 @@ function followPath(object, goal)
 	end
 end
 
---Make sure the boundaries are not in the path
 local function generateMovement()
-	--Do some math to make sure we're not too close to walls
 	local startPos = script.Parent.HumanoidRootPart.Position
 	local walls = workspace.Walls
 	local outsideForce = false
@@ -71,10 +63,9 @@ local function generateMovement()
 	followPath(script.Parent.HumanoidRootPart, randomVector)
 end
 
---Delay 5 seconds before running
+
 wait(5)
 
---Run every second.
 while wait(1) do
 	if script.Parent.Parent == workspace then
 		if script.Parent.Held.Value == false then

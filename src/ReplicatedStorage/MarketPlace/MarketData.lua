@@ -64,7 +64,7 @@ market = {
 		Name = "Mint Candy",
 		desc = "A lucky piece of candy sure to give your chao tons of energy. (Luck +25)",
 		isDecor = false,
-		Price = "800"
+		Price = "800",
 		forSale = false
 	}
 }

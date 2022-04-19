@@ -1,8 +1,3 @@
---[[
-	UI
-	Handles UI
-]]
-
 local UIService = require(game.ReplicatedStorage.PublicDependancies.UIService)
 local MarketService = require(game.ReplicatedStorage.PublicDependancies.MarketService)
 
@@ -49,6 +44,15 @@ workspace.kinder.Doctor.Touched:Connect(function(hit)
 			local chao = chaoExistence.Parent
 			UIService:CreateViewPort(chao,script.Parent.Basic,true)
 		end
+	end
+end)
+
+workspace.kinder.FortuneTeller.Touched:Connect(function()
+	local chaoExistence = plr.Character:FindFirstChild("Held", true)
+	if chaoExistence then
+		script.Parent.Fortune_Teller.Frame.Visible = true
+		script.Parent.StartFortune:Fire()
+		local chao = chaoExistence.Parent
 	end
 end)
 

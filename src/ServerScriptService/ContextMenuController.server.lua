@@ -1,8 +1,3 @@
---[[
-	ContextMenuController
-	Controls Context Menus created with UIService.
-]]
-
 local PromptService = game:GetService("ProximityPromptService")
 local UIService = require(game.ReplicatedStorage.PublicDependancies.UIService)
 local chaoModule = require(game.ReplicatedStorage.PublicDependancies.ChaoModule)

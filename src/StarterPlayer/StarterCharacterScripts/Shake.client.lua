@@ -1,8 +1,3 @@
---[[
-	Shake
-	Allows you to shake eggs
-]]
-
 local UIS = game:GetService("UserInputService")
 
 local shakeBind = Enum.KeyCode.X
