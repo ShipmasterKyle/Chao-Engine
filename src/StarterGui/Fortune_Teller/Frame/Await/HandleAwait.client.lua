@@ -22,7 +22,9 @@ awaitEvent.Event:Connect(function(req,quest)
 	if req == "ChaoName" then
 		script.Parent.Approve.Text = "I like it!"
 		script.Parent.Decline.Text = "I don't like it."
-	elseif req ==  "Namei"
+	elseif req ==  "NameIt" then
+		script.Parent.Approve.Text = "Make a name for my chao"
+		script.Parent.Decline.Text = "Let me name my chao"
 	end
 	while wait() do
 		for i,v in pairs(script.Parent:GetChildren()) do

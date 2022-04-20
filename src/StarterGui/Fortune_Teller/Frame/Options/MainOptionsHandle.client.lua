@@ -1,5 +1,6 @@
 local ourEvent = game.Players.LocalPlayer.PlayerGui.ShowMainOptions
 local nextEvent = game.Players.LocalPlayer.PlayerGui.GenerateName
+local finEvent = game.Players.LocalPlayer.PlayerGui.MakeAName
 
 ourEvent.Event:Connect(function()
 	script.Parent.Visible = true
@@ -9,6 +10,9 @@ ourEvent.Event:Connect(function()
 				v.MouseButton1Click:Connect(function()
 					if v.Name == "Generate" then
 						nextEvent:Fire()
+						script.Parent.Visible = false
+					elseif v.Name == "Solo" then
+						finEvent:Fire()
 						script.Parent.Visible = false
 					end
 				end)
