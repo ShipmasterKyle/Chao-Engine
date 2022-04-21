@@ -1,4 +1,5 @@
 local Datastore = game:GetService("DataStoreService")
+--TODO: Load the main game datastore here
 local saveData = Datastore:GetDataStore("Sonic Earth Chao Garden Alpha")
 --Instead of generating a new folder every time with the old Main script simply generate a new folder only if we need to.
 local module = require(game.ReplicatedStorage.PublicDependancies.ChaoModule)
@@ -6,7 +7,7 @@ local module = require(game.ReplicatedStorage.PublicDependancies.ChaoModule)
 game.Players.PlayerAdded:Connect(function(player)
 	workspace.currentGarden.Value = "Lobby"
 	if player and module then
-		--Create a chaoData folder
+		--Create a chaoData folder TODO: Change the name of this so something like chaoData so it doesn't conflict with the main game saves
 		local main = Instance.new("Folder")
 		main.Name = "Leaderstats"
 		main.Parent = player
@@ -42,6 +43,8 @@ function createSaveTable(player)
 	end
 	return saveTable
 end
+
+--TODO: Create a callback to save the player's money on purchases
 
 game.Players.PlayerRemoving:Connect(function(player)
 	local data = createSaveTable(player)
