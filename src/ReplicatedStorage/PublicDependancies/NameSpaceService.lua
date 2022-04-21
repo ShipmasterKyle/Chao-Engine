@@ -102,6 +102,7 @@ end
 
 function module:FinalizeName(name,chao,player)
 	player.Leaderstats[chao.Name].ChaoName = name
+	player.Leaderstats[chao.Name].Name = name --To prevent save conflicts
 	chao.Name = name 
 end
 
