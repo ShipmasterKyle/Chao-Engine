@@ -1,5 +1,6 @@
 local UIService = require(game.ReplicatedStorage.PublicDependancies.UIService)
 local MarketService = require(game.ReplicatedStorage.PublicDependancies.MarketService)
+local ClassroomService = require(game.ReplicatedStorage.PublicDependancies.Classroom)
 
 local ui = script.Parent.ScreenGui.Frame.GardenLogo
 local garden = workspace.currentGarden
@@ -54,6 +55,15 @@ workspace.kinder.FortuneTeller.Touched:Connect(function()
 		script.Parent.StartFortune:Fire()
 		local chao = chaoExistence.Parent
 	end
+end)
+
+workspace.kinder.FortuneTeller.Touched:Connect(function()
+	local chao
+	local chaoExistence = plr.Character:FindFirstChild("Held", true)
+	if chaoExistence then
+		local chao = chaoExistence.Parent
+	end
+	script.Parent.StartClassroom:Fire(ClassroomService:GetCurrentLesson(),chao)
 end)
 
 game.ReplicatedStorage.Remotes.BulletinBoard.OnClientEvent:Connect(function()
