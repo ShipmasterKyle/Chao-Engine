@@ -100,4 +100,9 @@ function module:ModerateName(name,player)
 	return TS:FilterStringAsync(name,player.UserId)
 end
 
+function module:FinalizeName(name,chao,player)
+	player.Leaderstats[chao.Name].ChaoName = name
+	chao.Name = name 
+end
+
 return module
