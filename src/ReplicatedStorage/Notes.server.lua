@@ -6,7 +6,7 @@
         is used to determined your levels
                 
         [NOTE: XP uses a simple math equation to determin your level.
-        Its just Level = XP/100. So if you had 5400 your level would be 54.]
+        Its just Level = math.floor(XP/100). So if you had 5450 XP your level would be 54.]
 
         XP Is recieved from Chaos Drives, Chao Fruits, Animals and Wisps.
         How much XP you get from these items determined by your rank.
