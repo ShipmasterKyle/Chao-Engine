@@ -9,7 +9,8 @@ local hum = script.Parent.Humanoid
 --Get the runtime.
 local RS = game:GetService("RunService")
 --ChaoState
-local ChaoState = "none"
+local ChaoState = script.Parent:GetAttribute("ChaoState")
+ChaoState = "Idle"
 
 --Runs on every frame.
 RS.Heartbeat:Connect(function()
@@ -18,6 +19,29 @@ RS.Heartbeat:Connect(function()
 	local anim = Instance.new("Animation")
 	--Define the hum's State
 	local humState = hum:GetState()
+	--All states will eventually return to the thinking state.
+
+
+end)
+
+--Create a couroutine that runs while the main function runs
+local stateChanged = coroutine.create(function()
+	if ChaoState == "Idle" then
+
+	end
+end)
+
+--Change the chao's state to swimming if they're touching a part named "Water"
+script.Parent.Touched:Connect(function(hit)
+	if hit.Name == "Water" then
+		ChaoState = "Swimming"
+	else
+		ChaoState = "none"
+	end
+end)
+
+
+--[[
 	--Check the humState
 	if humState == Enum.HumanoidStateType.Running then
 		if ChaoState == "Swimming" then
@@ -65,13 +89,4 @@ RS.Heartbeat:Connect(function()
 			anim:Play()
 		end
 	end
-end)
-
---Change the chao's state to swimming if they're touching a part named "Water"
-script.Parent.Touched:Connect(function(hit)
-	if hit.Name == "Water" then
-		ChaoState = "Swimming"
-	else
-		ChaoState = "none"
-	end
-end)
+]]
