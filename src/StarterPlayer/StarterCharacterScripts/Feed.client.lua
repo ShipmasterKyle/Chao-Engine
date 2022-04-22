@@ -12,7 +12,7 @@ local wait = task.wait
 --run the function forever without crashing.
 while wait() do
 	for i,v in pairs(workspace:GetChildren()) do
-		local myClass = classService:GetItemsClass(v.ChaoClass)
+		local myClass = classService:GetItemsClass(v.Name)
 		if myClass == "Drive" then
 			if debound == false then
 				debound = true
@@ -47,7 +47,7 @@ while wait() do
 				debound = false
 			end
 		end
-		if myClass == "Fruit" then
+		if myClass == "Food" then
 			if debound == false then
 				debound = true
 				if v.Name == "SkillsFruit" then
