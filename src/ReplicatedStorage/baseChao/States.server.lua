@@ -222,20 +222,20 @@ local stateChanged = coroutine.create(function()
 			chao:SetAttribute("ChaoState","Sleeping")
 		else
 			--Randomize next pos
-			local nextDest = math.random(Vector3.new(chao.HumanoidRootPart.Position.X+math.random(-100,100),chao.HumanoidRootPart.Position.Y,Vector3.new(chao.HumanoidRootPart.Position.Z+math.random(-100,100)))
+			local nextDest = Vector3.new(chao.HumanoidRootPart.Position.X+math.random(-100,100),chao.HumanoidRootPart.Position.Y,chao.HumanoidRootPart.Position.Z+math.random(-100,100))
 			chao:SetAttribute("ChaoState","Running")
 			coroutine.resume(startMovement,plr.Character.HumanoidRootPart.Position)
 		end
 	end
 	if ChaoState == "Held" then
-		repeat wait() until script.Parent.Held.Value = false
+		repeat wait() until script.Parent.Held.Value == false
 	end
 end)
 
 
 --Change the chao's state to swimming if they're touching a part named "Water"
 script.Parent.Touched:Connect(function(hit)
-	if hit.Name == "Water" and script.Parent.Held.Value = false then
+	if hit.Name == "Water" and script.Parent.Held.Value == false then
 		ChaoState = "Swimming"
 	end
 end)
