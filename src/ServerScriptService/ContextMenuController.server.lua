@@ -1,6 +1,7 @@
 local PromptService = game:GetService("ProximityPromptService")
 local UIService = require(game.ReplicatedStorage.PublicDependancies.UIService)
 local chaoModule = require(game.ReplicatedStorage.PublicDependancies.ChaoModule)
+local VisualService = require(game.ReplicatedStorage.PublicDependancies.VisualService)
 
 PromptService.PromptTriggered:Connect(function(prompt, player)
 	if prompt and player then
@@ -10,6 +11,8 @@ PromptService.PromptTriggered:Connect(function(prompt, player)
 			chao.Held.Value = true
 			--Play petting anim and sound
 			wait(1)
+			chaoModule.changeData("Color",VisualService:returnColor(chao),player.ChaoData)
+			chaoModule.changeData("isTwoTone",VisualService:returnTone(chao),player.ChaoData)
 			chaoModule.changeData("Happiness",1,player.ChaoData)
 			chaoModule.changeData("AbilityDirection",0.33,player.ChaoData)
 			chao.Held.Value = false
