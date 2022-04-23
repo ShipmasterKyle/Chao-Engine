@@ -57,6 +57,7 @@ workspace.kinder.FortuneTeller.Touched:Connect(function()
 	end
 end)
 
+--Will be added later
 workspace.kinder.Classroom.Touched:Connect(function()
 	local chao
 	local chaoExistence = plr.Character:FindFirstChild("Held", true)
