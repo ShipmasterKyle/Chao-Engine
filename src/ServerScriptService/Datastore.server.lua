@@ -1,4 +1,4 @@
---TODO: Improve this
+--[[
 local module = require(game.ReplicatedStorage.PublicDependancies.ChaoModule)-->Datastore uses folder from ChaoModule
 local Datastore = game:GetService("DataStoreService")
 local saveData = Datastore:GetDataStore("Sonic Earth Chao Garden")
@@ -63,4 +63,4 @@ end)
 --		warn("An Error Occured while saving save data to server")
 --		warn(errormessage)
 --	end
---end)
+--end)]]
