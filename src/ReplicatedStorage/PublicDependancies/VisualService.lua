@@ -495,8 +495,8 @@ end
 
 --Save colors to chaoData
 function service:SaveColors(chao,plr)
-	plr.Leaderstats[chao.Name].Color = service:returnColor(chao)
-	plr.Leaderstats[chao.Name].isTwoTone = service:returnTone(chao)
+	plr.Leaderstats[chao.Name].ChaoColor.Value = service:returnColor(chao)
+	plr.Leaderstats[chao.Name].isTwoTone.Value = service:returnTone(chao)
 end
 
 return service
