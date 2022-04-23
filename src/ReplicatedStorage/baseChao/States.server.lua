@@ -180,7 +180,6 @@ local startMovement = coroutine.create(function(pos)
 				break
 			end
 		end
-		pathinprogress = false
 	else
 		warn("Unable to compute path. "..tostring(failed))
 	end

@@ -11,7 +11,7 @@ PromptService.PromptTriggered:Connect(function(prompt, player)
 			chao.Held.Value = true
 			--Play petting anim and sound
 			wait(1)
-			chaoModule.changeData("Color",VisualService:returnColor(chao),player.ChaoData)
+			chaoModule.changeData("ChaoColor",VisualService:returnColor(chao),player.ChaoData)
 			chaoModule.changeData("isTwoTone",VisualService:returnTone(chao),player.ChaoData)
 			chaoModule.changeData("Happiness",1,player.ChaoData)
 			chaoModule.changeData("AbilityDirection",0.33,player.ChaoData)

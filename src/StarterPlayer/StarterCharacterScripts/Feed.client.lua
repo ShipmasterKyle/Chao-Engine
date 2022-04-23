@@ -50,10 +50,16 @@ while wait() do
 		if myClass == "Food" then
 			if debound == false then
 				debound = true
-				if v.Name == "SkillsFruit" then
+				if v.Name == "Garden Fruit" then
 					v.Touched:Connect(function(hit)
 						if hit.Parent:FindFirstChild("Held") then
-							remote:FireServer("Skill",math.random(3,10),v.Name,"Fruit",v)
+							remote:FireServer("Stamina",math.random(3,10),v.Name,"Fruit",v)
+						end
+					end)
+				elseif v.Name == "Square Fruit" then
+					v.Touched:Connect(function(hit)
+						if hit.Parent:FindFirstChild("Held") then
+							remote:FireServer("Stamina",math.random(3,10),v.Name,"Fruit",v)
 						end
 					end)
 				end
