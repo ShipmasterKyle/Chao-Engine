@@ -493,4 +493,10 @@ function service:ShineChao(chao,color,class)
 	end
 end
 
+--Save colors to chaoData
+function service:SaveColors(chao,plr)
+	plr.Leaderstats[chao.Name].Color = service:returnColor(chao)
+	plr.Leaderstats[chao.Name].isTwoTone = service:returnTone(chao)
+end
+
 return service
