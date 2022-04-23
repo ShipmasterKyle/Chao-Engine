@@ -74,7 +74,7 @@ function service:GetItemsClass(item)
 		class = "Animals"
 	elseif service.GetArrayItem(items.Animals.Wisps,item) then
 		class = "Wisps"
-	elseif service.GetArrayItem(items.Animals.ChaoDrive,item) then
+	elseif service.GetArrayItem(items.Animals.ChaoDrives,item) then
 		class = "Drive"
 	elseif service.GetArrayItem(items.Toys) then
 		class = "Toys"
