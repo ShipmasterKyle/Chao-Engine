@@ -1,6 +1,6 @@
-local ourEvent = game.Players.LocalPlayer.PlayerGui.ShowMainOptions
-local nextEvent = game.Players.LocalPlayer.PlayerGui.GenerateName
-local finEvent = game.Players.LocalPlayer.PlayerGui.MakeAName
+local ourEvent = game.Players.LocalPlayer.PlayerGui:WaitForChild("ShowMainOptions")
+local nextEvent = game.Players.LocalPlayer.PlayerGui:WaitForChild("GenerateName")
+local finEvent = game.Players.LocalPlayer.PlayerGui:WaitForChild("MakeAName")
 
 ourEvent.Event:Connect(function()
 	script.Parent.Visible = true

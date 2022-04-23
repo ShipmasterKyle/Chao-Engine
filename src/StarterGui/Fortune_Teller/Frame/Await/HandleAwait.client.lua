@@ -1,5 +1,5 @@
-local awaitEvent = game.Players.LocalPlayer.PlayerGui.AwaitApproval
-local nextEvent = game.Players.LocalPlayer.PlayerGui.ApprovalSent
+local awaitEvent = game.Players.LocalPlayer.PlayerGui:WaitForChild("AwaitApproval")
+local nextEvent = game.Players.LocalPlayer.PlayerGui:WaitForChild("ApprovalSent")
 
 --Connect to the request. We'll need to recieve the quest here since we're gonna send it back
 awaitEvent.Event:Connect(function(req,quest)

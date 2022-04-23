@@ -19,7 +19,7 @@ game.Players.PlayerAdded:Connect(function(player)
 						chaoModule:Rebirth(player.Leaderstats[chaoData],script.Parent,player)
 					else
 						--White cocoon (death)
-						chaoModule:RemoveChao(player.Leaderstats[chaoData],script.Parent,player)
+						game.ReplicatedStorage.Remotes.RemoveChao:Fire(player.Leaderstats[chaoData],script.Parent,player)
 					end
 				end
 			end

@@ -7,12 +7,12 @@
 local NameSpace = require(game.ReplicatedStorage.PublicDependancies.NameSpaceService)
 
 --Bindables
-local ourEvent = game.Players.LocalPlayer.PlayerGui.StartFortune
-local theirEvent = game.Players.LocalPlayer.PlayerGui.ShowMainOptions
-local nextEvent = game.Players.LocalPlayer.PlayerGui.GenerateName
-local awaitReq = game.Players.LocalPlayer.PlayerGui.AwaitApproval
-local awaitRes = game.Players.LocalPlayer.PlayerGui.ApprovalSent
-local reName = game.Players.LocalPlayer.PlayerGui.MakeName
+local ourEvent = game.Players.LocalPlayer.PlayerGui:WaitForChild("StartFortune")
+local theirEvent = game.Players.LocalPlayer.PlayerGui:WaitForChild("ShowMainOptions")
+local nextEvent = game.Players.LocalPlayer.PlayerGui:WaitForChild("GenerateName")
+local awaitReq = game.Players.LocalPlayer.PlayerGui:WaitForChild("AwaitApproval")
+local awaitRes = game.Players.LocalPlayer.PlayerGui:WaitForChild("ApprovalSent")
+local reName = game.Players.LocalPlayer.PlayerGui:WaitForChild("MakeName")
 
 --A simple boolean to track when write is running
 local isTyping = false

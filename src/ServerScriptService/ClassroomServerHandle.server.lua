@@ -2,7 +2,7 @@ local classroomService = require(game.ReplicatedStorage.PublicDependancies.Class
 local ms = require(game.ReplicatedStorage.PublicDependancies.MarketService)
 local logTime
 
-game.Players.PlayersAdded:Connect(function(player)
+game.Players.PlayerAdded:Connect(function(player)
 	if player then
 		ms:Initialize(player)
 		local lastLogTime = player.Leaderstats.lastLogTime

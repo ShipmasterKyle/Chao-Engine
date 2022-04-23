@@ -70,11 +70,11 @@ function service:GetItemsClass(item)
 		class = "Chao"
 	elseif service.GetArrayItem(items.Food,item) then
 		class = "Food"
-	elseif service.GetArrayItem(items.Animal.Animals,item) then
+	elseif service.GetArrayItem(items.Animals.Animals,item) then
 		class = "Animals"
-	elseif service.GetArrayItem(items.Animal.Wisps,item) then
+	elseif service.GetArrayItem(items.Animals.Wisps,item) then
 		class = "Wisps"
-	elseif service.GetArrayItem(items.Animal.ChaoDrive,item) then
+	elseif service.GetArrayItem(items.Animals.ChaoDrive,item) then
 		class = "Drive"
 	elseif service.GetArrayItem(items.Toys) then
 		class = "Toys"
