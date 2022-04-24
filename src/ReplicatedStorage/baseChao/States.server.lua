@@ -193,7 +193,7 @@ local stateChanged = coroutine.create(function()
 	end
 	if ChaoState == "Thinking" then
 		wait(2)
-		if plr.Leaderstats[chao.Name].Hunger.Value <= 50 then
+		if plr.Leaderstats[chao.Name].Hunger.Value <= 30 then
 			--Loop through the player and see if they're holding food.
 			for i,v in pairs(plr.Character:GetDecendants()) do
 				if ClassService:GetItemsClass(v.Name) == "Food" then
