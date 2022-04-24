@@ -48,8 +48,8 @@ PromptService.PromptTriggered:Connect(function(prompt, player)
 					chao.Weld:Destroy()
 					chao.Parent = workspace
 					chao.Velocity = chao.CFrame:VectorToWorldSpace(Vector3.new(0, 0, -300))
-					chaoModule.changeData("Happiness",-1,player.ChaoData)
-					chaoModule.changeData("AbilityDirection",-0.03,player.ChaoData)
+					chaoModule.changeData("Happiness",-1,player.Leaderstats[chao.Name])
+					chaoModule.changeData("AbilityDirection",-0.03,player.Leaderstats[chao.Name])
 					if chao.Name == "Egg" then
 						chaoModule.newChao()
 						chaoModule.Hatch(chao)
