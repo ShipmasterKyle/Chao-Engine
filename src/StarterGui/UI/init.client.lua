@@ -58,14 +58,14 @@ workspace.kinder.FortuneTeller.Touched:Connect(function()
 end)
 
 --Will be added later
-workspace.kinder.Classroom.Touched:Connect(function()
-	local chao
-	local chaoExistence = plr.Character:FindFirstChild("Held", true)
-	if chaoExistence then
-		local chao = chaoExistence.Parent
-	end
-	script.Parent.StartClassroom:Fire(ClassroomService:GetCurrentLesson(),chao)
-end)
+--workspace.kinder.Classroom.Touched:Connect(function()
+--	local chao
+--	local chaoExistence = plr.Character:FindFirstChild("Held", true)
+--	if chaoExistence then
+--		local chao = chaoExistence.Parent
+--	end
+--	script.Parent.StartClassroom:Fire(ClassroomService:GetCurrentLesson(),chao)
+--end)
 
 game.ReplicatedStorage.Remotes.BulletinBoard.OnClientEvent:Connect(function()
 	script.Parent.Bulletin.Board.Visible = true
@@ -75,4 +75,5 @@ game.ReplicatedStorage.Remotes.Market.OnClientEvent:Connect(function()
 	local ourplate = script.Template
 	local ourFram = script.Parent.Market.ImageLabel.ScrollingFrame
 	MarketService:LoadMarket(ourFram,ourplate)
+	script.Parent.Market.ImageLabel.Visible = true
 end)
