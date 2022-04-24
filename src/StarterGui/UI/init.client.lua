@@ -1,6 +1,6 @@
 local UIService = require(game.ReplicatedStorage.PublicDependancies.UIService)
 local MarketService = require(game.ReplicatedStorage.PublicDependancies.MarketService)
-local ClassroomService = require(game.ReplicatedStorage.PublicDependancies.Classroom)\
+local ClassroomService = require(game.ReplicatedStorage.PublicDependancies.Classroom)
 local CamService = require(game.ReplicatedStorage.PublicDependancies.CamService)
 
 local ui = script.Parent.ScreenGui.Frame.GardenLogo

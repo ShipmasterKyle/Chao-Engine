@@ -14,7 +14,7 @@ chao:SetAttribute("ChaoState","Idle")
 --define an empty player value
 local plr
 --Get ClassService so we can identify objects
-ClassService = require(game.ReplicatedStorage.PublicDendancies.ClassService)
+ClassService = require(game.ReplicatedStorage.PublicDependancies.ClassService)
 --Get PathFindingService so we can make chao walk
 local PFS = game:GetService("PathfindingService")
 local path = PFS:CreatePath()
