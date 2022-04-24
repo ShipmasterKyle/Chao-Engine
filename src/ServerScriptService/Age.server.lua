@@ -10,6 +10,7 @@ game.Players.PlayerAdded:Connect(function(player)
 		if player.Leaderstats:FindFirstChild(chaoData) then
 			if not workspace.currentGarden.Value == "Lobby" and player.Leaderstats[chaoData].canAge == true then
 				player.Leaderstats[chaoData].Age.Value += 0.00055
+				player.Leaderstats[chaoData].Hunger.Value -= 0.001
 				if player.Leaderstats[chaoData].Age.Value >= 1 and script.Parent.Held == false and player.Leaderstats[chaoData].Ability == "Child" then
 					-- chaoModule
 					chaoModule:Evo(player.Leaderstats[chaoData],script.Parent,player)
