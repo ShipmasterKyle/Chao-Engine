@@ -1,6 +1,7 @@
 local UIService = require(game.ReplicatedStorage.PublicDependancies.UIService)
 local MarketService = require(game.ReplicatedStorage.PublicDependancies.MarketService)
-local ClassroomService = require(game.ReplicatedStorage.PublicDependancies.Classroom)
+local ClassroomService = require(game.ReplicatedStorage.PublicDependancies.Classroom)\
+local CamService = require(game.ReplicatedStorage.PublicDependancies.CamService)
 
 local ui = script.Parent.ScreenGui.Frame.GardenLogo
 local garden = workspace.currentGarden
@@ -54,6 +55,7 @@ workspace.kinder.FortuneTeller.Touched:Connect(function()
 		script.Parent.Fortune_Teller.Frame.Visible = true
 		script.Parent.StartFortune:Fire()
 		local chao = chaoExistence.Parent
+		CamService:NewCamPos(workspace.fortune.CamObj.Position,workspace.fortune.MainChair.Position)
 	end
 end)
 

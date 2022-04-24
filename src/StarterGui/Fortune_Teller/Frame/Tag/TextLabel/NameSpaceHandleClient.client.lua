@@ -5,6 +5,7 @@
 
 --Dependancies
 local NameSpace = require(game.ReplicatedStorage.PublicDependancies.NameSpaceService)
+local Cam = require(game.ReplicatedStorage.PublicDependancies.CamService)
 
 --Bindables
 local ourEvent = game.Players.LocalPlayer.PlayerGui:WaitForChild("StartFortune")
@@ -13,6 +14,7 @@ local nextEvent = game.Players.LocalPlayer.PlayerGui:WaitForChild("GenerateName"
 local awaitReq = game.Players.LocalPlayer.PlayerGui:WaitForChild("AwaitApproval")
 local awaitRes = game.Players.LocalPlayer.PlayerGui:WaitForChild("ApprovalSent")
 local reName = game.Players.LocalPlayer.PlayerGui:WaitForChild("MakeName")
+local event = game.ReplicatedStorage.Remotes.FinishName
 
 --A simple boolean to track when write is running
 local isTyping = false
@@ -122,4 +124,10 @@ awaitRes.Event:Connect(function(req,res,quest)
 			awaitReq:Fire("ChaoName",newName)
 		end
 	end
+end)
+
+event.OnClientEvent:Connect(function(name)
+	write(name.." is a wonderful name. Come again soon!")
+	repeat wait(0.03) until isTyping == false
+	Cam:StopCam()
 end)

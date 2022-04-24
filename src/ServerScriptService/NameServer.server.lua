@@ -4,5 +4,6 @@ local namespace = require(game.ReplicatedStorage.PublicDependancies.NameSpaceSer
 --Just pickup the event since we're already
 event.OnServerEvent:Connect(function(name,chao,player)
     print("Request Caught")
-     namespace:FinalizeName(name,chao,player)
+	namespace:FinalizeName(name,chao,player)
+	event:FireClient(name)
 end)
