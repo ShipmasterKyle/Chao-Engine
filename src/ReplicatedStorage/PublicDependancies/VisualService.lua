@@ -77,6 +77,16 @@ local monoColors = {
 }
 
 local twotoneColor = {
+	Defualt = {
+		Name = "Defualt",
+		Head = "rbxassetid://9390350739",
+		LeftArm = "rbxassetid://9388510824",
+		RightArm = "rbxassetid://9388510824",
+		Body = "rbxassetid://9388504001",
+		LLeg = "rbxassetid://9388510824",
+		RLeg = "rbxassetid://9388510824",
+		Tail = "rbxassetid://9389959325"
+	},
 	White = {
 		Name = "White",
 		Head = "",
