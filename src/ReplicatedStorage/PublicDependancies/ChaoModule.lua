@@ -31,11 +31,11 @@ local personalityTable = {
 
 --Instead of randomizing spawns
 local vectorTable = {
-	Vector3.new(0.86, 150.5, 273.456),
-	Vector3.new(0.86, 150.5, 247.518),
-	Vector3.new(-31.647, 151.097, 247.518),
-	Vector3.new(136.088, 162.341, 242.173),
-	Vector3.new(17.355, 150.565, 310.497)
+	Vector3.new(0.86, 155.5, 273.456),
+	Vector3.new(0.86, 155.5, 247.518),
+	Vector3.new(-31.647, 156.097, 247.518),
+	Vector3.new(136.088, 167.341, 242.173),
+	Vector3.new(17.355, 155.565, 310.497)
 }
 
 --Table that handles traits
