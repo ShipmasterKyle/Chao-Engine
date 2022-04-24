@@ -29,6 +29,15 @@ local personalityTable = {
 	"Naive"
 }
 
+--Instead of randomizing spawns
+local vectorTable = {
+	Vector3.new(0.86, 150.5, 273.456),
+	Vector3.new(0.86, 150.5, 247.518),
+	Vector3.new(-31.647, 151.097, 247.518),
+	Vector3.new(136.088, 162.341, 242.173),
+	Vector3.new(17.355, 150.565, 310.497)
+}
+
 --Table that handles traits
 --Contains the headTexture as Id
 local traitLoadout = {
@@ -309,10 +318,11 @@ function module.newChao()
 	folder.PowerRank.Value = statTable[4]
 	folder.StaminaRank.Value = statTable[5]
 	folder.Age.Value = 0
-	folder.Class.Value = 0
 	folder.Attribute.Value = "Child"
 	folder.Condition.Value = "none"
 	folder.Happiness.Value = 50
+	folder.ChaoColor.Value = "Defualt"
+	folder.isTwoTone.Value = true
 	folder.Hunger.Value = 1
 	local trng = math.random(#personalityTable)
 	folder.Personality.Value = personalityTable[trng]
@@ -324,16 +334,21 @@ end
 
 --Spawn a chao
 function module.spawnChao(chao) --chaoData
+	print("Request Caught")
 	if chao.Hatched.Value == true then
 		--spawn a chao
+		print("Spawning Existing Chao")
 		local copy = repl.baseChao:Clone()
+		copy.Name = chao.Name
+		visualService:ColorChao(copy,chao.ChaoColor.Value,chao.isTwoTone.Value)
 		copy.Parent = workspace
-		copy.HumanoidRootPart.Position = Vector3.new(10,0,10) --TODO: Randomize this
+		copy.HumanoidRootPart.Position = vectorTable[math.random(#vectorTable)]
 	else
+		print("Spawning Chao Egg")
 		--spawn a chao egg
 		local copy = repl.Egg:Clone()
 		copy.Parent = workspace
-		copy.Position = Vector3.new(170.047, 171.708, 256.577) --TODO: Randomize this
+		copy.Position = vectorTable[math.random(#vectorTable)]
 	end
 end
 
