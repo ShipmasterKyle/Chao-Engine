@@ -50,7 +50,7 @@ PromptService.PromptTriggered:Connect(function(prompt, player)
 					chao.Velocity = chao.CFrame:VectorToWorldSpace(Vector3.new(0, 0, -300))
 					chaoModule.changeData("Happiness",-1,player.Leaderstats[chao.Name])
 					chaoModule.changeData("AbilityDirection",-0.03,player.Leaderstats[chao.Name])
-					if chao.Name == "Egg" then
+					if not chao:GetAttribute("ChaoState") then
 						chaoModule.newChao()
 						chaoModule.Hatch(chao)
 					end

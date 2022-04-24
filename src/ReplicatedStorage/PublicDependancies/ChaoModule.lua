@@ -347,6 +347,7 @@ function module.spawnChao(chao) --chaoData
 		print("Spawning Chao Egg")
 		--spawn a chao egg
 		local copy = repl.Egg:Clone()
+		copy.Name = chao.Name
 		copy.Parent = workspace
 		copy.Position = vectorTable[math.random(#vectorTable)]
 	end
