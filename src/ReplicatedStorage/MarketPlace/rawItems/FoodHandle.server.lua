@@ -22,9 +22,32 @@ eve.OnServerEvent:Connect(function(stat,value,chaoData,objClass,obj)
                         chaoModule.changeData("Energy",-3,chaoData)
                         chaoModule.changeData("Happiness",2,chaoData)
                     end
-                wait(1)
+                --Make eating speed depenant on hunger
+                if chaoData.Hunger.Value <= 10 then
+                    wait(0.1)
+                elseif chaoData.Hunger.Value <= 20 then
+                    wait(0.15)
+                elseif chaoData.Hunger.Value <= 30 then
+                    wait(0.2)
+                elseif chaoData.Hunger.Value <= 40 then
+                    wait(0.4)
+                elseif chaoData.Hunger.Value <= 50 then
+                    wait(0.6)
+                elseif chaoData.Hunger.Value <= 60 then
+                    wait(0.75)
+                elseif chaoData.Hunger.Value <= 70 then
+                    wait(0.8)
+                elseif chaoData.Hunger.Value <= 80 then
+                    wait(1)
+                elseif chaoData.Hunger.Value <= 90 then
+                    wait(1.5)
+                elseif chaoData.Hunger.Value <= 100 then
+                    wait(2)     
+                end
                 if obj.Size = Vector3.new(1,2,1) then
                     obj:Destroy()
+                    --Change state to sitting so that the chao 
+                    obj.Parent:SetAttribute("ChaoState","Sitting")
                 end
             end
         end
