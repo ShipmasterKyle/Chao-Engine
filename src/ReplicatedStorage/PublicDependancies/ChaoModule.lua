@@ -384,7 +384,7 @@ function module.Hatch(Egg,baseChao)
 			wait(3)
 			local copy = repl.baseChao:Clone()
 			copy.Parent = workspace
-			copy.HumanoidRootPart.Position = goalPos
+			copy:MoveTo(goalPos)
 		end
 	else
 		warn("No Egg to Hatch!")
