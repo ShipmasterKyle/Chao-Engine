@@ -5,7 +5,7 @@ local logTime
 game.Players.PlayerAdded:Connect(function(player)
 	if player then
 		ms:Initialize(player)
-		local lastLogTime = player.Leaderstats.lastLogTime
+		local lastLogTime = player:WaitForChild("Leaderstats").lastLogTime
 		logTime = lastLogTime
 		if os.time() >= lastLogTime.Value + 14400 then
 			classroomService:ChangeClass()
