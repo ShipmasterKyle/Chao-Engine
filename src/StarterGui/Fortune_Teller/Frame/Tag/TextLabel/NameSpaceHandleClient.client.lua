@@ -65,7 +65,7 @@ local loadingMessages = {
 
 --Connect to the event that runs when players walk into the fortune telling house
 ourEvent.Event:Connect(function()
-	write("Welcome to the fortune telling house. I can give your chao a good name.")
+	write("Welcome to the fortune telling house. You won't get ou fortune told here but I can give your chao a good name.")
 	wait(0.03)
 	repeat wait(0.03) until isTyping == false
 	write("Should I name your chao or will you?")
