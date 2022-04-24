@@ -101,26 +101,24 @@
         Food plays an important role in leveling your chao. While some stats change naturally most stats
         need food to got up.
 
-        Hunger
-            Hunger determines how hungry your chao is. It starts at 100 and goes down slowly. A value
-            less than 50 is considered a starving chao. Once this value is less than 30 a chao may run
-            up to players holding food while they're in the Thinking state.
-        Energy
-            Energy is how tired a chao is. This value starts at 100 and slowly goes down. A value <= 0
-            will cause the chao to fall asleep. As prevoiusly mention this state lasts about 15 minutes
-            [NOTE: Energy recharges by one 1 point every 9 seconds. There may be a gamepass for this later
-            that reduces recharge time.]
-        The last bite
-            The center of every fruit gives an additional 2 points to every state involved. This means
-            chao that eat the center of the fruit will gain two extra points in happiness and will be
-            less hungry but will also cost more energy. 
-        Eating speed
-            Eating speed is determined by how hungry the chao is. One bite can take anywhere between 0.1
-            seconds to 2 seconds.
-        Wisps and Animals
-            Chao can absorb abilities from the world around them. Thus Wisps and Animals can be very important
-            for grinding stats. Chao can absorb the hyper-go-on energy from wisps which boost certain stats
-            deppending on the wisps. Animals have oppertunity costs usually boosting one state alot at the 
-            cost of hurting another one.
-    
+        Hunger determines how hungry your chao is. It starts at 100 and goes down slowly. A value
+        less than 50 is considered a starving chao. Once this value is less than 30 a chao may run
+        up to players holding food while they're in the Thinking state.
+
+        [NOTE: Hunger decays at a rate of 0.001 per second. This means a fully feed chao will be
+        completely starved after 17 minutes or so.]
+        
+        Energy is how tired a chao is. This value starts at 100 and slowly goes down. A value <= 0
+        will cause the chao to fall asleep. As prevoiusly mention this state lasts about 15 minutes.
+
+        [NOTE: Energy recharges by one 1 point every 9 seconds. There may be a gamepass for this later
+        that reduces recharge time.]
+        
+        When Chao eat they age slightly faster making their eveolution take less time. The center of every fruit gives an additional 2 points to every state involved. This means
+        chao that eat the center of the fruit will gain two extra points in happiness and will be
+        less hungry but will also cost more energy. Eating speed is determined by how hungry the chao is. One bite can take anywhere between 0.1
+        seconds to 2 seconds. Chao can absorb abilities from the world around them. Thus Wisps and Animals can be very important
+        for grinding stats. Chao can absorb the hyper-go-on energy from wisps which boost certain stats
+        deppending on the wisps. Animals have oppertunity costs usually boosting one state alot at the 
+        cost of hurting another one.
 ]]
