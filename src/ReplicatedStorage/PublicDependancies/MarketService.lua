@@ -35,12 +35,14 @@ function service:LoadMarket(frame,template)
 	--loop through the marketplace and add all for sale items to the ui
 	if frame and template then
 		for i,v in pairs(market) do
-			local copy = template:Clone()
-			copy.Name = v.Name
-			copy.NameBox.Text = v.Name
-			copy.Desc.Value = v.desc
-			-- TODO: Use UI Service to make a viewport frame.
-			copy.Parent = frame
+			if v.forSale == true then
+				local copy = template:Clone()
+				copy.Name = v.Name
+				copy.NameBox.Text = v.Name
+				copy.Desc.Value = v.desc
+				-- TODO: Use UI Service to make a viewport frame.
+				copy.Parent = frame
+			end
 		end
 	else
 		return "Build Error."
