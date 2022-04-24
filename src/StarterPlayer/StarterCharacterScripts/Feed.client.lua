@@ -55,12 +55,14 @@ while wait() do
 				if v.Name == "Garden Fruit" then
 					v.Touched:Connect(function(hit)
 						if hit.Parent:FindFirstChild("Held") then
+							v.Parent = hit.Parent
 							remote:FireServer("Stamina",math.random(3,10),plr.Leaderstats[hit.Parent.Name],"Fruit",v)
 						end
 					end)
 				elseif v.Name == "Square Fruit" then
 					v.Touched:Connect(function(hit)
 						if hit.Parent:FindFirstChild("Held") then
+							v.Parent = hit.Parent
 							remote:FireServer("Stamina",math.random(3,10),plr.Leaderstats[hit.Parent.Name],"Fruit",v)
 						end
 					end)
