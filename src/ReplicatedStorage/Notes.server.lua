@@ -63,7 +63,7 @@
                         energy value <= 50. This state can be interupted by the Held state but
                         will decrease a Chao's Happiness. This state is the only state where
                         chao will naturally increase their states without any physical object.
-                        This state lasts about 15 - 20 minutes.
+                        This state lasts about 15 minutes.
                     Flying
                         A state where the chao is trying to fly. If they can actually fly then
                         their FreeFall decent will be slower. Followed by the running state
