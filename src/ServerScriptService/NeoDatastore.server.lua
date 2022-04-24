@@ -13,6 +13,7 @@ game.Players.PlayerAdded:Connect(function(player)
 		main.Parent = player
 		local lastlt = Instance.new("IntValue")
 		lastlt.Name = "lastLogTime"
+		lastlt.Parent = main
 		--Create the folder for the data
 		local folder = game.ReplicatedStorage.Folder:Clone()
 		--Don't change the name. We'll be naming it to the chao's name
@@ -25,16 +26,21 @@ game.Players.PlayerAdded:Connect(function(player)
 				v.Value = data[v]
 			end
 			folder.Name = data.ChaoName
+			module.spawnChao(folder)
 		else
 			print("Creating new data!")
-			module.newChao()
+			local folder = module.newChao()
 			print("SaveData Ready")
+			wait(1)
+			module.spawnChao(folder)
 		end
 	end
 end)
 
 function createSaveTable(player)
-	player.Leaderstats.lastLogTime.Value = os.time()
+	local clock = os.time()
+	player.Leaderstats.lastLogTime.Value = clock
+	print(player.Leaderstats.lastLogTime.Value)
 	local saveTable = {}
 	for i,v in pairs(player.Leaderstats:GetDescendants()) do
 		if not v:IsA("Folder") then
