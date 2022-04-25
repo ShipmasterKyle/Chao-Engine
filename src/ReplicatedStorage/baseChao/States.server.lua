@@ -22,6 +22,10 @@ local path = PFS:CreatePath()
 local isEating = false
 --A boolean to check if a chao is chasing food
 local isHunger = false
+--Current Anim
+local currentlyPlaying = nil
+--Create an Animation Object
+local anim = Instance.new("Animation")
 
 game.Players.PlayerAdded:Connect(function(player)
 	--set the empty player value to a valid player
@@ -29,100 +33,6 @@ game.Players.PlayerAdded:Connect(function(player)
 end)
 
 repeat wait() until script.Parent.Parent == workspace
-
---Runs on every frame.
-RS.Heartbeat:Connect(function()
-	local currentlyPlaying = nil
-	--Create an Animation Object
-	local anim = Instance.new("Animation")
-	--Define the hum's State
-	local humState = hum:GetState()
-	--All states will eventually return to the thinking state.
-	if ChaoState == "Thinking" then
-		if currentlyPlaying ~= "Thinking" then
-			currentlyPlaying =  "Thinking"
-			if anim.IsPlaying == true then
-				anim:Stop()
-			end
-			anim.Id = "rbxassetid://" --Make anim
-			hum.Animator:LoadAnimation(anim)
-			anim:Play()
-		end
-	elseif ChaoState == "Running" then
-		if currentlyPlaying ~= "Running" then
-			currentlyPlaying =  "Running"
-			if anim.IsPlaying == true then
-				anim:Stop()
-			end
-			if isHunger == true then
-				anim.Id = "rbxassetid://9420093988" 
-				hum.Animator:LoadAnimation(anim)
-				anim:Play()
-			else
-				if plr.Leaderstats[chao.Name].RunXP.Value >= 1500 then
-					anim.Id = "rbxassetid://9425958942" 
-					hum.Animator:LoadAnimation(anim)
-					anim:Play()
-				else
-					anim.Id = "rbxassetid://9438920009"
-					hum.Animator:LoadAnimation(anim)
-					anim:Play()
-				end
-			end
-		end
-	elseif ChaoState == "Sitting" or ChaoState == "Idle" or ChaoState == "Held" then
-		if ChaoState == "Sitting" then
-			if currentlyPlaying ~= "Sitting" then
-				currentlyPlaying =  "Sitting"
-				if anim.IsPlaying == true then
-					anim:Stop()
-				end
-				--TODO: Show different anims depending on chaos skill
-				anim.Id = "rbxassetid://" --Make anim
-				hum.Animator:LoadAnimation(anim)
-				anim:Play()
-			else
-				if currentlyPlaying ~= "Idle" then
-					currentlyPlaying =  "Idle"
-					if anim.IsPlaying == true then
-						anim:Stop()
-					end
-					--TODO: Show different anims depending on chaos skill
-					anim.Id = "rbxassetid://" --Make anim
-					hum.Animator:LoadAnimation(anim)
-					anim:Play()
-				end
-			end
-		end
-	elseif ChaoState == "Swimming" then
-		if currentlyPlaying ~= "Swimming" then
-			currentlyPlaying =  "Swimming"
-			if anim.IsPlaying == true then
-				anim:Stop()
-			end
-			--TODO: Show different anims depending on chaos skill
-			anim.Id = "rbxassetid://" --Make anim
-			hum.Animator:LoadAnimation(anim)
-			anim:Play()
-		end
-	elseif ChaoState == "Eating" then
-		if currentlyPlaying ~= "Eating" then
-			currentlyPlaying =  "Eating"
-			if anim.IsPlaying == true then
-				anim:Stop()
-			end
-			if plr.Leaderstats[chao.Name].Hunger.Value <= 50 then
-				anim.Id = "rbxassetid://9396895868"
-				hum.Animator:LoadAnimation(anim)
-				anim:Play()
-			else
-				anim.Id = "rbxassetid://9393483485"
-				hum.Animator:LoadAnimation(anim)
-				anim:Play()
-			end
-		end
-	end
-end)
 
 -- function followPath(object, goal)
 -- 	local waypoints
@@ -242,6 +152,97 @@ end)
 
 chao:GetAttributeChangedSignal("ReloadTime"):Connect(function()
 	coroutine.resume(stateChanged)
+end)
+
+coroutine.resume(stateChanged)
+
+print("Running")
+--Runs on every frame.
+RS.Heartbeat:Connect(function()
+	if ChaoState == "Thinking" then
+		if currentlyPlaying ~= "Thinking" then
+			currentlyPlaying =  "Thinking"
+			if anim.IsPlaying == true then
+				anim:Stop()
+			end
+			anim.Id = "rbxassetid://" --Make anim
+			hum.Animator:LoadAnimation(anim)
+			anim:Play()
+		end
+	elseif ChaoState == "Running" then
+		if currentlyPlaying ~= "Running" then
+			currentlyPlaying =  "Running"
+			if anim.IsPlaying == true then
+				anim:Stop()
+			end
+			if isHunger == true then
+				anim.Id = "rbxassetid://9420093988" 
+				hum.Animator:LoadAnimation(anim)
+				anim:Play()
+			else
+				if plr.Leaderstats[chao.Name].RunXP.Value >= 1500 then
+					anim.Id = "rbxassetid://9425958942" 
+					hum.Animator:LoadAnimation(anim)
+					anim:Play()
+				else
+					anim.Id = "rbxassetid://9438920009"
+					hum.Animator:LoadAnimation(anim)
+					anim:Play()
+				end
+			end
+		end
+	elseif ChaoState == "Sitting" or ChaoState == "Idle" or ChaoState == "Held" then
+		if ChaoState == "Sitting" then
+			if currentlyPlaying ~= "Sitting" then
+				currentlyPlaying =  "Sitting"
+				if anim.IsPlaying == true then
+					anim:Stop()
+				end
+				--TODO: Show different anims depending on chaos skill
+				anim.Id = "rbxassetid://" --Make anim
+				hum.Animator:LoadAnimation(anim)
+				anim:Play()
+			else
+				if currentlyPlaying ~= "Idle" then
+					currentlyPlaying =  "Idle"
+					if anim.IsPlaying == true then
+						anim:Stop()
+					end
+					--TODO: Show different anims depending on chaos skill
+					anim.Id = "rbxassetid://" --Make anim
+					hum.Animator:LoadAnimation(anim)
+					anim:Play()
+				end
+			end
+		end
+	elseif ChaoState == "Swimming" then
+		if currentlyPlaying ~= "Swimming" then
+			currentlyPlaying =  "Swimming"
+			if anim.IsPlaying == true then
+				anim:Stop()
+			end
+			--TODO: Show different anims depending on chaos skill
+			anim.Id = "rbxassetid://" --Make anim
+			hum.Animator:LoadAnimation(anim)
+			anim:Play()
+		end
+	elseif ChaoState == "Eating" then
+		if currentlyPlaying ~= "Eating" then
+			currentlyPlaying =  "Eating"
+			if anim.IsPlaying == true then
+				anim:Stop()
+			end
+			if plr.Leaderstats[chao.Name].Hunger.Value <= 50 then
+				anim.Id = "rbxassetid://9396895868"
+				hum.Animator:LoadAnimation(anim)
+				anim:Play()
+			else
+				anim.Id = "rbxassetid://9393483485"
+				hum.Animator:LoadAnimation(anim)
+				anim:Play()
+			end
+		end
+	end
 end)
 
 --For reference
