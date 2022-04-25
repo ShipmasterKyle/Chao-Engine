@@ -5,7 +5,7 @@
 
 --Collect the chao and the HumanoidObject
 local chao = script.Parent
-local hum = script.Parent.Humanoid
+local hum = script.Parent.ChaoController
 --Get the runtime.
 local RS = game:GetService("RunService")
 --ChaoState
@@ -161,7 +161,7 @@ local startMovement = coroutine.create(function(pos)
 	end
 	--Move for each waypoint
 	local waypoints
-	local hum = script.Parent.Humanoid
+	local hum = script.Parent.ChaoController
 	local success, failed = pcall(function()
 		path:ComputeAsync(script.Parent.HumanoidRootPart.Position, goal)
 	end)
