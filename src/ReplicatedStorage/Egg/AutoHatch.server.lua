@@ -8,6 +8,7 @@ local UIService = require(game.ReplicatedStorage.PublicDependancies.UIService)
 local chaoModule = require(game.ReplicatedStorage.PublicDependancies.ChaoModule)
 local wait = task.wait
 
+wait(3)
 --Runs every second
 while wait(1) do
 	if script.Parent.Held.Value == false then

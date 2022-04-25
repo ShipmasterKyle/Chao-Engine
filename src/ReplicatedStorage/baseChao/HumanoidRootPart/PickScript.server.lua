@@ -7,6 +7,7 @@ UIService:UpdateContextMenu(script.Parent.Pick,"Name","Pickup")
 UIService:GenerateContextMenu("Pet",script.Parent.PetAttachment,Enum.KeyCode.Q,Enum.KeyCode.ButtonY, "Pet Your Chao.")
 
 while wait(1) do
+	print("Running")
 	local pickupStatus = UIService:GetContextMenuProperty(script.Parent.Pickup,"Context")
 	if script.Parent.Held.Value == false then
 		if pickupStatus ~= "Pick" then

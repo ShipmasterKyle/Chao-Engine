@@ -11,7 +11,7 @@ game.Players.PlayerAdded:Connect(function(player)
 		local main = Instance.new("Folder")
 		main.Name = "Leaderstats"
 		main.Parent = player
-		local lastlt = Instance.new("IntValue")
+		local lastlt = Instance.new("StringValue")
 		lastlt.Name = "lastLogTime"
 		lastlt.Parent = main
 		--Create the folder for the data
