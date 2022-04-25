@@ -22,7 +22,7 @@ while wait() do
 			if v:IsA("Part") then
 				debound = true
 				v.Touched:Connect(function(hit)
-					if hit.Parent:FindFirstChild("Humanoid") then
+					if hit.Parent:FindFirstChild("Humanoid") and not hit.Parent:FindFirstChild("Held") then
 						local isReturn = v:GetAttribute("isReturn")
 						local doorName = v:GetAttribute("DoorName")
 						if doorName then
