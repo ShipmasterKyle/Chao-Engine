@@ -7,7 +7,7 @@ PromptService.PromptTriggered:Connect(function(prompt, player)
 	if prompt and player then
 		local promptStatus = UIService:GetContextMenuProperty(prompt,"Context")
 		if prompt.Name == "Pet" then
-			local chao = prompt.Parent
+			local chao = prompt.Parent.Parent
 			chao.Held.Value = true
 			--Play petting anim and sound
 			wait(1)
@@ -21,6 +21,7 @@ PromptService.PromptTriggered:Connect(function(prompt, player)
 			if promptStatus == "Pick" then
 				prompt.Parent.Held.Value = true
 				prompt.Parent.Parent = player.Character
+				print(prompt.Parent.Parent)
 				--Load Carry Animation
 				--Weld to the player
 				local humroot = player.Character:FindFirstChild("HumanoidRootPart")
