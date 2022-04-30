@@ -37,7 +37,7 @@ repeat wait() until script.Parent.Parent == workspace
 -- function followPath(object, goal)
 -- 	local waypoints
 -- 	local hum = object.Parent.Humanoid
-	
+
 -- end
 
 --Create a coroutine for sleeping chao
@@ -143,14 +143,14 @@ end)
 
 
 --Change the chao's state to swimming if they're touching a part named "Water"
-script.Parent.Touched:Connect(function(hit)
+chao.HumanoidRootPart.Touched:Connect(function(hit)
 	if hit.Name == "Water" and script.Parent.Held.Value == false then
 		ChaoState = "Swimming"
 	end
 end)
 
 
-chao:GetAttributeChangedSignal("ReloadTime"):Connect(function()
+chao:GetAttributeChangedSignal("ChaoState"):Connect(function()
 	coroutine.resume(stateChanged)
 end)
 
