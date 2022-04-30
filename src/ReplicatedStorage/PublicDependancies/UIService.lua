@@ -24,6 +24,7 @@ function module:GenerateContextMenu(context,obj,Input,cInput,objectText)
 		end
 		contextMenu.MaxActivationDistance = 15
 		contextMenu.Parent = obj
+		contextMenu.RequiresLineOfSight = false
 	else
 		warn("Missing Inputs")
 	end
