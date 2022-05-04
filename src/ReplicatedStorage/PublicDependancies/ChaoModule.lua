@@ -295,6 +295,10 @@ function module:CreateNew()
 	local chaoCount = Instance.new("IntValue")
 	chaoCount.Value = 0
 	chaoCount.Name = "ChaoCount"
+	local chaoNames = Instance.new("StringValue")
+	chaoNames.Name = "Chao1Name"
+	local chao2Names = Instance.new("StringValue")
+	chaoNames.Name = "Chao2Name"
 end
 
 --Create a chao
