@@ -101,8 +101,9 @@ function module:ModerateName(name,player)
 end
 
 function module:FinalizeName(name,chao,player)
-	player.Leaderstats[chao.Name].ChaoName = name
+	player.Leaderstats[chao.Name].ChaoName.Value = name
 	player.Leaderstats[chao.Name].Name = name --To prevent save conflicts
+	player.Leaderstats.Garden[chao:GetAttribute("ID").."Name"].Value = name --To prevent save conflicts
 	chao.Name = name 
 end
 
