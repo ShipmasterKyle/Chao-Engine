@@ -15,34 +15,81 @@ game.Players.PlayerAdded:Connect(function(player)
 		lastlt.Name = "lastLogTime"
 		lastlt.Parent = main
 		--Create the folder for the data
-		local folder = game.ReplicatedStorage.Folder:Clone()
-		--Don't change the name. We'll be naming it to the chao's name
+		local folder = game.ReplicatedStorage.GardenFolder:Clone()
 		folder.Parent = main
 		--load data
-		local data = saveData:GetAsync("User_"..player.UserId)
-
+		--[[
+			I've came up with an extremely intelligent idea for multiple chao support.
+			Basically we have several data groups
+			Garden
+				ID: "Garden_"player.UserID
+				Stores all the garden data and other global stats. Also stores how many chao are in the garden.
+			Chao1-8 (Currently only supporting up to 8 chao)
+				ID: "Chao(1-8)_"player.UserID
+				Chao Data. All Chao will have an ID stored as a String Value so for example if my user ID
+				is 3456384 and this was chao 3 ot would be "Chao3_3456384"
+			Daycare
+				ID "Daycare_"player.UserID
+				Stores one chao that you picked up from the daycare.
+		]]
+		--Load the garden data
+		local data = saveData:GetAsync("Garden_"..player.UserId)
+		
+		--Rewriting this. Now it'll load the garden data then the rest
 		if data then
 			for i,v in pairs(folder:GetChildren()) do
 				v.Value = data[v]
 			end
-			folder.Name = data.ChaoName
-			module.spawnChao(folder)
+			folder.Name = "Garden"
+			local chaoCount = folder.ChaoCount
+			--TODO: Optimize this
+			if chaoCount.Value >= 1 then
+				local data = saveData:GetAsync("Chao1_"..player.UserId)
+				local chaoFolder = game.ReplicatedStorage.Folder:Clone()
+				for i,v in pairs(chaoFolder:GetChildren()) do
+					v.Value = data[v]
+				end
+				chaoFolder.Name = data.ChaoName
+				chaoFolder.Parent = main
+				local chao1 = module.spawnChao(chaoFolder,true)
+				chao1:SetAttribute("ID","chao1")
+			end
+			if chaoCount.Value >= 2 then
+				local data = saveData:GetAsync("Chao2_"..player.UserId)
+				local chaoFolder = game.ReplicatedStorage.Folder:Clone()
+				for i,v in pairs(chaoFolder:GetChildren()) do
+					v.Value = data[v]
+				end
+				chaoFolder.Parent = main
+				chaoFolder.Name = data.ChaoName
+				local chao2 = module.spawnChao(chaoFolder,true)
+				chao2:SetAttribute("ID","chao2")
+			--Will add the rest later. For now lets use these for testing
+			end
 		else
 			print("Creating new data!")
-			local folder = module.newChao()
-			print("SaveData Ready")
+			--Initalize a brand new garden.
+			local folder = module:CreateNew()
 			wait(1)
-			module.spawnChao(folder)
+			local chao1data = module.newChao()
+			local chao1 = module.spawnChao(chao1data,true)
+			chao1:SetAttribute("ID","chao1")
+			folder.ChaoCount.Value += 1
+			local chao2data = module.newChao()
+			local chao2 = module.spawnChao(chao1data,true)
+			chao2:SetAttribute("ID","chao2")
+			folder.ChaoCount.Value += 1 --Should be two now
+			print("Two new chao!")
 		end
 	end
 end)
 
-function createSaveTable(player)
-	local clock = os.time()
-	player.Leaderstats.lastLogTime.Value = clock
-	print(player.Leaderstats.lastLogTime.Value)
+function createSaveTable(player,table)
+	-- local clock = os.time()
+	-- player.Leaderstats.lastLogTime.Value = clock
+	-- print(player.Leaderstats.lastLogTime.Value)
 	local saveTable = {}
-	for i,v in pairs(player.Leaderstats:GetDescendants()) do
+	for i,v in pairs(player.Leaderstats[table]) do
 		if not v:IsA("Folder") then
 			saveTable[v.Name] = v.Value
 		end
@@ -52,13 +99,14 @@ end
 
 --TODO: Create a callback to save the player's money on purchases
 
+--Rewrite this.
 game.Players.PlayerRemoving:Connect(function(player)
-	local data = createSaveTable(player)
+	local data = createSaveTable(player,"Garden")
 	local success, errormessage = pcall(function()
-		saveData:SetAsync("User_"..player.UserId, data)
+		saveData:SetAsync("Garden_"..player.UserId)
 	end)
 	if success then
-		print("Save Data Saved Sucessfully!")
+		print("Garden Data Saved Sucessfully!")
 	else
 		warn("An Error Occured while saving save data to server")
 		warn(errormessage)
