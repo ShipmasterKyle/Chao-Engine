@@ -114,11 +114,23 @@
         [NOTE: Energy recharges by one 1 point every 9 seconds. There may be a gamepass for this later
         that reduces recharge time.]
         
-        When Chao eat they age slightly faster making their eveolution take less time. The center of every fruit gives an additional 2 points to every state involved. This means
+        When Chao eat they age slightly faster making their evolution take less time. The center of every fruit gives an additional 2 points to every state involved. This means
         chao that eat the center of the fruit will gain two extra points in happiness and will be
         less hungry but will also cost more energy. Eating speed is determined by how hungry the chao is. One bite can take anywhere between 0.1
         seconds to 2 seconds. Chao can absorb abilities from the world around them. Thus Wisps and Animals can be very important
         for grinding stats. Chao can absorb the hyper-go-on energy from wisps which boost certain stats
         deppending on the wisps. Animals have oppertunity costs usually boosting one state alot at the 
         cost of hurting another one.
+    
+    Garden Variables
+        Garden variables exist specicially to control global data from one datastore. It exist
+        majorly to prevent saving issues and overlapping data from multiple chao.
+
+    Chao Types
+        All chao will be either Monotone (having one color) or two tone (having one color and
+        highlights in another color). They have different materials as well. Regular Chao are
+        made from smooth plastic and thus have a natural feel. Jewel Chao and Shiny Chao are
+        made from Glass although Jewel Chao have no really glass effect while Shiny chao have 
+        a transparency of 0.3. Bright Chao, which are not a glitch and are intentional are 
+        made from neon and give off a neon color.
 ]]
