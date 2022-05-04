@@ -53,6 +53,7 @@ game.Players.PlayerAdded:Connect(function(player)
 				chaoFolder.Parent = main
 				local chao1 = module.spawnChao(chaoFolder,true)
 				chao1:SetAttribute("ID","chao1")
+				folder.Chao1Name.Value = chaoFolder.Name
 			end
 			if chaoCount.Value >= 2 then
 				local data = saveData:GetAsync("Chao2_"..player.UserId)
@@ -64,6 +65,7 @@ game.Players.PlayerAdded:Connect(function(player)
 				chaoFolder.Name = data.ChaoName
 				local chao2 = module.spawnChao(chaoFolder,true)
 				chao2:SetAttribute("ID","chao2")
+				folder.Chao2Name.Value = chaoFolder.Name
 			--Will add the rest later. For now lets use these for testing
 			end
 		else
@@ -75,10 +77,12 @@ game.Players.PlayerAdded:Connect(function(player)
 			local chao1 = module.spawnChao(chao1data,true)
 			chao1:SetAttribute("ID","chao1")
 			folder.ChaoCount.Value += 1
+			folder.Chao2Name = chao1.Name
 			local chao2data = module.newChao()
 			local chao2 = module.spawnChao(chao1data,true)
 			chao2:SetAttribute("ID","chao2")
 			folder.ChaoCount.Value += 1 --Should be two now
+			folder.Chao2Name = chao2.Name
 			print("Two new chao!")
 		end
 	end
@@ -107,6 +111,26 @@ game.Players.PlayerRemoving:Connect(function(player)
 	end)
 	if success then
 		print("Garden Data Saved Sucessfully!")
+	else
+		warn("An Error Occured while saving save data to server")
+		warn(errormessage)
+	end
+	local data = createSaveTable(player,player.Leaderstats[player.Leaderstats.Garden.Chao1Name.Value])
+	local success, errormessage = pcall(function()
+		saveData:SetAsync("Chao1_"..player.UserId)
+	end)
+	if success then
+		print("Chao1 Data Saved Sucessfully!")
+	else
+		warn("An Error Occured while saving save data to server")
+		warn(errormessage)
+	end
+	local data = createSaveTable(player,player.Leaderstats[player.Leaderstats.Garden.Chao2Name.Value])
+	local success, errormessage = pcall(function()
+		saveData:SetAsync("Chao2_"..player.UserId)
+	end)
+	if success then
+		print("Chao2 Data Saved Sucessfully!")
 	else
 		warn("An Error Occured while saving save data to server")
 		warn(errormessage)
