@@ -286,6 +286,17 @@ function module.changeStat(stat,value,chaoData)
 	end
 end
 
+--Create a new garden
+function module:CreateNew()
+	--Conver this to a local folder later
+	local folder = Instance.new("Folder")
+	folder.Name = "Garden"
+	--Stat for chao count
+	local chaoCount = Instance.new("IntValue")
+	chaoCount.Value = 0
+	chaoCount.Name = "ChaoCount"
+end
+
 --Create a chao
 function module.newChao()
 	print("Ready!")
@@ -333,7 +344,7 @@ function module.newChao()
 end
 
 --Spawn a chao
-function module.spawnChao(chao) --chaoData
+function module.spawnChao(chao,returnValue) --chaoData
 	print("Request Caught")
 	if chao.Hatched.Value == true then
 		--spawn a chao
@@ -343,6 +354,9 @@ function module.spawnChao(chao) --chaoData
 		visualService:ColorChao(copy,chao.ChaoColor.Value,chao.isTwoTone.Value)
 		copy.Parent = workspace
 		copy.HumanoidRootPart.Position = vectorTable[math.random(#vectorTable)]
+		if returnValue == true then --Only return the chao if they ask for it
+			return copy
+		end
 	else
 		print("Spawning Chao Egg")
 		--spawn a chao egg
