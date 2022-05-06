@@ -13,7 +13,7 @@ eve.OnServerEvent:Connect(function(stat,value,chaoData,objClass,obj)
                     chaoModule.changeData("Energy",-3,chaoData)
                     chaoModule.changeData("Happiness",1,chaoData)
                     --Since Shadow isn't in the game, we'll just always change it to positive. So they'll need to buy lots of dark fruit or mean to get a dark chao
-                    chaoModule.changeData("AbilityDirection",0.33,chaoData)
+                    chaoModule.changeData("AbilityDirection",0.033,chaoData)
                     obj.Size -= Vector3.new(1,1,1)
                     if obj.Size = Vector3.new(1,2,1) then
                         chaoModule.changeStat(stat,value+2,chaoData)

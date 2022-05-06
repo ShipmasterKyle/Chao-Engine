@@ -14,7 +14,7 @@ PromptService.PromptTriggered:Connect(function(prompt, player)
 			chaoModule.changeData("ChaoColor",VisualService:returnColor(chao.Parent.Parent),player.Leaderstats[chao.Name])
 			chaoModule.changeData("isTwoTone",VisualService:returnTone(chao.Parent.Parent),player.Leaderstats[chao.Name])
 			chaoModule.changeData("Happiness",1,player.Leaderstats[chao.Name])
-			chaoModule.changeData("AbilityDirection",0.33,player.Leaderstats[chao.Name])
+			chaoModule.changeData("AbilityDirection",0.033,player.Leaderstats[chao.Name])
 			chao.Held.Value = false
 		end
 		if prompt.Name == "Pickup" then
@@ -50,7 +50,7 @@ PromptService.PromptTriggered:Connect(function(prompt, player)
 					chao.Parent = workspace
 					chao.Velocity = chao.CFrame:VectorToWorldSpace(Vector3.new(0, 0, -300))
 					chaoModule.changeData("Happiness",-1,player.Leaderstats[chao.Name])
-					chaoModule.changeData("AbilityDirection",-0.03,player.Leaderstats[chao.Name])
+					chaoModule.changeData("AbilityDirection",-0.033,player.Leaderstats[chao.Name])
 					if not chao:GetAttribute("ChaoState") then
 						chaoModule.newChao()
 						chaoModule.Hatch(chao)
