@@ -12,10 +12,10 @@ This is a code framework for the Chao Garden as seen in Sonic Adventure 2. The g
 - Stat Generation
 - Aging
 - Kindergarden
+- Multiple Chao
 
 ## Planned Features
 - Races
-- Multiple Chao
 - Colored Chao
 - Multiple Gardens
 - Toys
