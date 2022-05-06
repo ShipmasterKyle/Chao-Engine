@@ -488,6 +488,12 @@ function module:Rebirth(chaoData,chao,player)
 		chaoData.RunXP.Value = math.floor(chaoData.RunXP.Value*10/100)
 		chaoData.PowerXP.Value = math.floor(chaoData.PowerXP.Value*10/100)
 		chaoData.StaminaXP.Value = math.floor(chaoData.StaminaXP.Value*10/100)
+		--Reset Levels back to one
+		chaoData.FlyLevel.Value = 1
+		chaoData.SwimLevel.Value = 1
+		chaoData.RunLevel.Value = 1
+		chaoData.PowerLevel.Value = 1
+		chaoData.StaminaLevel.Value = 1
 		--Reset personaility
 		local prng = math.random(#personalityTable)
 		chaoData.Personality.Value = personalityTable[prng]
