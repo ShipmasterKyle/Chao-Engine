@@ -34,11 +34,8 @@ end)
 
 repeat wait() until script.Parent.Parent == workspace
 
--- function followPath(object, goal)
--- 	local waypoints
--- 	local hum = object.Parent.Humanoid
-
--- end
+--Make sure the chao is marked as hatched.
+plr.Leaderstats[chao.Name].Hatched.Value = true
 
 --Create a coroutine for sleeping chao
 local chargeChao = coroutine.create(function()
@@ -243,6 +240,7 @@ RS.Heartbeat:Connect(function()
 			end
 		end
 	end
+	print(ChaoState)
 end)
 
 --For reference
