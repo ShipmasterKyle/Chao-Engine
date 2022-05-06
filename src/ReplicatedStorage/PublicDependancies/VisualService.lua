@@ -393,6 +393,34 @@ local animalParts = {
 	}
 }
 
+local expressions = {
+	Happy = {
+		Name = "Happy",
+		Eyes = "",
+		Mouth = "",
+	},
+	Normal = {
+		Name = "Normal",
+		Eyes = "",
+		Mouth = ""
+	},
+	Excited = {
+		Name = "Excited",
+		Eyes = "",
+		Mouth = "",
+	},
+	Sad = {
+		Name = "Sad",
+		Eyes = "",
+		Mouth = ""
+	},
+	Sleep = {
+		Name = "Sleep",
+		Eyes = "",
+		Mouth = ""
+	}
+}
+
 --Alternative table.find
 function service.GetArrayItem(item,array)
 	for i,v in pairs(array) do
@@ -410,6 +438,23 @@ function service:ChangeHeadType(chao,headType)
 		print("HeadType Changed")
 	else
 		warn("Invalid HeadType")
+	end
+end
+
+--For changing alignment
+function service:CellShade(chao)
+	
+end
+
+--change expression
+function service:Emote(chao,emotion)
+	if emotion and chao then
+		local eye = chao.Eyes.EyesMesh
+		local emote = service.GetArrayItem(expressions,emotion)
+		eye.MeshId = emote.Eyes
+		wait(2)
+		--TODO: Support randomized expressions
+		eye.MeshId = expressions.Normal.Eyes
 	end
 end
 
@@ -452,7 +497,7 @@ function service:ColorChao(chao,color,isTwoTone)
 		if service.GetArrayItem(monoColors,color) then
 			for i,v in pairs(chao:GetDescendants()) do
 				if v:IsA("SpecialMesh") then
-					if not v.Name == "Eyes" then
+					if not v.Name == "EyesMesh" then
 						v.TextureId = service.GetArrayItem(monoColors,color).ID
 						print("Changed Chao Part")
 					end
@@ -463,7 +508,7 @@ function service:ColorChao(chao,color,isTwoTone)
 		if service.GetArrayItem(monoColors,color) then
 			for i,v in pairs(chao:GetDescendants()) do
 				if v:IsA("SpecialMesh") then
-					if not v.Name == "Eyes" then
+					if not v.Name == "EyesMesh" then
 						if service.GetArrayItem(monoColors[color],v.Name) then
 							v.TextureId = service.GetArrayItem(monoColors,color)[v.Name]
 							print("Changed Chao Part")
@@ -481,7 +526,7 @@ function service:ShineChao(chao,color,class)
 		if service.GetArrayItem(jewels,color) then
 			for i,v in pairs(chao:GetDescendants()) do
 				if v:IsA("SpecialMesh") then
-					if not v.Name == "Eyes" then
+					if not v.Name == "EyesMesh" then
 						v.TextureId = service.GetArrayItem(jewels,color).ID
 					end
 				end
@@ -491,7 +536,7 @@ function service:ShineChao(chao,color,class)
 		if service.GetArrayItem(monoColors,color) then
 			for i,v in pairs(chao:GetDescendants()) do
 				if v:IsA("SpecialMesh") then
-					if not v.Name == "Eyes" then
+					if not v.Name == "EyesMesh" then
 						v.TextureId = service.GetArrayItem(monoColors,color)[v.Name]
 						v.Material = Enum.Material.SmoothPlastic
 						v.Reflectance = 1
