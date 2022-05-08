@@ -442,8 +442,32 @@ function service:ChangeHeadType(chao,headType)
 end
 
 --For changing alignment
-function service:CellShade(chao)
-	
+function service:CellShade(chao,alignment)
+	if chao and alignment then
+		if alignment == "+" then --> A + sign means its a hero alignment change while a - will mean a dark alignment change
+			print("Hero!")
+			for i,v in pairs(chao:GetDescendants()) do
+				if v:IsA("SpecialMesh") then
+					if not v.Name == "EyesMesh" then
+						v.VertexColor = v.VertexColor + Color3.new() --Mess around with this to determine the exact colors
+						print("Cell Shaded "...v.Parent.Name)
+					end
+				end
+			end
+		elseif alignment == "-" then
+			print("Dark!")
+			for i,v in pairs(chao:GetDescendants()) do
+				if v:IsA("SpecialMesh") then
+					if not v.Name == "EyesMesh" then
+						v.VertexColor = v.VertexColor - Color3.new() --Mess around with this to determine the exact colors
+						print("Cell Shaded "...v.Parent.Name)
+					end
+				end
+			end
+		end
+	else
+		warn("Missing Params")
+	end
 end
 
 --change expression
