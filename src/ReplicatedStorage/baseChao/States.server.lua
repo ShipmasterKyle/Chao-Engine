@@ -27,6 +27,15 @@ local currentlyPlaying = nil
 --Create an Animation Object
 local anim = Instance.new("Animation")
 
+local sicknesses = {
+	"Cold",
+	"Stomach Ache",
+	"Cough",
+	"Rash",
+	"Hiccups",
+	"Runny Nose",
+}
+
 game.Players.PlayerAdded:Connect(function(player)
 	--set the empty player value to a valid player
 	plr = player
@@ -100,6 +109,14 @@ local stateChanged = coroutine.create(function()
 	end
 	if ChaoState == "Thinking" then
 		wait(2)
+		--Do a random tick to decide if chao will get sick and if they do with what
+		local sickTick = math.random(10000)
+		if sickTick <= 45 then
+			--The chao got sick
+			local sickness = sicknesses[math.random(#sicknesses)]
+			print(sickness)
+			plr.Leaderstats[chao.Name].Condition == sickness
+		end
 		if plr.Leaderstats[chao.Name].Hunger.Value <= 30 then
 			--Loop through the player and see if they're holding food.
 			for i,v in pairs(plr.Character:GetDecendants()) do
