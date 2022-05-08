@@ -420,6 +420,29 @@ local expressions = {
 		Mouth = ""
 	}
 }
+local HeadEmotes = {
+	Normal = {
+		--Exist for state changing purposes
+		Name = "Normal",
+		Id = "" --Should remain blank
+	},
+	Happy = {
+		Name = "Happy",
+		Id = "" --Should be a heart
+	},
+	Thinking = {
+		Name = "Thinking",
+		Id = "" --Should be a question mark. There should technically be three versions of this but we'll do that later on
+	},
+	Excited = {
+		Name = "Excited",
+		Id = "" --Should be a exclaimation mark. There should technically be three versions of this but we'll do that later on
+	},
+	Upset = {
+		Name = "Upset",
+		Id = "" --Should be a swirl
+	}
+}
 
 --Alternative table.find
 function service.GetArrayItem(item,array)
@@ -479,6 +502,21 @@ function service:Emote(chao,emotion)
 		wait(2)
 		--TODO: Support randomized expressions
 		eye.MeshId = expressions.Normal.Eyes
+	end
+end
+
+--change Head Type
+--[[
+	This is seperate from the ChangeHeadType function (which should be used to return 
+	the head type back to its default).
+	ChangeHeadType is permenant while HeadEmote is temporary. HeadEmote also returns a state.
+]]
+function service:HeadEmote(chao,emotion)
+	if emotion and chao then
+		local emoteBall = chao.Emote.EmoteMesh
+		local emote = service.GetArrayItem(HeadEmotes,emotion)
+		emoteBall.MeshId = emote.Id
+		return emote.Name
 	end
 end
 
