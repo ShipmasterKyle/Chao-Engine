@@ -66,7 +66,98 @@ market = {
 		isDecor = false,
 		Price = "800",
 		forSale = false
-	}
+	},
+	WhiteEgg = {
+		Name = "White Egg",
+		desc = "A White Egg",
+		isDecor = false,
+		Price = "400",
+		forSale = false
+	},
+	RedEgg = {
+		Name = "Red Egg",
+		desc = "A Red Egg",
+		isDecor = false,
+		Price = "500",
+		forSale = false
+	},
+	YellowEgg = {
+		Name = "Yellow Egg",
+		desc = "A Yellow Egg",
+		isDecor = false,
+		Price = "500",
+		forSale = false
+	},
+	BlueEgg = {
+		Name = "Blue Egg",
+		desc = "A Blue Egg",
+		isDecor = false,
+		Price = "500",
+		forSale = false
+	},
+	SkyBlueEgg = {
+		Name = "Sky Blue Egg",
+		desc = "A Sky Blue Egg",
+		isDecor = false,
+		Price = "600",
+		forSale = false
+	},
+	PinkEgg = {
+		Name = "Pink Egg",
+		desc = "A Pink Egg",
+		isDecor = false,
+		Price = "600",
+		forSale = false
+	},
+	OrangeEgg = {
+		Name = "Orange Egg",
+		desc = "A Orange Egg",
+		isDecor = false,
+		Price = "600",
+		forSale = false
+	},
+	BrownEgg = {
+		Name = "Brown Egg",
+		desc = "A Brown Egg",
+		isDecor = false,
+		Price = "800",
+		forSale = false
+	},
+	PurpleEggs = {
+		Name = "Purple Egg",
+		desc = "A Purple Egg",
+		isDecor = false,
+		Price = "600",
+		forSale = false
+	},
+	GreenEgg = {
+		Name = "Green Egg",
+		desc = "A Green Egg",
+		isDecor = false,
+		Price = "800",
+		forSale = false
+	},
+	GreyEgg = {
+		Name = "Grey Egg",
+		desc = "A Grey Egg",
+		isDecor = false,
+		Price = "1000",
+		forSale = false
+	},
+	LimeGreenEgg = {
+		Name = "Lime Green Egg",
+		desc = "A Lime Green Egg",
+		isDecor = false,
+		Price = "1500",
+		forSale = false
+	},
+	BlackEgg = {
+		Name = "Black Egg",
+		desc = "A Black Egg",
+		isDecor = false,
+		Price = "2000",
+		forSale = false
+	},
 }
 
 return market
