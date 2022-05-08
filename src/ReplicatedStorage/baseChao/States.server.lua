@@ -84,6 +84,7 @@ local startMovement = coroutine.create(function(pos)
 
 	if success and path.Status == Enum.PathStatus.Success then
 		waypoints = path:GetWaypoints()
+		local lastTrip = 0 --> Arrays start at zero. Funny. Very funny. This is Lua. We don't do that here.
 		for i, waypoint in pairs(waypoints) do
 			if script.Parent.Held.Value == false then
 				if waypoint.Action == Enum.PathWaypointAction.Jump then
@@ -91,13 +92,29 @@ local startMovement = coroutine.create(function(pos)
 					hum:ChangeState(Enum.HumanoidStateType.Jumping)
 				end
 				hum:MoveTo(waypoint.Position)
-				hum.MoveToFinished:Wait(1)
+				--Do a luck check to determine if a chao tripped.
+				local tripChance = math.random(1000) --Luck caps at 1000 for now
+				local didTrip = 999 - plr.Leaderstats[chao.Name].LuckXP.Value
+				if didTrip >= tripChance and lastTrip >= i - 2 --[[>Prevents tripping back to back<]] then
+					--They did trip
+					lastTrip = i
+					chao:SetAttribute("ChaoState","Tripped")
+					hum.MoveToFinished:Wait(3)
+				else
+					--They didn't trip
+					hum.MoveToFinished:Wait(1)
+				end
 			else
+				--Setting the state to held is handled later on
 				break
 			end
 		end
+		--Make chao Idle after running
+		chao:SetAttribute("ChaoState","Idle")
 	else
 		warn("Unable to compute path. "..tostring(failed))
+		--if for whatever reason the pathfinding breaks return to idle.
+		chao:SetAttribute("ChaoState","Idle")
 	end
 end)
 
@@ -124,12 +141,22 @@ local stateChanged = coroutine.create(function()
 					coroutine.resume(startMovement,plr.Character.HumanoidRootPart.Position)
 					chao:SetAttribute("ChaoState","Running")
 					isHunger = true
-				end
+					break 
+				else end
 			end
+			--Just walk around
+			local nextDest = Vector3.new(chao.HumanoidRootPart.Position.X+math.random(-100,100),chao.HumanoidRootPart.Position.Y,chao.HumanoidRootPart.Position.Z+math.random(-100,100))
+			chao:SetAttribute("ChaoState","Running")
+			coroutine.resume(startMovement,nextDest)
 		elseif plr.Leaderstats[chao.Name].Energy <= 0 then
 			--Make chao fall asleep
 			--Waiting on Alberto for anim
 			chao:SetAttribute("ChaoState","Sleeping")
+		else
+			--Just walk around
+			local nextDest = Vector3.new(chao.HumanoidRootPart.Position.X+math.random(-100,100),chao.HumanoidRootPart.Position.Y,chao.HumanoidRootPart.Position.Z+math.random(-100,100))
+			chao:SetAttribute("ChaoState","Running")
+			coroutine.resume(startMovement,nextDest)
 		end
 	end
 	if ChaoState == "Sleeping" then
@@ -147,7 +174,7 @@ local stateChanged = coroutine.create(function()
 			--Randomize next pos
 			local nextDest = Vector3.new(chao.HumanoidRootPart.Position.X+math.random(-100,100),chao.HumanoidRootPart.Position.Y,chao.HumanoidRootPart.Position.Z+math.random(-100,100))
 			chao:SetAttribute("ChaoState","Running")
-			coroutine.resume(startMovement,plr.Character.HumanoidRootPart.Position)
+			coroutine.resume(startMovement,nextDest)
 		end
 	end
 	if ChaoState == "Held" then
@@ -159,7 +186,15 @@ end)
 --Change the chao's state to swimming if they're touching a part named "Water"
 chao.HumanoidRootPart.Touched:Connect(function(hit)
 	if hit.Name == "Water" and script.Parent.Held.Value == false then
-		ChaoState = "Swimming"
+		chao:SetAttribute("ChaoState","Swimming")
+	end
+end)
+
+chao.Held.Changed:Connect(function()
+	if chao.Held.Value == true then
+		chao:SetAttribute("ChaoState","Held")
+	else
+		chao:SetAttribute("ChaoState","Idle")
 	end
 end)
 
@@ -259,54 +294,3 @@ RS.Heartbeat:Connect(function()
 	end
 	print(ChaoState)
 end)
-
---For reference
---[[
-	--Check the humState
-	if humState == Enum.HumanoidStateType.Running then
-		if ChaoState == "Swimming" then
-			if currentlyPlaying ~= "Swimming" then
-				currentlyPlaying =  "Swimming"
-				if anim.IsPlaying == true then
-					anim:Stop()
-				end
-				--TODO: Show different anims depending on chaos skill
-				anim.Id = "rbxassetid://" --Make anim
-				hum.Animator:LoadAnimation(anim)
-				anim:Play()
-			end
-		elseif ChaoState == "none" then
-			if currentlyPlaying ~= "Running" then
-				currentlyPlaying =  "Running"
-				if anim.IsPlaying == true then
-					anim:Stop()
-				end
-				--TODO: Show different anims depending on chaos skill
-				anim.Id = "rbxassetid://" --Make anim
-				hum.Animator:LoadAnimation(anim)
-				anim:Play()
-			end
-		end
-	elseif humState == Enum.HumanoidStateType.Freefall then
-		if currentlyPlaying ~= "Flying" then
-			--TODO: Check if they can actually fly
-			currentlyPlaying = "Flying"
-			if anim.IsPlaying == true then
-				anim:Stop()
-			end
-			anim.Id = "rbxassetid://" --Make anim
-			hum.Animator:LoadAnimation(anim)
-			anim:Play()
-		end
-	else
-		if currentlyPlaying ~= "Idle" then
-			currentlyPlaying =  "Idle"
-			if anim.IsPlaying == true then
-				anim:Stop()
-			end
-			anim.Id = "rbxassetid://" --Make anim
-			hum.Animator:LoadAnimation(anim)
-			anim:Play()
-		end
-	end
-]]
