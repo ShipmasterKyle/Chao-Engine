@@ -472,7 +472,7 @@ function service:CellShade(chao,alignment)
 			for i,v in pairs(chao:GetDescendants()) do
 				if v:IsA("SpecialMesh") then
 					if not v.Name == "EyesMesh" then
-						v.VertexColor = v.VertexColor + Color3.new() --Mess around with this to determine the exact colors
+						v.VertexColor = v.VertexColor + Vector3.new() --Mess around with this to determine the exact colors
 						print("Cell Shaded "...v.Parent.Name)
 					end
 				end
@@ -482,7 +482,7 @@ function service:CellShade(chao,alignment)
 			for i,v in pairs(chao:GetDescendants()) do
 				if v:IsA("SpecialMesh") then
 					if not v.Name == "EyesMesh" then
-						v.VertexColor = v.VertexColor - Color3.new() --Mess around with this to determine the exact colors
+						v.VertexColor = v.VertexColor - Vector3.new() --Mess around with this to determine the exact colors
 						print("Cell Shaded "...v.Parent.Name)
 					end
 				end
