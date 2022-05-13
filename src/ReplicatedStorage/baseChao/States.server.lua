@@ -132,7 +132,7 @@ local stateChanged = coroutine.create(function()
 			--The chao got sick
 			local sickness = sicknesses[math.random(#sicknesses)]
 			print(sickness)
-			plr.Leaderstats[chao.Name].Condition.Value == sickness
+			plr.Leaderstats[chao.Name].Condition.Value = sickness
 		end
 		if plr.Leaderstats[chao.Name].Hunger.Value <= 30 then
 			--Loop through the player and see if they're holding food.

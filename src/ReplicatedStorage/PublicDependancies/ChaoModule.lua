@@ -408,8 +408,8 @@ end
 function module:GetStats(ChaoData,player, stat)
 	if player and stat then
 		if player:FindFirstChild(ChaoData) then
-			if player.ChaoData[ChaoData]:FindFirstChild(stat) then
-				return player.ChaoData[ChaoData][stat].Value
+			if player.Leaderstats[ChaoData]:FindFirstChild(stat) then
+				return player.Leaderstats[ChaoData][stat].Value
 			end
 		end
 	end

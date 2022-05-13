@@ -473,7 +473,7 @@ function service:CellShade(chao,alignment)
 				if v:IsA("SpecialMesh") then
 					if not v.Name == "EyesMesh" then
 						v.VertexColor = v.VertexColor + Vector3.new() --Mess around with this to determine the exact colors
-						print("Cell Shaded "...v.Parent.Name)
+						print("Cell Shaded "..v.Parent.Name)
 					end
 				end
 			end
@@ -483,7 +483,7 @@ function service:CellShade(chao,alignment)
 				if v:IsA("SpecialMesh") then
 					if not v.Name == "EyesMesh" then
 						v.VertexColor = v.VertexColor - Vector3.new() --Mess around with this to determine the exact colors
-						print("Cell Shaded "...v.Parent.Name)
+						print("Cell Shaded "..v.Parent.Name)
 					end
 				end
 			end
