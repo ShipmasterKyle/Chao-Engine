@@ -90,7 +90,7 @@ plr.Character.ChildAdded:Connect(function(obj)
 		print("Chao Added")
 		local chaoData = plr.Leaderstats[obj.Name]
 		if chaoData then
-			print("New Chao")
+			print("New Chao Found")
 			while plr.Character:FindFirstChild(obj) do
 				wait(1)
 				script.Parent.ChaoMenu.Frame.Visible = true
