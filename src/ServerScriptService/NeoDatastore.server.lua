@@ -73,12 +73,15 @@ game.Players.PlayerAdded:Connect(function(player)
 			--Initalize a brand new garden.
 			local folder = module:CreateNew()
 			wait(1)
+			folder.Parent = main
 			local chao1data = module.newChao()
 			local chao1 = module.spawnChao(chao1data,true)
 			chao1:SetAttribute("ID","chao1")
 			folder.ChaoCount.Value += 1
 			chao1.Name = folder.Chao1Name.Value
+			chao1data.Parent = main
 			local chao2data = module.newChao()
+			chao2data.Parent = main
 			local chao2 = module.spawnChao(chao1data,true)
 			chao2:SetAttribute("ID","chao2")
 			folder.ChaoCount.Value += 1 --Should be two now
