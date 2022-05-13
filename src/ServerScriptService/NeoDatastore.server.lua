@@ -77,12 +77,12 @@ game.Players.PlayerAdded:Connect(function(player)
 			local chao1 = module.spawnChao(chao1data,true)
 			chao1:SetAttribute("ID","chao1")
 			folder.ChaoCount.Value += 1
-			folder.Chao1Name = chao1.Name
+			chao1.Name = folder.Chao1Name.Value
 			local chao2data = module.newChao()
 			local chao2 = module.spawnChao(chao1data,true)
 			chao2:SetAttribute("ID","chao2")
 			folder.ChaoCount.Value += 1 --Should be two now
-			folder.Chao2Name = chao2.Name
+			chao2.Name = folder.Chao2Name.Value
 			print("Two new chao!")
 		end
 	end

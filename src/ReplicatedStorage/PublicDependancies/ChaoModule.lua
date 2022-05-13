@@ -293,7 +293,11 @@ function module:CreateNew()
 	local chaoCount = folder.ChaoCount
 	chaoCount.Value = 0
 	local chaoNames = folder.Chao1Name
+	--Defualt names to prevent crashes
+	chaoNames.Value = "Chao"
 	local chao2Names = folder.Chao2Name
+	chao2Names.Value = "Chaosky"
+
 end
 
 --Create a chao
@@ -343,7 +347,7 @@ function module.newChao()
 end
 
 --Spawn a chao
-function module.spawnChao(chao,returnValue) --chaoData
+function module.spawnChao(chao,returnValue)
 	print("Request Caught")
 	if chao.Hatched.Value == true then
 		--spawn a chao
