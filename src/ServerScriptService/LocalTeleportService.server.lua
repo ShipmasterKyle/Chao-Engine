@@ -44,7 +44,7 @@ while wait() do
 							end
 							wait(0.5) --Pause for half a second to prevent bugs
 							chao:MoveTo(hit.Parent.HumanoidRootPart.Position)
-							chao.CFrame = humroot.CFrame * CFrame.new(0,0,-1)
+							chao.CFrame = hit.Parent.HumanoidRootPart.CFrame * CFrame.new(0,0,-1)
 							local weld = Instance.new("WeldConstraint")
 							weld.Part0 = hit.Parent.HumanoidRootPart
 							weld.Part1 = chao

@@ -9,7 +9,7 @@ event.OnServerEvent:Connect(function(name,chao,player)
 	event:FireClient(name)
 end)
 
-nameve.OnServerEvent:Connect(function()
+nameve.OnServerEvent:Connect(function(name,chao,player)
 	print("Request Caught")
 	namespace:FinalizeName(name,chao,player)
 	event:FireClient(name)
