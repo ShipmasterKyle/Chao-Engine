@@ -1,10 +1,15 @@
 local UIService = require(game.ReplicatedStorage.PublicDependancies.UIService)
+local chaoModule = require(game.ReplicatedStorage.PublicDependancies.ChaoModule)
 local MarketService = require(game.ReplicatedStorage.PublicDependancies.MarketService)
 local ClassroomService = require(game.ReplicatedStorage.PublicDependancies.Classroom)
 local CamService = require(game.ReplicatedStorage.PublicDependancies.CamService)
 
+--> For Garden Transitions
 local ui = script.Parent.ScreenGui.Frame.GardenLogo
 local garden = workspace.currentGarden
+
+--> Fix wait
+local wait = task.wait
 
 game.Players.PlayerAdded:Connect(function()
 	print("New Player!")
@@ -78,4 +83,39 @@ game.ReplicatedStorage.Remotes.Market.OnClientEvent:Connect(function()
 	local ourFram = script.Parent.Market.ImageLabel.ScrollingFrame
 	MarketService:LoadMarket(ourFram,ourplate)
 	script.Parent.Market.ImageLabel.Visible = true
+end)
+
+plr.Character.ChildAdded:Connect(function(obj)
+	if obj:FindFirstChild("Held",true) and garden.Value == "Garden" then
+		print("Chao Added")
+		local chaoData = plr.Leaderstats[obj.Name]
+		if chaoData then
+			print("New Chao")
+			while plr.Character:FindFirstChild(obj) do
+				wait(1)
+				script.Parent.ChaoMenu.Frame.Visible = true
+				local frame = script.Parent.ChaoMenu.Frame
+				frame.ChaoName.Text = chaoModule:GetStats(obj.Name,plr,"ChaoName")
+				local main = frame.MainFrame
+				main.SwimXP.Text = chaoModule:GetStats(obj.Name,plr,"SwimXP")
+				main.SwimLvl.Text = "Lv "..chaoModule:GetStats(obj.name,plr,"SwimLevel")
+				main.FlyXP.Text = chaoModule:GetStats(obj.Name,plr,"FlyXP")
+				main.FlyLvl.Text = "Lv "..chaoModule:GetStats(obj.name,plr,"FlyLevel")
+				main.RunXP.Text = chaoModule:GetStats(obj.Name,plr,"RunXP")
+				main.RunLvl.Text = "Lv "..chaoModule:GetStats(obj.name,plr,"RunLevel")
+				main.PowerXP.Text = chaoModule:GetStats(obj.Name,plr,"PowerXP")
+				main.PowerLvl.Text = "Lv "..chaoModule:GetStats(obj.name,plr,"PowerLevel")
+				main.StaminaXP.Text = chaoModule:GetStats(obj.Name,plr,"StaminaXP")
+				main.StaminaLvl.Text = "Lv "..chaoModule:GetStats(obj.name,plr,"StaminaLevel")
+			end
+		end
+	end
+end)
+
+plr.Character.ChildRemoved:Connect(function(obj)
+	if obj:FindFirstChild("Held",true) then
+		print("Chao Removed")
+		wait(2)
+		script.Parent.ChaoMenu.Visible = false
+	end
 end)
