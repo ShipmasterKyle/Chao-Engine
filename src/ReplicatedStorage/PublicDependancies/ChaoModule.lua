@@ -297,7 +297,7 @@ function module:CreateNew()
 	chaoNames.Value = "Chao"
 	local chao2Names = folder.Chao2Name
 	chao2Names.Value = "Chaosky"
-
+	return folder
 end
 
 --Create a chao
