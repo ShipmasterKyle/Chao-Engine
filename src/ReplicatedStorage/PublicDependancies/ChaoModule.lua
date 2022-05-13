@@ -288,17 +288,12 @@ end
 
 --Create a new garden
 function module:CreateNew()
-	--Conver this to a local folder later
-	local folder = Instance.new("Folder")
-	folder.Name = "Garden"
+	local folder = game.ReplicatedStorage.GardenFolder
 	--Stat for chao count
-	local chaoCount = Instance.new("IntValue")
+	local chaoCount = folder.ChaoCount
 	chaoCount.Value = 0
-	chaoCount.Name = "ChaoCount"
-	local chaoNames = Instance.new("StringValue")
-	chaoNames.Name = "Chao1Name"
-	local chao2Names = Instance.new("StringValue")
-	chaoNames.Name = "Chao2Name"
+	local chaoNames = folder.Chao1Name
+	local chao2Names = folder.Chao2Name
 end
 
 --Create a chao
