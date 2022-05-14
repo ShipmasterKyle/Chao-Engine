@@ -358,6 +358,7 @@ function module.spawnChao(chao,returnValue)
 		copy.Parent = workspace
 		copy.HumanoidRootPart.Position = vectorTable[math.random(#vectorTable)]
 		if returnValue == true then --Only return the chao if they ask for it
+			print("Returning")
 			return copy
 		end
 	else
@@ -367,6 +368,10 @@ function module.spawnChao(chao,returnValue)
 		copy.Name = chao.Name
 		copy.Parent = workspace
 		copy.Position = vectorTable[math.random(#vectorTable)]
+		if returnValue == true then --Only return the chao if they ask for it
+			print("Returning")
+			return copy
+		end
 	end
 end
 
@@ -390,7 +395,8 @@ function module.Hatch(Egg,baseChao)
 				end
 			end
 			copy.Parent = workspace
-			copy.HumanoidRootPart.Position = goalPos
+			copy:SetAttribute("ID",Egg:GetAttribute("ID"))
+			copy:MoveTo(goalPos)
 		else
 			local hatchedEgg = repl.Broken_Egg:Clone()
 			local goalPos = Egg.Position
@@ -400,6 +406,7 @@ function module.Hatch(Egg,baseChao)
 			Egg:Destroy()
 			wait(3)
 			local copy = repl.baseChao:Clone()
+			copy:SetAttribute("ID",Egg:GetAttribute("ID"))
 			copy.Parent = workspace
 			copy:MoveTo(goalPos)
 		end

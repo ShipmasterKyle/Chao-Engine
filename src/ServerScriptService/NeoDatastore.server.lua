@@ -14,9 +14,6 @@ game.Players.PlayerAdded:Connect(function(player)
 		local lastlt = Instance.new("StringValue")
 		lastlt.Name = "lastLogTime"
 		lastlt.Parent = main
-		--Create the folder for the data
-		local folder = game.ReplicatedStorage.GardenFolder:Clone()
-		folder.Parent = main
 		--load data
 		--[[
 			I've came up with an extremely intelligent idea for multiple chao support.
@@ -37,6 +34,8 @@ game.Players.PlayerAdded:Connect(function(player)
 		
 		--Rewriting this. Now it'll load the garden data then the rest
 		if data then
+			--Create the folder for the data
+			local folder = game.ReplicatedStorage.GardenFolder:Clone()
 			for i,v in pairs(folder:GetChildren()) do
 				v.Value = data[v]
 			end
@@ -77,6 +76,7 @@ game.Players.PlayerAdded:Connect(function(player)
 			local chao1data = module.newChao()
 			local chao1 = module.spawnChao(chao1data,true)
 			chao1:SetAttribute("ID","chao1")
+			chao1data.Name = folder.Chao1Name.Value
 			folder.ChaoCount.Value += 1
 			chao1.Name = folder.Chao1Name.Value
 			chao1data.Parent = main
