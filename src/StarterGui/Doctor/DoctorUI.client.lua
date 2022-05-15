@@ -72,7 +72,8 @@ while wait() do
 	if on == true then
 		for i,v in pairs(script.Parent.Start:GetChildren()) do
 			--This is only ever gonna run if they have a chao
-			chao = plr.Character:FindFirstChild("Held", true)
+			chaoExistence = plr.Character:FindFirstChild("Held", true)
+			chao = chaoExistence.Parent
 			if chao then
 				if v:IsA("TextButton") then
 					v.MouseEnter:Connect(function()
