@@ -89,7 +89,7 @@ function module:GetContextMenuProperty(obj,property)
 	end
 end
 
-function module:CreateChaoViewPort(chao, object, corner)
+function module:CreateChaoViewPort(chao, object, corner, returnItem)
 	if chao and chao:FindFirstChild("HumanoidRootPart") and object then
 		local copyChao = chao:Clone()
 		copyChao:MoveTo(Vector3.new(0,0,0))
@@ -104,6 +104,8 @@ function module:CreateChaoViewPort(chao, object, corner)
 		frame.Position = UDim2.new(0,0,0,0)
 		frame.BackgroundTransparency = 1
 		frame.Parent = object
+		frame.Visible = false
+		frame.Name = "ChaoPort"
 		local cam = Instance.new("Camera")
 		cam.Parent = frame
 		print(cam.Parent.Name)
@@ -116,10 +118,13 @@ function module:CreateChaoViewPort(chao, object, corner)
 			uicorner.CornerRadius = UDim.new(0,20)
 			uicorner.Parent = object
 		end
+		if returnItem == true then
+			return frame
+		end
 	end
 end
 
-function module:CreateItemViewport(item, object, corner)
+function module:CreateItemViewport(item, object, corner, returnItem)
 	if item and object then
 		local copyCat = item:Clone()
 		copyCat:MoveTo(Vector3.new(0,0,0))
@@ -140,6 +145,9 @@ function module:CreateItemViewport(item, object, corner)
 			local uicorner = Instance.new("UICorner")
 			uicorner.CornerRadius = UDim.new(0,20)
 			uicorner.Parent = object
+		end
+		if returnItem == true then
+			return frame
 		end
 	end
 end
