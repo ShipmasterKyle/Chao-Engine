@@ -1,15 +1,32 @@
 local chaoService = require(game.ReplicatedStorage.PublicDependancies.ChaoModule)
 local UIService = require(game.ReplicatedStorage.PublicDependancies.UIService)
 local UIS = game:GetService("UserInputService")
+local plr = game.Players.LocalPlayer
+local chao
 
-local on = true
+local on = false
 
 normalReply = {
 	"Oh no! Your chao is perfectly healthy.";
-	"Your chao seems fine.";
+	"This can't be! Your chao is fine.";
 	"Nothing is wrong with your chao.";
 	"Your chao is very healthy!";
 	"Your chao isn't sick."
+}
+
+bhvReply = {
+	"Looks like this Chao likes music.",
+	"Looks like this Chao likes to dance.",
+	"Looks like this Chao likes to draw.",
+	"Looks like this Chao likes toys.",
+	"Looks like this Chao likes TV.",
+	"Looks like this Chao likes listening to music.",
+	"Looks like this Chao likes to fly.",
+	"Looks like this Chao is afraid of heights.",
+	"Looks like this Chao likes to swim.",
+	"Looks like this Chao doesn't like swimming.",
+	"Looks like this Chao likes to climb trees.",
+	"Looks like this Chao likes naps.",
 }
 
 images = {
@@ -54,23 +71,35 @@ end
 while wait() do
 	if on == true then
 		for i,v in pairs(script.Parent.Start:GetChildren()) do
-			if v:IsA("TextButton") then
-				v.MouseEnter:Connect(function()
-					v.UIStroke.Thickness = 5
-				end)
-				v.MouseLeave:Connect(function()
-					v.UIStroke.Thickness = 0
-				end)
-				v.MouseButton1Click:Connect(function()
-					if v.Name == "Look" then
-						on = false
-						write()
-					elseif v.Name == "Charts" then
-						script.Parent.Start.Visible = false
-						script.Parent.Frame.Visible = true
-					end
-				end)
+			--This is only ever gonna run if they have a chao
+			chao = plr.Character:FindFirstChild("Held", true)
+			if chao then
+				if v:IsA("TextButton") then
+					v.MouseEnter:Connect(function()
+						v.UIStroke.Thickness = 5
+					end)
+					v.MouseLeave:Connect(function()
+						v.UIStroke.Thickness = 0
+					end)
+					v.MouseButton1Click:Connect(function()
+						if v.Name == "Look" then
+							on = false
+							write()
+						elseif v.Name == "Charts" then
+							script.Parent.Start.Visible = false
+							script.Parent.Frame.Visible = true
+						end
+					end)
+				end
 			end
 		end
 	end
 end
+
+script.Parent.Start:GetPropertyChangedSignal("Visible"):Connect(funcion()
+	if script.Parent.Visible == false then
+		on = false
+	elseif script.Parent.Visible == true then
+		on = true
+	end
+end)
