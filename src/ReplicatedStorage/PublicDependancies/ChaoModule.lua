@@ -348,6 +348,7 @@ end
 
 --Spawn a chao
 function module.spawnChao(chao,returnValue)
+	--Here chao is the chaodata.
 	print("Request Caught")
 	if chao.Hatched.Value == true then
 		--spawn a chao

@@ -74,18 +74,18 @@ game.Players.PlayerAdded:Connect(function(player)
 			wait(1)
 			folder.Parent = main
 			local chao1data = module.newChao()
+			chao1data.Parent = main
+			chao1data.Name = folder.Chao1Name.Value
 			local chao1 = module.spawnChao(chao1data,true)
 			chao1:SetAttribute("ID","chao1")
-			chao1data.Name = folder.Chao1Name.Value
 			folder.ChaoCount.Value += 1
-			chao1.Name = folder.Chao1Name.Value
-			chao1data.Parent = main
+			print("One new chao!")
 			local chao2data = module.newChao()
 			chao2data.Parent = main
+			chao2data.Name = folder.Chao2Name.Value
 			local chao2 = module.spawnChao(chao1data,true)
 			chao2:SetAttribute("ID","chao2")
 			folder.ChaoCount.Value += 1 --Should be two now
-			chao2.Name = folder.Chao2Name.Value
 			print("Two new chao!")
 		end
 	end
@@ -106,7 +106,6 @@ end
 
 --TODO: Create a callback to save the player's money on purchases
 
---Rewrite this.
 game.Players.PlayerRemoving:Connect(function(player)
 	local data = createSaveTable(player,"Garden")
 	local success, errormessage = pcall(function()
