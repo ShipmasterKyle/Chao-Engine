@@ -55,6 +55,7 @@ function fillData(chaoData)
 	local basic = topFrame.Basic
 	local chao = workspace.TempChao
 	if chao then
+		basic.ChaoPort.Visible = true
 		for i,v in pairs(script.Parent.Frame.Basic:GetChildren()) do
 			if v:IsA("TextLabel") then
 				if chaoService:GetStats(chao.Id.Value,game.Players.LocalPlayer,v.Name) then
@@ -89,6 +90,7 @@ while wait() do
 						elseif v.Name == "Charts" then
 							script.Parent.Start.Visible = false
 							script.Parent.Frame.Visible = true
+							fillData()
 						end
 					end)
 				end
