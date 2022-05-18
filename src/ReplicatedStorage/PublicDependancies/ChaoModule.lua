@@ -29,7 +29,7 @@ local personalityTable = {
 	"Naive"
 }
 
---Instead of randomizing spawns
+--Instead of randomizing spawns use preset ones
 local vectorTable = {
 	Vector3.new(0.86, 155.5, 273.456),
 	Vector3.new(0.86, 155.5, 247.518),
@@ -139,8 +139,8 @@ local traitLoadout = {
 	}
 }
 
-function module:Export(chaoData,chao)
-	--Format the save data to a file that can be transfered to ChaoLink.
+--Format the save data to a file that can be transfered to ChaoLink.
+function module:Export(chaoData,chao)	
 	print("Ready.")
 	local chaostring = ""
 	--Store stats
