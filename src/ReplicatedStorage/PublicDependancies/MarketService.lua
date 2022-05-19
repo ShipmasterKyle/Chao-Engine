@@ -94,16 +94,13 @@ function service:PurchaseItem(item,plr)
 	--Purchase the item and add it to the inventory folder.
 	local itemExist = service.GetArrayItem(market,item)
 	if item and plr and itemExist then
-		local money = plr.ChaoStats.Rings -->Use a temporary ring system now 
-		if money and money.Value >=  item.Price then
-			money.Value -= item.Price
-			local myItem = class:GetItem(item)
-			myItem.Parent = workspace[plr.Name.." Inventory"]
-		end
+		--Free Items for now.
+		local myItem = class:GetItem(item)
+		myItem.Parent = workspace[plr.Name.." Inventory"]
 	else
 		warn("PurchaseItem run error. Item: "..item.."plr "..plr.Name)
 	end
-end
+ends
 
 function service:SellItem(item,plr)
 	--Sell an item for 70% of its origin value.
