@@ -106,14 +106,14 @@ function service:SellItem(item,plr)
 	--Sell an item for 70% of its origin value.
 	local itemExist = service.GetArrayItem(market,item)
 	if itemExist then
-		local salePrice = (market[item].Price * 70)/100
-		local money = plr.ChaoStats.Rings
-		money.Value += salePrice
+		-- local salePrice = (market[item].Price * 70)/100
+		-- local money = plr.ChaoStats.Rings
+		-- money.Value += salePrice
 		if workspace[plr.Name.." Inventory"]:FindFirstChild(item.Name) then
 			--Delete the item when they sell it.
 			workspace[plr.Name.." Inventory"][item.Name]:Destroy()
 			if salePrice >= 10000 then
-				money.Value += 2500 -- A small bonus for selling an expensive item
+				-- money.Value += 2500 --> A small bonus for selling an expensive item
 			end
 		end
 	end
