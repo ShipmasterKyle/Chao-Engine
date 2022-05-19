@@ -553,27 +553,94 @@ function module:BreedChao(chaoData1,chaoData2,chao1,chao2)
 	local chao2Color = chao2.Head.HeadMesh.Id
 	local compare1
 	local compare2
-	for i,v in pairs(traitLoadout) do
-		if v.Id == chao1Color then
-			compare1 = v.Dom
-			isTwoTone = visualService:returnTone(chao1)
-		elseif v.Id == chao2Color then
-			compare2 = v.Dom
-			isTwoTone = visualService:returnTone(chao2)
+	local rng = math.random(10)
+	local anomaly
+	if rng > 5 then
+		anomaly = true
+	else
+		anomaly = false
+	end
+	if anomaly == false
+		for i,v in pairs(traitLoadout) do
+			if v.Id == chao1Color then
+				compare1 = v.Dom
+				isTwoTone = visualService:returnTone(chao1)
+			elseif v.Id == chao2Color then
+				compare2 = v.Dom
+				isTwoTone = visualService:returnTone(chao2)
+			end
+		end
+		if compare1 > compare2 then
+			color = visualService:returnColor(chao1)
+		elseif compare2 > compare1 then
+			color = visualService:returnColor(chao2)
+		end
+	elseif anomaly == true then
+		local tags = math.random(22)
+		local color2
+		local color3
+		for i,v in pairs(traitLoadout) do
+			if i == tags then
+				compare1 = v.Dom
+				color2 = v.Id
+			end
+		end
+		local logs = math.random(22)
+		for i,v in pairs(traitLoadout) do
+			if i == logs then
+				compare2 = v.Dom
+				color3 = v.Id
+			end
+		end
+		if compare1 > compare2 then
+			color = visualService:returnColorFromId(color2)
+			isTwoTone = visualService:returnToneFromId(color2)
+		elseif compare2 > compare1 then
+			color = visualService:returnColorFromId(color3)
+			isTwoTone = visualService:returnToneFromId(color3)
 		end
 	end
-	if compare1 > compare2 then
-		color = visualService:returnColor(chao1)
-	elseif compare2 > compare1 then
-		color = visualService:returnColor(chao2)
-	end
+	
 	--Color chao with correct alleles
 	if isTwoTone == "mono" then
 		isTwoTone = false
 	elseif isTwoTone == "two" then
 		isTwoTone = true
 	end
+
+	--NEW: Determine if the chao will be a special type
+	local chaoType = nil
+	if chao1.Head.Material == Enum.Material.Glass then
+		if chao1.Head.Transparency == 0.3 then
+			if chaoType == nil then
+				chaoType == "Shiny"
+			else
+				chaoType == "Jewel"
+			end
+		end
+	elseif chao1.Head.Material == Enum.Material.Neon then
+		if chaoType == nil then
+			chaoType == "Bright"
+		end
+	end
+	if chao2.Head.Material == Enum.Material.Glass then
+		if chao2.Head.Transparency == 0.3 then
+			if chaoType == nil then
+				chaoType == "Shiny"
+			else
+				chaoType == "Jewel"
+			end
+		end
+	elseif chao2.Head.Material == Enum.Material.Neon then
+		if chaoType == nil then
+			chaoType == "Bright"
+		end
+	end
+
 	visualService:ColorChao(newChao,color,isTwoTone)
+	if chaoType ~= nil then
+		visualService:ShineChao(newChao,chaoType)
+	end
 	--add the newChao to cache
 	newChao.Parent = game.ReplicatedStorage.chaoStore
 	--add a few tags to link the chao to the egg.

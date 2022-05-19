@@ -547,6 +547,33 @@ function service:returnColor(chao)
 		end
 	end
 end
+
+function service:returnColorFromId(colorId)
+	for i,v in pairs(monoColors) do
+		if v.Id == colorId then
+			return v.Name
+		end
+	end
+	for i,v in pairs(twotoneColor) do
+		if v.Head == colorId then
+			return v.Name
+		end
+	end
+end
+
+function service:returnToneFromId(chaoId)
+	for i,v in pairs(monoColors) do
+		if v.Id == chaoId then
+			return "mono"
+		end
+	end
+	for i,v in pairs(twotoneColor) do
+		if v.Head == chaoId then
+			return "two"
+		end
+	end
+end
+
 --Changes parts of the chao to animal parts
 function service:ChangeBodyPart(chao,part)
 	if service.GetArrayItem(chao,part) then
@@ -583,27 +610,30 @@ function service:ColorChao(chao,color,isTwoTone)
 end
 
 --Colors Shiny or Jewel Chao
-function service:ShineChao(chao,color,class)
+function service:ShineChao(chao,class)
 	if class == "Jewel" then
-		if service.GetArrayItem(jewels,color) then
-			for i,v in pairs(chao:GetDescendants()) do
-				if v:IsA("SpecialMesh") then
-					if not v.Name == "EyesMesh" then
-						v.TextureId = service.GetArrayItem(jewels,color).ID
-					end
+		for i,v in pairs(chao:GetDescendants()) do
+			if v:IsA("SpecialMesh") then
+				if not v.Name == "Eyes" then
+					v.Material = Enum.Material.Glass
 				end
 			end
 		end
 	elseif class == "Shiny" then
-		if service.GetArrayItem(monoColors,color) then
-			for i,v in pairs(chao:GetDescendants()) do
-				if v:IsA("SpecialMesh") then
-					if not v.Name == "EyesMesh" then
-						v.TextureId = service.GetArrayItem(monoColors,color)[v.Name]
-						v.Material = Enum.Material.SmoothPlastic
-						v.Reflectance = 1
-						print("Shiny Chao Made")
-					end
+		for i,v in pairs(chao:GetDescendants()) do
+			if v:IsA("SpecialMesh") then
+				if not v.Name == "Eyes" then
+					v.Material = Enum.Material.Glass
+					v.Transparency = 0.3
+					v.Reflectance = 0.3
+				end
+			end
+		end
+	elseif class == "Bright" then
+		for i,v in pairs(chao:GetDescendants()) do
+			if v:IsA("SpecialMesh") then
+				if not v.Name == "Eyes" then
+					v.Material = Enum.Material.Neon
 				end
 			end
 		end
