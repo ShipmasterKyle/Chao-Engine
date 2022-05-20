@@ -100,7 +100,7 @@ function service:PurchaseItem(item,plr)
 	else
 		warn("PurchaseItem run error. Item: "..item.."plr "..plr.Name)
 	end
-ends
+end
 
 function service:SellItem(item,plr)
 	--Sell an item for 70% of its origin value.

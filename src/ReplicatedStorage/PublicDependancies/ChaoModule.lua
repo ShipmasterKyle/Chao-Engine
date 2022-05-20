@@ -560,7 +560,7 @@ function module:BreedChao(chaoData1,chaoData2,chao1,chao2)
 	else
 		anomaly = false
 	end
-	if anomaly == false
+	if anomaly == false then
 		for i,v in pairs(traitLoadout) do
 			if v.Id == chao1Color then
 				compare1 = v.Dom
@@ -613,27 +613,27 @@ function module:BreedChao(chaoData1,chaoData2,chao1,chao2)
 	if chao1.Head.Material == Enum.Material.Glass then
 		if chao1.Head.Transparency == 0.3 then
 			if chaoType == nil then
-				chaoType == "Shiny"
+				chaoType = "Shiny"
 			else
-				chaoType == "Jewel"
+				chaoType = "Jewel"
 			end
 		end
 	elseif chao1.Head.Material == Enum.Material.Neon then
 		if chaoType == nil then
-			chaoType == "Bright"
+			chaoType = "Bright"
 		end
 	end
 	if chao2.Head.Material == Enum.Material.Glass then
 		if chao2.Head.Transparency == 0.3 then
 			if chaoType == nil then
-				chaoType == "Shiny"
+				chaoType = "Shiny"
 			else
-				chaoType == "Jewel"
+				chaoType = "Jewel"
 			end
 		end
 	elseif chao2.Head.Material == Enum.Material.Neon then
 		if chaoType == nil then
-			chaoType == "Bright"
+			chaoType = "Bright"
 		end
 	end
 

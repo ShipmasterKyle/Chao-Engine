@@ -99,7 +99,7 @@ while wait() do
 	end
 end
 
-script.Parent.Start:GetPropertyChangedSignal("Visible"):Connect(funcion()
+script.Parent.Start:GetPropertyChangedSignal("Visible"):Connect(function()
 	if script.Parent.Visible == false then
 		on = false
 	elseif script.Parent.Visible == true then
