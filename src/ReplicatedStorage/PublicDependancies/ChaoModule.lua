@@ -288,7 +288,7 @@ end
 
 --Create a new garden
 function module:CreateNew()
-	local folder = game.ReplicatedStorage.GardenFolder
+	local folder = game.ReplicatedStorage.GardenFolder:Clone()
 	--Stat for chao count
 	local chaoCount = folder.ChaoCount
 	chaoCount.Value = 0
@@ -304,7 +304,7 @@ end
 function module.newChao()
 	print("Ready!")
 	--generate stats
-	local folder = game.ReplicatedStorage.Folder
+	local folder = game.ReplicatedStorage.Folder:Clone()
 	local rng = math.random(5)
 	local statTable = {
 		1,
