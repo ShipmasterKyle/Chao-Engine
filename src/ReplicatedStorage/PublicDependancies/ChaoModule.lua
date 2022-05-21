@@ -300,6 +300,65 @@ function module:CreateNew()
 	return folder
 end
 
+--Create a chao with color data
+function module:CreateChao(color,isTwoTone)
+	print("Ready!")
+	--generate stats
+	local folder = game.ReplicatedStorage.Folder:Clone()
+	local rng = math.random(5)
+	local statTable = {
+		1,
+		1,
+		1,
+		1,
+		1
+	}
+	--fills the stats table and makes it so only one stat can be an A. This isn't for the genepool.
+	local hasfive = false
+	for i,v in pairs(statTable) do
+		if not hasfive then
+			local rng = math.random(5)
+			statTable[i] = rng
+			if rng == 5 then
+				hasfive = true
+			end
+		else
+			statTable[i] = math.random(4)
+		end
+	end
+	folder.SwimRank.Value = statTable[1]
+	folder.FlyRank.Value = statTable[2]
+	folder.RunRank.Value = statTable[3]
+	folder.PowerRank.Value = statTable[4]
+	folder.StaminaRank.Value = statTable[5]
+	folder.Age.Value = 0
+	folder.Attribute.Value = "Child"
+	folder.Condition.Value = "none"
+	folder.Happiness.Value = 50
+	folder.ChaoColor.Value = color
+	folder.isTwoTone.Value = isTwoTone
+	folder.Hunger.Value = 1
+	local trng = math.random(#personalityTable)
+	folder.Personality.Value = personalityTable[trng]
+	--Here we randomize the position of the chao. I'll do that later on
+	folder.Hatched.Value = false
+	local newChao = repl.baseChao:Clone()
+	visualService:ColorChao(newChao,color,isTwoTone)
+	newChao.Parent = game.ReplicatedStorage.chaoStore
+	--add a few tags to link the chao to the egg.
+	local vEx = Instance.new("StringValue")
+	vEx.Name = "Identifier"
+	local id = math.random(2400)
+	vEx.Value = "ColorChao"..id
+	local newEgg = repl.Egg:Clone()
+	local tagCopy = vEx:Clone()
+	tagCopy.Parent = newEgg
+	tagCopy.Position = chao1.Position
+	newEgg:SetAttribute("ID","Chao"..plr.GardenFolder.ChaoCount.Value)
+	newEgg.Parent = workspace
+	return folder
+end
+
 --Create a chao
 function module.newChao()
 	print("Ready!")
