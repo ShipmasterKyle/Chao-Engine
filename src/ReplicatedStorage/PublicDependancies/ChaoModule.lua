@@ -521,29 +521,46 @@ function module:Rebirth(chaoData,chao,player)
 end
 
 --Handle Breeding chao stats
-function module:BreedChao(chaoData1,chaoData2,chao1,chao2)
+function module:BreedChao(chaoData1,chaoData2,chao1,chao2,plr)
 	--Determine what stats to take from who
 	local chao1Stats = {}
-	chao1Stats[1] = chaoData1.FlyXP.Value
-	chao1Stats[2] = chaoData1.SwimXP.Value
-	chao1Stats[3] = chaoData1.RunXP.Value
-	chao1Stats[4] = chaoData1.PowerXP.Value
-	chao1Stats[5] = chaoData1.StaminaXP.Value
+	chao1Stats[1] = chaoData1.SwimRank.Value
+	chao1Stats[2] = chaoData1.FlyRank.Value
+	chao1Stats[3] = chaoData1.RunRank.Value
+	chao1Stats[4] = chaoData1.PowerRank.Value
+	chao1Stats[5] = chaoData1.StaminaRank.Value
 	local chao2Stats = {}
-	chao2Stats[1] = chaoData2.FlyXP.Value
-	chao2Stats[2] = chaoData2.SwimXP.Value
-	chao2Stats[3] = chaoData2.RunXP.Value
-	chao2Stats[4] = chaoData2.PowerXP.Value
-	chao2Stats[5] = chaoData2.StaminaXP.Value
-	local newChaoStats = {}
+	chao2Stats[1] = chaoData2.SwimRank.Value
+	chao2Stats[2] = chaoData2.FlyRank.Value
+	chao2Stats[3] = chaoData2.RunRank.Value
+	chao2Stats[4] = chaoData2.PowerRank.Value
+	chao2Stats[5] = chaoData2.StaminaRank.Value
+	local statTable = {}
 	for count = 1,5 do
 		local rand = math.random(2)
 		if rand == 1 then
-			newChaoStats[count] = chao1Stats[count]
+			statTable[count] = chao1Stats[count]
 		elseif rand == 2 then
-			newChaoStats[count] = chao2Stats[count]
+			statTable[count] = chao2Stats[count]
 		end
 	end
+	--Create the new chao data
+	local folder = game.ReplicatedStorage.Folder:Clone()
+	folder.SwimRank.Value = statTable[1]
+	folder.FlyRank.Value = statTable[2]
+	folder.RunRank.Value = statTable[3]
+	folder.PowerRank.Value = statTable[4]
+	folder.StaminaRank.Value = statTable[5]
+	folder.Age.Value = 0
+	folder.Attribute.Value = "Child"
+	folder.Condition.Value = "none"
+	folder.Happiness.Value = 50
+	folder.Hunger.Value = 1
+	local trng = math.random(#personalityTable)
+	folder.Personality.Value = personalityTable[trng]
+	folder.Hatched.Value = false
+	folder.Parent = plr.Leaderstats
+	plr.GardenFolder.ChaoCount.Value += 1
 	--Decide the chao's color and color it with visual service
 	local newChao = repl.baseChao:Clone()
 	local color
@@ -608,7 +625,7 @@ function module:BreedChao(chaoData1,chaoData2,chao1,chao2)
 		isTwoTone = true
 	end
 
-	--NEW: Determine if the chao will be a special type
+	--Determine if the chao will be a special type
 	local chaoType = nil
 	if chao1.Head.Material == Enum.Material.Glass then
 		if chao1.Head.Transparency == 0.3 then
@@ -651,6 +668,7 @@ function module:BreedChao(chaoData1,chaoData2,chao1,chao2)
 	local tagCopy = vEx:Clone()
 	tagCopy.Parent = newEgg
 	tagCopy.Position = chao1.Position
+	newEgg:SetAttribute("ID","Chao"..plr.GardenFolder.ChaoCount.Value)
 	newEgg.Parent = workspace
 end
 
