@@ -13,7 +13,7 @@
 
         [NOTE: Theres another simple math equation to determine how much
         XP you'd get from food inferring you know the base XP. Its
-        x*Rank = y where x is the baseXP and y is the final X. You will 
+        x*Rank = y where x is the baseXP and y is the final XP. You will 
         never get no XP and will never lose XP. The lowest rank is 1 which
         is an E. The last bite of food also is the most healthy as it gives
         the most XP.]
@@ -133,4 +133,11 @@
         made from Glass although Jewel Chao have no really glass effect while Shiny chao have 
         a transparency of 0.3. Bright Chao, which are not a glitch and are intentional are 
         made from neon and give off a neon color.
+    
+    New Chao
+        When a chao egg is bought from the market its data is not added to the garden until you enter a
+        garden, the event to create new chao eggs is ran
+
+    Evolution and Breeding
+
 ]]
