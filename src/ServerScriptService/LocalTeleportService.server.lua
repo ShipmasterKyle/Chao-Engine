@@ -18,10 +18,10 @@ end
 
 while wait() do
 	for i,v in pairs(workspace.Doors:GetChildren()) do
-		if debound == false then
 			if v:IsA("Part") then
-				debound = true
 				v.Touched:Connect(function(hit)
+					if debound == false then
+						debound = true
 					if hit.Parent:FindFirstChild("Humanoid") then --this breaks then holding system so we're gona rewrite it
 						garden.Value = "loading"
 						local chaoExist = hit.Parent:FindFirstChild("Held",true)
@@ -50,6 +50,7 @@ while wait() do
 							weld.Part1 = chao
 							weld.Name = "Weld"
 							weld.Parent = chao
+							debound = false
 						else
 							print("Teleporting...")
 							local isReturn = v:GetAttribute("isReturn")
@@ -61,12 +62,12 @@ while wait() do
 									garden.Value = doorName
 								end
 							end
+							debound = false
 						end
 					end
+					end
 				end)
-				debound = false
 			end
-		end
 	end
 end
 

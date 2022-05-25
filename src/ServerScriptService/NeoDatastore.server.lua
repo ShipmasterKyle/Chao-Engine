@@ -107,7 +107,7 @@ end
 --TODO: Create a callback to save the player's money on purchases
 
 game.Players.PlayerRemoving:Connect(function(player)
-	local data = createSaveTable(player,"Garden")
+	local data = createSaveTable(player,"GardenFolder")
 	local success, errormessage = pcall(function()
 		saveData:SetAsync("Garden_"..player.UserId)
 	end)

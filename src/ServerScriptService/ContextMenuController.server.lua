@@ -19,13 +19,13 @@ PromptService.PromptTriggered:Connect(function(prompt, player)
 		end
 		if prompt.Name == "Pickup" then
 			if promptStatus == "Pick" then
-				prompt.Parent.Held.Value = true
-				prompt.Parent.Parent = player.Character
+				local chao = prompt.Parent.Parent
+				chao.HumanoidRootPart.Held.Value = true
+				chao.Parent = player.Character
 				print(prompt.Parent.Parent)
 				--Load Carry Animation
 				--Weld to the player
 				local humroot = player.Character:FindFirstChild("HumanoidRootPart")
-				local chao = prompt.Parent
 				chao.CFrame = humroot.CFrame * CFrame.new(0,0,-1)
 				local weld = Instance.new("WeldConstraint")
 				weld.Part0 = humroot

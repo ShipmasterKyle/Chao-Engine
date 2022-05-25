@@ -8,6 +8,8 @@ local chao = script.Parent
 local hum = script.Parent.ChaoController
 --Get the runtime.
 local RS = game:GetService("RunService")
+--run wait on task
+local wait = task.wait
 --ChaoState
 local ChaoState = chao:GetAttribute("ChaoState")
 chao:SetAttribute("ChaoState","Idle")
@@ -42,7 +44,7 @@ game.Players.PlayerAdded:Connect(function(player)
 end)
 
 repeat wait() until script.Parent.Parent == workspace
-
+wait(3)
 --Make sure the chao is marked as hatched.
 plr.Leaderstats[chao.Name].Hatched.Value = true
 
