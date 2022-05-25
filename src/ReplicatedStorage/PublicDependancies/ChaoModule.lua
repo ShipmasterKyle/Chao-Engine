@@ -294,14 +294,14 @@ function module:CreateNew()
 	chaoCount.Value = 0
 	local chaoNames = folder.Chao1Name
 	--Defualt names to prevent crashes
-	chaoNames.Value = "Chao"
+	chaoNames.Value = "Chao1"
 	local chao2Names = folder.Chao2Name
-	chao2Names.Value = "Chaosky"
+	chao2Names.Value = "Chao2"
 	return folder
 end
 
 --Create a chao with color data
-function module:CreateChao(color,isTwoTone)
+function module:CreateChao(color,isTwoTone,plr)
 	print("Ready!")
 	--generate stats
 	local folder = game.ReplicatedStorage.Folder:Clone()
@@ -353,8 +353,8 @@ function module:CreateChao(color,isTwoTone)
 	local newEgg = repl.Egg:Clone()
 	local tagCopy = vEx:Clone()
 	tagCopy.Parent = newEgg
-	tagCopy.Position = chao1.Position
 	newEgg:SetAttribute("ID","Chao"..plr.GardenFolder.ChaoCount.Value)
+	newEgg:SetAttribute("ChaoName","Chao"..plr.GardenFolder.ChaoCount.Value)
 	newEgg.Parent = workspace
 	return folder
 end
@@ -455,6 +455,7 @@ function module.Hatch(Egg,baseChao)
 				end
 			end
 			copy.Parent = workspace
+			copy.Name = Egg:GetAttribute("ChaoName")
 			copy:SetAttribute("ID",Egg:GetAttribute("ID"))
 			copy:MoveTo(goalPos)
 		else
@@ -466,6 +467,7 @@ function module.Hatch(Egg,baseChao)
 			Egg:Destroy()
 			wait(3)
 			local copy = repl.baseChao:Clone()
+			copy.Name = Egg:GetAttribute("ChaoName")
 			copy:SetAttribute("ID",Egg:GetAttribute("ID"))
 			copy.Parent = workspace
 			copy:MoveTo(goalPos)

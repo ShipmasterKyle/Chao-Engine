@@ -26,17 +26,17 @@ PromptService.PromptTriggered:Connect(function(prompt, player)
 				--Load Carry Animation
 				--Weld to the player
 				local humroot = player.Character:FindFirstChild("HumanoidRootPart")
-				chao.CFrame = humroot.CFrame * CFrame.new(0,0,-1)
+				chao:SetPrimaryPartCFrame(humroot.CFrame * CFrame.new(0,0,-1))
 				local weld = Instance.new("WeldConstraint")
 				weld.Part0 = humroot
-				weld.Part1 = chao
+				weld.Part1 = chao.PrimaryPart
 				weld.Name = "Weld"
 				weld.Parent = chao
 			end
 			if promptStatus == "Drop" then
-				local chao = prompt.Parent
+				local chao = prompt.Parent.Parent
 				if chao:FindFirstChild("Weld") then
-					chao.Held.Value = false
+					chao.HumanoidRootPart.Held.Value = false
 					chao.Weld:Destroy()
 					chao.Parent = workspace
 				end

@@ -15,7 +15,7 @@ while wait(1) do
 			UIService:UpdateContextMenu(script.Parent.Pickup,"ObjectText","Pick up your chao.")
 		end
 	else
-		if script.Parent.Parent:FindFirstChild("HumanoidRootPart") then
+		if script.Parent.Parent.Parent:FindFirstChild("HumanoidRootPart") then
 			local velo = script.Parent.Parent.HumanoidRootPart.Velocity.Magnitude
 			print("Velocity: "..velo)--Actually print the velocity.
 			if velo >= 2 then

@@ -86,8 +86,8 @@ game.ReplicatedStorage.Remotes.Market.OnClientEvent:Connect(function()
 end)
 
 plr.Character.ChildAdded:Connect(function(obj)
-	if obj:FindFirstChild("Held",true) and garden.Value == "Garden" then
-		print("Chao Added")
+	if obj:FindFirstChild("ChaoController") and garden.Value == "Garden" then
+		print("Chao Added: "..obj.Name)
 		local chaoData = plr.Leaderstats[obj.Name]
 		if chaoData then
 			print("New Chao Found")

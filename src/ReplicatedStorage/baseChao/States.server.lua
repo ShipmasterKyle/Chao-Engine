@@ -16,7 +16,7 @@ chao:SetAttribute("ChaoState","Idle")
 --define an empty player value
 local plr
 --Get ClassService so we can identify objects
-ClassService = require(game.ReplicatedStorage.PublicDependancies.ClassService)
+local ClassService = require(game.ReplicatedStorage.PublicDependancies.ClassService)
 --Get PathFindingService so we can make chao walk
 local PFS = game:GetService("PathfindingService")
 local path = PFS:CreatePath()
@@ -44,9 +44,9 @@ game.Players.PlayerAdded:Connect(function(player)
 end)
 
 repeat wait() until script.Parent.Parent == workspace
-wait(3)
+-- wait(3)
 --Make sure the chao is marked as hatched.
-plr.Leaderstats[chao.Name].Hatched.Value = true
+-- plr.Leaderstats[chao.Name].Hatched.Value = true
 
 --Create a coroutine for sleeping chao
 local chargeChao = coroutine.create(function()

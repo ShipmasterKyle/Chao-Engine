@@ -78,6 +78,7 @@ game.Players.PlayerAdded:Connect(function(player)
 			chao1data.Name = folder.Chao1Name.Value
 			local chao1 = module.spawnChao(chao1data,true)
 			chao1:SetAttribute("ID","chao1")
+			chao1:SetAttribute("ChaoName","Chao1")
 			folder.ChaoCount.Value += 1
 			print("One new chao!")
 			local chao2data = module.newChao()
@@ -85,18 +86,19 @@ game.Players.PlayerAdded:Connect(function(player)
 			chao2data.Name = folder.Chao2Name.Value
 			local chao2 = module.spawnChao(chao1data,true)
 			chao2:SetAttribute("ID","chao2")
+			chao2:SetAttribute("ChaoName","Chao2")
 			folder.ChaoCount.Value += 1 --Should be two now
 			print("Two new chao!")
 		end
 	end
 end)
 
-function createSaveTable(player,table)
+function createSaveTable(player,mytable)
 	-- local clock = os.time()
 	-- player.Leaderstats.lastLogTime.Value = clock
 	-- print(player.Leaderstats.lastLogTime.Value)
 	local saveTable = {}
-	for i,v in pairs(player.Leaderstats[table]) do
+	for i,v in pairs(player.Leaderstats[mytable]:GetDescendants()) do
 		if not v:IsA("Folder") then
 			saveTable[v.Name] = v.Value
 		end
@@ -117,7 +119,7 @@ game.Players.PlayerRemoving:Connect(function(player)
 		warn("An Error Occured while saving save data to server")
 		warn(errormessage)
 	end
-	local data = createSaveTable(player,player.Leaderstats[player.Leaderstats.Garden.Chao1Name.Value])
+	local data = createSaveTable(player,player.Leaderstats[player.Leaderstats.GardenFolder.Chao1Name.Value])
 	local success, errormessage = pcall(function()
 		saveData:SetAsync("Chao1_"..player.UserId)
 	end)
@@ -127,7 +129,7 @@ game.Players.PlayerRemoving:Connect(function(player)
 		warn("An Error Occured while saving save data to server")
 		warn(errormessage)
 	end
-	local data = createSaveTable(player,player.Leaderstats[player.Leaderstats.Garden.Chao2Name.Value])
+	local data = createSaveTable(player,player.Leaderstats[player.Leaderstats.GardenFolder.Chao2Name.Value])
 	local success, errormessage = pcall(function()
 		saveData:SetAsync("Chao2_"..player.UserId)
 	end)
