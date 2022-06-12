@@ -8,6 +8,10 @@ local CamService = require(game.ReplicatedStorage.PublicDependancies.CamService)
 local ui = script.Parent.ScreenGui.Frame.GardenLogo
 local garden = workspace.currentGarden
 
+
+--for chao ui
+local show = false
+
 --> Fix wait
 local wait = task.wait
 
@@ -91,7 +95,8 @@ plr.Character.ChildAdded:Connect(function(obj)
 		local chaoData = plr.Leaderstats[obj.Name]
 		if chaoData then
 			print("New Chao Found")
-			while plr.Character:FindFirstChild(obj) do
+			show = true
+			while show == true do
 				wait(1)
 				script.Parent.ChaoMenu.Frame.Visible = true
 				local frame = script.Parent.ChaoMenu.Frame
@@ -116,6 +121,7 @@ plr.Character.ChildRemoved:Connect(function(obj)
 	if obj:FindFirstChild("Held",true) then
 		print("Chao Removed")
 		wait(2)
-		script.Parent.ChaoMenu.Visible = false
+		show = false
+		script.Parent.ChaoMenu.Frame.Visible = false
 	end
 end)
