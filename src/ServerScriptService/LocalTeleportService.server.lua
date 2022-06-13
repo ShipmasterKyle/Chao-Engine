@@ -1,6 +1,6 @@
 local debound = false
 local wait = task.wait
-local garden = workspace.currentGarde
+local garden = workspace.currentGarden
 local players = game.Players
 
 --getDoors will return a Gate's CFrame that matches the recieved door nane,
