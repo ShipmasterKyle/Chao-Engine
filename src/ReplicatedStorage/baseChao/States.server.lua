@@ -122,6 +122,8 @@ end)
 
 --Create a couroutine that runs while the main function runs
 local stateChanged = coroutine.create(function()
+	print("Chao State Changed! NewState: "..chao:GetAttribute("ChaoState"))
+	print(ChaoState .."This should match the above/")
 	if ChaoState == "Idle" or ChaoState == "Sitting" then
 		wait(5)
 		chao:SetAttribute("ChaoState","Thinking")
@@ -206,8 +208,6 @@ chao:GetAttributeChangedSignal("ChaoState"):Connect(function()
 end)
 
 coroutine.resume(stateChanged)
-
-print("Running")
 --Runs on every frame.
 RS.Heartbeat:Connect(function()
 	if ChaoState == "Thinking" then
@@ -294,5 +294,4 @@ RS.Heartbeat:Connect(function()
 			end
 		end
 	end
-	print(ChaoState)
 end)

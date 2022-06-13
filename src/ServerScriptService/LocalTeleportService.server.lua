@@ -20,6 +20,8 @@ while wait() do
 	for i,v in pairs(workspace.Doors:GetChildren()) do
 			if v:IsA("Part") then
 				v.Touched:Connect(function(hit)
+					print(debound)
+					print("Touched!")
 					if debound == false then
 						debound = true
 					if hit.Parent:FindFirstChild("Humanoid") then --this breaks then holding system so we're gona rewrite it
@@ -33,10 +35,10 @@ while wait() do
 							local chao = chaoExist.Parent
 							chao.HumanoidRootPart.Weld:Destroy() --Unweld the chao so they don't mess up the camera
 							print("Teleporting...")
-							local isReturn = v:GetAttribute("isReturn")
 							local doorName = v:GetAttribute("DoorName")
 							if doorName then
 								local goal = getDoors(doorName)
+								print(goal)
 								if goal then
 									hit.Parent:MoveTo(goal) --Use MoveTo to prevent Humanoid Displacement
 									garden.Value = doorName
@@ -66,6 +68,7 @@ while wait() do
 						end
 					end
 					end
+					debound = false
 				end)
 			end
 	end
