@@ -7,7 +7,7 @@ game.Players.PlayerAdded:Connect(function(player)
 		wait()
 	until script.Parent == workspace
 	while wait() do
-		if workspace.currentGarden == "Garden" then
+		if workspace.currentGarden.Value == "Garden" then
 			if player.Leaderstats:FindFirstChild(chaoData) then
 				if not workspace.currentGarden.Value == "Lobby" and player.Leaderstats[chaoData].canAge == true then
 					player.Leaderstats[chaoData].Age.Value += 0.00055

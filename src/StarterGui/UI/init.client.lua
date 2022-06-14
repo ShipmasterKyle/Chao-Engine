@@ -98,7 +98,7 @@ plr.Character.ChildAdded:Connect(function(obj)
 			show = true
 			while show == true do
 				wait(1)
-				if workspace.currentGarden == "Garden" then
+				if workspace.currentGarden.Value == "Garden" then
 					script.Parent.ChaoMenu.Frame.Visible = true
 					local frame = script.Parent.ChaoMenu.Frame
 					frame.ChaoName.Text = chaoModule:GetStats(obj.Name,plr,"ChaoName")

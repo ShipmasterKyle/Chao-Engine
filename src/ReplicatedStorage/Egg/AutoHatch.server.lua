@@ -11,7 +11,7 @@ local wait = task.wait
 wait(3)
 --Runs every second
 while wait(1) do
-	if workspace.currentGarden == "Garden" then
+	if workspace.currentGarden.Value == "Garden" then
 		if script.Parent.Held.Value == false then
 			if script.Parent.HatchTime.Value <= 0 then
 				if script.Parent:FindFirstChild("Identifier") then
