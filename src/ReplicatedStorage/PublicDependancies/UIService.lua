@@ -5,7 +5,8 @@ local changeSignals = {
 	"Input",
 	"ConsoleInput",
 	"ObjectText",
-	"Name"
+	"Name",
+	"Active"
 }
 
 function module:GenerateContextMenu(context,obj,Input,cInput,objectText)
@@ -47,6 +48,9 @@ function module:UpdateContextMenu(obj,changeSignal,ctx)
 			end
 			if changeSignal == "Name" then
 				obj.Name = ctx
+			end
+			if changeSignal == "Active" then
+				obj.Enabled = ctx
 			end
 		else
 			warn("Invalid Change Signal")

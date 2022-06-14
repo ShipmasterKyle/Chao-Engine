@@ -98,20 +98,22 @@ plr.Character.ChildAdded:Connect(function(obj)
 			show = true
 			while show == true do
 				wait(1)
-				script.Parent.ChaoMenu.Frame.Visible = true
-				local frame = script.Parent.ChaoMenu.Frame
-				frame.ChaoName.Text = chaoModule:GetStats(obj.Name,plr,"ChaoName")
-				local main = frame.MainFrame
-				main.SwimXP.Text = chaoModule:GetStats(obj.Name,plr,"SwimXP")
-				main.SwimLvl.Text = "Lv "..chaoModule:GetStats(obj.name,plr,"SwimLevel")
-				main.FlyXP.Text = chaoModule:GetStats(obj.Name,plr,"FlyXP")
-				main.FlyLvl.Text = "Lv "..chaoModule:GetStats(obj.name,plr,"FlyLevel")
-				main.RunXP.Text = chaoModule:GetStats(obj.Name,plr,"RunXP")
-				main.RunLvl.Text = "Lv "..chaoModule:GetStats(obj.name,plr,"RunLevel")
-				main.PowerXP.Text = chaoModule:GetStats(obj.Name,plr,"PowerXP")
-				main.PowerLvl.Text = "Lv "..chaoModule:GetStats(obj.name,plr,"PowerLevel")
-				main.StaminaXP.Text = chaoModule:GetStats(obj.Name,plr,"StaminaXP")
-				main.StaminaLvl.Text = "Lv "..chaoModule:GetStats(obj.name,plr,"StaminaLevel")
+				if workspace.currentGarden == "Garden" then
+					script.Parent.ChaoMenu.Frame.Visible = true
+					local frame = script.Parent.ChaoMenu.Frame
+					frame.ChaoName.Text = chaoModule:GetStats(obj.Name,plr,"ChaoName")
+					local main = frame.MainFrame
+					main.SwimXP.Text = chaoModule:GetStats(obj.Name,plr,"SwimXP")
+					main.SwimLvl.Text = "Lv "..chaoModule:GetStats(obj.name,plr,"SwimLevel")
+					main.FlyXP.Text = chaoModule:GetStats(obj.Name,plr,"FlyXP")
+					main.FlyLvl.Text = "Lv "..chaoModule:GetStats(obj.name,plr,"FlyLevel")
+					main.RunXP.Text = chaoModule:GetStats(obj.Name,plr,"RunXP")
+					main.RunLvl.Text = "Lv "..chaoModule:GetStats(obj.name,plr,"RunLevel")
+					main.PowerXP.Text = chaoModule:GetStats(obj.Name,plr,"PowerXP")
+					main.PowerLvl.Text = "Lv "..chaoModule:GetStats(obj.name,plr,"PowerLevel")
+					main.StaminaXP.Text = chaoModule:GetStats(obj.Name,plr,"StaminaXP")
+					main.StaminaLvl.Text = "Lv "..chaoModule:GetStats(obj.name,plr,"StaminaLevel")
+				end
 			end
 		end
 	end

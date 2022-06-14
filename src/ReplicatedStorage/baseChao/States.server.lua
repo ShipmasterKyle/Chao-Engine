@@ -48,6 +48,11 @@ repeat wait() until script.Parent.Parent == workspace
 --Make sure the chao is marked as hatched.
 -- plr.Leaderstats[chao.Name].Hatched.Value = true
 
+--A function that changes states outside the coroutine
+function NewState(state)
+	chao:SetAttribute("ChaoState",state)
+end
+
 --Create a coroutine for sleeping chao
 local chargeChao = coroutine.create(function()
 	plr.Leaderstats[chao.Name].isSleeping.Value = true
@@ -100,7 +105,7 @@ local startMovement = coroutine.create(function(pos)
 				if didTrip >= tripChance and lastTrip >= i - 2 --[[>Prevents tripping back to back<]] then
 					--They did trip
 					lastTrip = i
-					chao:SetAttribute("ChaoState","Tripped")
+					NewState("Tripped")
 					hum.MoveToFinished:Wait(3)
 				else
 					--They didn't trip
@@ -112,21 +117,23 @@ local startMovement = coroutine.create(function(pos)
 			end
 		end
 		--Make chao Idle after running
-		chao:SetAttribute("ChaoState","Idle")
+		NewState("Idle")
 	else
 		warn("Unable to compute path. "..tostring(failed))
 		--if for whatever reason the pathfinding breaks return to idle.
-		chao:SetAttribute("ChaoState","Idle")
+		NewState("Idle")
 	end
 end)
 
 --Create a couroutine that runs while the main function runs
 local stateChanged = coroutine.create(function()
 	print("Chao State Changed! NewState: "..chao:GetAttribute("ChaoState"))
-	print(ChaoState .."This should match the above/")
+	print(ChaoState .." This should match the above.")
 	if ChaoState == "Idle" or ChaoState == "Sitting" then
+		print("Idling")
 		wait(5)
-		chao:SetAttribute("ChaoState","Thinking")
+		print("Finished")
+		NewState("Thinking")
 	end
 	if ChaoState == "Thinking" then
 		wait(2)
@@ -143,23 +150,23 @@ local stateChanged = coroutine.create(function()
 			for i,v in pairs(plr.Character:GetDecendants()) do
 				if ClassService:GetItemsClass(v.Name) == "Food" then
 					coroutine.resume(startMovement,plr.Character.HumanoidRootPart.Position)
-					chao:SetAttribute("ChaoState","Running")
+					NewState("Running")
 					isHunger = true
 					break 
 				else end
 			end
 			--Just walk around
 			local nextDest = Vector3.new(chao.HumanoidRootPart.Position.X+math.random(-100,100),chao.HumanoidRootPart.Position.Y,chao.HumanoidRootPart.Position.Z+math.random(-100,100))
-			chao:SetAttribute("ChaoState","Running")
+			NewState("Running")
 			coroutine.resume(startMovement,nextDest)
 		elseif plr.Leaderstats[chao.Name].Energy <= 0 then
 			--Make chao fall asleep
 			--Waiting on Alberto for anim
-			chao:SetAttribute("ChaoState","Sleeping")
+			NewState("Sleeping")
 		else
 			--Just walk around
 			local nextDest = Vector3.new(chao.HumanoidRootPart.Position.X+math.random(-100,100),chao.HumanoidRootPart.Position.Y,chao.HumanoidRootPart.Position.Z+math.random(-100,100))
-			chao:SetAttribute("ChaoState","Running")
+			NewState("Running")
 			coroutine.resume(startMovement,nextDest)
 		end
 	end
@@ -173,11 +180,11 @@ local stateChanged = coroutine.create(function()
 		if plr.Leaderstats[chao.Name].Energy <= 0 then
 			--Make chao fall asleep
 			--Waiting on Alberto for anim
-			chao:SetAttribute("ChaoState","Sleeping")
+			NewState("Sleeping")
 		else
 			--Randomize next pos
 			local nextDest = Vector3.new(chao.HumanoidRootPart.Position.X+math.random(-100,100),chao.HumanoidRootPart.Position.Y,chao.HumanoidRootPart.Position.Z+math.random(-100,100))
-			chao:SetAttribute("ChaoState","Running")
+			NewState("Running")
 			coroutine.resume(startMovement,nextDest)
 		end
 	end
@@ -190,15 +197,15 @@ end)
 --Change the chao's state to swimming if they're touching a part named "Water"
 chao.HumanoidRootPart.Touched:Connect(function(hit)
 	if hit.Name == "Water" and script.Parent.Held.Value == false then
-		chao:SetAttribute("ChaoState","Swimming")
+		NewState("Swimming")
 	end
 end)
 
-chao.Held.Changed:Connect(function()
+chao.HumanoidRootPart.Held.Changed:Connect(function()
 	if chao.Held.Value == true then
-		chao:SetAttribute("ChaoState","Held")
+		NewState("Held")
 	else
-		chao:SetAttribute("ChaoState","Idle")
+		NewState("Idle")
 	end
 end)
 

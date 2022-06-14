@@ -11,15 +11,17 @@ local wait = task.wait
 wait(3)
 --Runs every second
 while wait(1) do
-	if script.Parent.Held.Value == false then
-		if script.Parent.HatchTime.Value <= 0 then
-			if script.Parent:FindFirstChild("Identifier") then
-				chaoModule.Hatch(script.Parent,true)
+	if workspace.currentGarden == "Garden" then
+		if script.Parent.Held.Value == false then
+			if script.Parent.HatchTime.Value <= 0 then
+				if script.Parent:FindFirstChild("Identifier") then
+					chaoModule.Hatch(script.Parent,true)
+				else
+					chaoModule.Hatch(script.Parent)
+				end
 			else
-				chaoModule.Hatch(script.Parent)
+				script.Parent.HatchTime.Value -= 1
 			end
-		else
-			script.Parent.HatchTime.Value -= 1
 		end
 	end
 end
