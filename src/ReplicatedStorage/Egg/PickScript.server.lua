@@ -22,7 +22,7 @@ while wait(1) do
 			if script.Parent.Parent.Parent:FindFirstChild("HumanoidRootPart") then
 				taps = 0
 				script.Parent.Pickup.RequiresLineOfSight = false
-				local velo = script.Parent.Parent.HumanoidRootPart.Velocity.Magnitude
+				local velo = script.Parent.Velocity.Magnitude
 				print("Velocity: "..velo)--Actually print the velocity.
 				if velo >= 2 then
 					if pickupStatus ~= "Throw" then
