@@ -11,17 +11,19 @@ This is a code framework for the Chao Garden as seen in Sonic Adventure 2. Its c
     - Throwing Eggs
     - Shaking Eggs
     - Carrying Eggs
+    - Colored Eggs
 - Chao
     - States (Check Notes in ReplicatedStorage)
     - Stat Generation
     - Aging
     - Multiple Chao
+    - Colored Chao
     - Naming
     - Basic Chao Movement and States
     - Viewing stats
     - Picking up, petting and throwing
     - Feeding (Wisps, Chaos Drives, Fruits)
-    - Changing appearance (WIP) 
+    - Changing appearance (WIP)
 - Kindergarden
     - Black Market
         - Buying Items
@@ -36,7 +38,6 @@ This is a code framework for the Chao Garden as seen in Sonic Adventure 2. Its c
 
 ## Planned Features
 - Races
-- Colored Chao
 - Multiple Gardens
 - Toys
 - Daycare
