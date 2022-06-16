@@ -3,6 +3,7 @@ local chaoModule = require(game.ReplicatedStorage.PublicDependancies.ChaoModule)
 local MarketService = require(game.ReplicatedStorage.PublicDependancies.MarketService)
 local ClassroomService = require(game.ReplicatedStorage.PublicDependancies.Classroom)
 local CamService = require(game.ReplicatedStorage.PublicDependancies.CamService)
+local Player = game:GetService("Players")
 
 --> For Garden Transitions
 local ui = script.Parent.ScreenGui.Frame.GardenLogo
@@ -28,7 +29,7 @@ end)
 garden.Changed:Connect(function()
 	print(garden.Value)
 	if garden.Value ~= "loading" then
-		ui.Visible = true
+		local Tween = game:GetService("TweenService"):Create(ui, TweenInfo.new(0.3), {ImageTransparency = 0}):Play()
 		if garden.Value == "Garden" then
 			ui.Image = "rbxassetid://8596788034"
 		elseif garden.Value == "Kindergarden" then
@@ -37,11 +38,14 @@ garden.Changed:Connect(function()
 			ui.Image = "rbxassetid://8596805320"
 		end
 		wait(3)
-		ui.Visible = false
+		local Tween = game:GetService("TweenService"):Create(ui, TweenInfo.new(0.3), {ImageTransparency = 1}):Play()
+		--ui.Visible = false
 	else
-		script.Parent.ScreenGui.Fade.Visible = true
+		local Tween = game:GetService("TweenService"):Create(script.Parent.ScreenGui.Fade, TweenInfo.new(0.3), {BackgroundTransparency = 0}):Play()
+		--script.Parent.ScreenGui.Fade.Visible = true
 		wait(1.5)
-		script.Parent.ScreenGui.Fade.Visible = false
+		local Tween = game:GetService("TweenService"):Create(script.Parent.ScreenGui.Fade, TweenInfo.new(0.3), {BackgroundTransparency = 1}):Play()
+		--script.Parent.ScreenGui.Fade.Visible = false
 	end
 end)
 
