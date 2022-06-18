@@ -82,7 +82,7 @@ end)
 --	script.Parent.StartClassroom:Fire(ClassroomService:GetCurrentLesson(),chao)
 --end)
 
-game.ReplicatedStorage.Remotes.BulletinBoard.OnClientEvent:Connect(function()
+workspace.kinder.MsgBoard.ClickDetector.MouseClick:Connect(function()
 	script.Parent.Bulletin.Board.Visible = true
 end)
 
