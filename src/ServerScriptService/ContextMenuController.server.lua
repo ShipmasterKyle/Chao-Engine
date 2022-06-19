@@ -81,6 +81,9 @@ PromptService.PromptTriggered:Connect(function(prompt, player)
 				end
 			end
 		end
+		if prompt.Name == "FortunePrompt" then
+			game.ReplicatedStorage.Remotes.StartFortune:FireClient(player)
+		end
 		if prompt.Name == "Bulletin" then
 			game.ReplicatedStorage.Remotes.BulletinBoard:FireClient(player)
 		end

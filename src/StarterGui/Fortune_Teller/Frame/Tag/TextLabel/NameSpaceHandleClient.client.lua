@@ -8,7 +8,7 @@ local NameSpace = require(game.ReplicatedStorage.PublicDependancies.NameSpaceSer
 local Cam = require(game.ReplicatedStorage.PublicDependancies.CamService)
 
 --Bindables
-local ourEvent = game.Players.LocalPlayer.PlayerGui:WaitForChild("StartFortune")
+local ourEvent = game.ReplicatedStorage.Remotes.StartFortune
 local theirEvent = game.Players.LocalPlayer.PlayerGui:WaitForChild("ShowMainOptions")
 local nextEvent = game.Players.LocalPlayer.PlayerGui:WaitForChild("GenerateName")
 local awaitReq = game.Players.LocalPlayer.PlayerGui:WaitForChild("AwaitApproval")
@@ -66,7 +66,7 @@ local loadingMessages = {
 }
 
 --Connect to the event that runs when players walk into the fortune telling house
-ourEvent.Event:Connect(function()
+ourEvent.OnClientEvent:Connect(function()
 	write("Welcome to the fortune telling house. You won't get ou fortune told here but I can give your chao a good name.")
 	wait(0.03)
 	repeat wait(0.03) until isTyping == false
