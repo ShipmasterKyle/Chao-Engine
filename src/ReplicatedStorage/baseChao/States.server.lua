@@ -93,7 +93,7 @@ local startMovement = coroutine.create(function(pos)
 		waypoints = path:GetWaypoints()
 		local lastTrip = 0 --> Arrays start at zero. Funny. Very funny. This is Lua. We don't do that here.
 		for i, waypoint in pairs(waypoints) do
-			if script.Parent.Held.Value == false then
+			if script.Parent.HumanoidRootPart.Held.Value == false then
 				if waypoint.Action == Enum.PathWaypointAction.Jump then
 					wait(1) --make the chao pause before jumping
 					hum:ChangeState(Enum.HumanoidStateType.Jumping)
@@ -189,14 +189,14 @@ local stateChanged = coroutine.create(function()
 		end
 	end
 	if ChaoState == "Held" then
-		repeat wait() until script.Parent.Held.Value == false
+		repeat wait() until script.Parent.HumanoidRootPart.Held.Value == false
 	end
 end)
 
 
 --Change the chao's state to swimming if they're touching a part named "Water"
 chao.HumanoidRootPart.Touched:Connect(function(hit)
-	if hit.Name == "Water" and script.Parent.Held.Value == false then
+	if hit.Name == "Water" and script.Parent.HumanoidRootPart.Held.Value == false then
 		NewState("Swimming")
 	end
 end)
