@@ -91,7 +91,7 @@ PromptService.PromptTriggered:Connect(function(prompt, player)
 		if promptStatus == "Bulletin Board" then
 			game.ReplicatedStorage.Remotes.BulletinBoard:FireClient(player)
 		end
-		if prompt.Name == "Black Market" then
+		if promptStatus == "Black Market" then
 			game.ReplicatedStorage.Remotes.Market:FireClient(player)
 		end
 	end
