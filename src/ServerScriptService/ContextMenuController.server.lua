@@ -37,7 +37,7 @@ PromptService.PromptTriggered:Connect(function(prompt, player)
 				weld.Name = "Weld"
 				weld.Parent = chao
 			end
-			if promptStatus == "Drop" then
+			if promptStatus == "Put" then
 				local chao = prompt.Parent.Parent
 				if chao:FindFirstChild("Weld") then
 					chao.HumanoidRootPart.Held.Value = false

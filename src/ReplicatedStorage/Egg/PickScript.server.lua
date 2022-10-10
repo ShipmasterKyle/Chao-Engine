@@ -2,7 +2,7 @@
 local wait = task.wait
 --dependancies
 local UIService = require(game.ReplicatedStorage.PublicDependancies.UIService)
-UIService:GenerateContextMenu("Pick",script.Parent,Enum.KeyCode.E,Enum.KeyCode.ButtonX,"Pickup")
+UIService:GenerateContextMenu("Pick",script.Parent,Enum.KeyCode.E,Enum.KeyCode.ButtonX,"Pickup",true)
 local taps = 0
 while wait(1) do
 	if workspace.currentGarden.Value == "Garden" then
