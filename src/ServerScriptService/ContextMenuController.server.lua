@@ -5,8 +5,12 @@ local VisualService = require(game.ReplicatedStorage.PublicDependancies.VisualSe
 
 PromptService.PromptTriggered:Connect(function(prompt, player)
 	if prompt and player then
+		print("Prompt Fired")
 		local promptStatus = UIService:GetContextMenuProperty(prompt,"Context")
-		if prompt.Name == "Pet" then
+		local promptState = UIService:GetContextMenuProperty(prompt,"ObjectText")
+		print("Status "..promptStatus)
+		print("State "..promptState)
+		if promptStatus == "Pet" then
 			local chao = prompt.Parent.Parent
 			chao.Held.Value = true
 			--Play petting anim and sound
@@ -17,7 +21,7 @@ PromptService.PromptTriggered:Connect(function(prompt, player)
 			chaoModule.changeData("AbilityDirection",0.033,player.Leaderstats[chao.Name])
 			chao.Held.Value = false
 		end
-		if prompt.Name == "Pickup" then
+		if promptState == "Pickup" then
 			if promptStatus == "Pick" then
 				local chao = prompt.Parent.Parent
 				chao.HumanoidRootPart.Held.Value = true
@@ -58,7 +62,7 @@ PromptService.PromptTriggered:Connect(function(prompt, player)
 				end
 			end
 		end
-		if prompt.Name == "ChaoDrive" then
+		if promptState == "ChaoDrive" then
 			local promptStatus = UIService:GetContextMenuProperty(prompt,"Context")
 			if promptStatus == "Pickup" then
 				prompt.Parent.Held.Value = true
@@ -81,13 +85,13 @@ PromptService.PromptTriggered:Connect(function(prompt, player)
 				end
 			end
 		end
-		if prompt.Name == "FortunePrompt" then
+		if promptStatus == "Fortune Teller" then
 			game.ReplicatedStorage.Remotes.StartFortune:FireClient(player)
 		end
-		if prompt.Name == "Bulletin" then
+		if promptStatus == "Bulletin Board" then
 			game.ReplicatedStorage.Remotes.BulletinBoard:FireClient(player)
 		end
-		if prompt.Name == "MarketPrompt" then
+		if prompt.Name == "Black Market" then
 			game.ReplicatedStorage.Remotes.Market:FireClient(player)
 		end
 	end

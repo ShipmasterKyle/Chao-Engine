@@ -6,13 +6,14 @@ local changeSignals = {
 	"ConsoleInput",
 	"ObjectText",
 	"Name",
-	"Active"
+	"Active",
+	"Style"
 }
 
-function module:GenerateContextMenu(context,obj,Input,cInput,objectText)
+function module:GenerateContextMenu(context,obj,Input,cInput,objectText,custom)
 	if context and obj then
 		local contextMenu = Instance.new("ProximityPrompt")
-		contextMenu.Name = context
+		contextMenu.Name = "OpenMenu" --Make it so we use the menu by defualt.
 		contextMenu.ActionText = context
 		if Input then
 			contextMenu.KeyboardKeyCode = Input
@@ -20,8 +21,11 @@ function module:GenerateContextMenu(context,obj,Input,cInput,objectText)
 		if cInput then
 			contextMenu.GamepadKeyCode = cInput
 		end
-		if objectText then
+		if objectText then --Since the new Ui doesn't show it anymore this can be used to identify several similar menus
 			contextMenu.ObjectText = objectText
+		end
+		if custom then
+			contextMenu.Style = Enum.ProximityPromptStyle.Custom
 		end
 		contextMenu.MaxActivationDistance = 15
 		contextMenu.Parent = obj
@@ -87,9 +91,21 @@ function module:GetContextMenuProperty(obj,property)
 			if property == "Name" then
 				return obj.Name
 			end
+			if property == "Style" then
+				return obj.Style
+			end
 		end
 	else
-		warn("Unable to get proprties of nil or invalid object.")
+		if not obj then
+			warn("Unable to get proprties of nil object.")
+		elseif not obj:IsA("ProximityPrompt") then
+			warn("Unable to get proprties of invalid object.")
+			warn("Source "..tostring(obj))
+			warn("Class of Source "..tostring(obj.ClassName))
+		else
+			warn("Unable to get proprties of nil or invalid object.")
+			warn("Source "..tostring(obj))
+		end
 	end
 end
 
