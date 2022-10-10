@@ -22,12 +22,6 @@ local function getScreenGui()
 	return screenGui
 end
 
-local update = coroutine.create(function(proxprompt,prompt)
-    while wait do
-        proxprompt.Main.ActionText.Text = UIService:GetContextMenuProperty(prompt,"Context")
-    end
-end)
-
 PromptService.PromptShown:Connect(function(prompt, inputType)
     --Get details about the prompt
     local promptStatus = UIService:GetContextMenuProperty(prompt,"Name")
@@ -48,7 +42,14 @@ PromptService.PromptShown:Connect(function(prompt, inputType)
             proxprompt.Main.Visible = true
             proxprompt.Main.ActionMain:TweenPosition(UDim2.new(-0.014,0,0.089,0),Enum.EasingDirection.In,Enum.EasingStyle.Sine,0.2)
             proxprompt.Main.ActionText.Visible = true
-            coroutine.resume(update)
+            local update = coroutine.wrap(function()
+                while wait(1) do
+                    if proxprompt.Main.ActionText.Text ~= UIService:GetContextMenuProperty(prompt,"Context") then
+                        proxprompt.Main.ActionText.Text = UIService:GetContextMenuProperty(prompt,"Context")
+                    end
+                end
+            end)
+            update()
             prompt.PromptHidden:Connect(function()
                 print("Hidden")
                 proxprompt.Main.Visible = false
