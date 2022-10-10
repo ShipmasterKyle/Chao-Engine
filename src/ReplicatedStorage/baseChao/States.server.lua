@@ -202,7 +202,7 @@ chao.HumanoidRootPart.Touched:Connect(function(hit)
 end)
 
 chao.HumanoidRootPart.Held.Changed:Connect(function()
-	if chao.Held.Value == true then
+	if chao.HumanoidRootPart.Held.Value == true then
 		NewState("Held")
 	else
 		NewState("Idle")
