@@ -4,7 +4,8 @@
 The first chao garden engine for roblox.
 
 ## Overview
-This is a code framework for the Chao Garden as seen in Sonic Adventure 2. Its coded entirely in Luau with Roblox API. The goal of this is to be both a proof of concept, a showcase of the skills I've gained over the last few years and a fully functional game.
+This is a code framework for the Chao Garden as seen in Sonic Adventure 2. Its coded entirely in Luau with Roblox API. The goal of this is a proof of concept, a showcase of the skills I've gained over the last few years and will soon be a fully functional game.
+
 
 ## Features
 - Chao Eggs 
