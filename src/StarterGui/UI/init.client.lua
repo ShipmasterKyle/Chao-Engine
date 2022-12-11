@@ -16,10 +16,16 @@ local show = false
 --> Fix wait
 local wait = task.wait
 
+function dprint(text,i)
+    if workspace.Debug.Value == true or i then
+        print(text)
+    end
+end
+
 game.Players.PlayerAdded:Connect(function()
-	print("New Player!")
+	dprint("New Player!")
 	repeat wait(1) until game.Players.LocalPlayer.CharacterAppearanceLoaded == true
-	print("Ready!")
+	dprint("Ready!")
 	ui.Visible = true
 	ui.Image = "rbxassetid://8596805320"
 	wait(3)
@@ -27,7 +33,7 @@ game.Players.PlayerAdded:Connect(function()
 end)
 
 garden.Changed:Connect(function()
-	print(garden.Value)
+	dprint(garden.Value)
 	if garden.Value ~= "loading" then
 		local Tween = game:GetService("TweenService"):Create(ui, TweenInfo.new(0.3), {ImageTransparency = 0}):Play()
 		if garden.Value == "Garden" then
@@ -95,10 +101,10 @@ end)
 
 plr.Character.ChildAdded:Connect(function(obj)
 	if obj:FindFirstChild("ChaoController") and garden.Value == "Garden" then
-		print("Chao Added: "..obj.Name)
+		dprint("Chao Added: "..obj.Name)
 		local chaoData = plr.Leaderstats[obj.Name]
 		if chaoData then
-			print("New Chao Found")
+			dprint("New Chao Found")
 			show = true
 			while show == true do
 				wait(1)
@@ -125,7 +131,7 @@ end)
 
 plr.Character.ChildRemoved:Connect(function(obj)
 	if obj:FindFirstChild("Held",true) then
-		print("Chao Removed")
+		dprint("Chao Removed")
 		wait(2)
 		show = false
 		script.Parent.ChaoMenu.Frame.Visible = false

@@ -3,13 +3,19 @@ local UIService = require(game.ReplicatedStorage.PublicDependancies.UIService)
 local chaoModule = require(game.ReplicatedStorage.PublicDependancies.ChaoModule)
 local VisualService = require(game.ReplicatedStorage.PublicDependancies.VisualService)
 
+function dprint(text,i)
+    if workspace.Debug.Value == true or i then
+        print(text)
+    end
+end
+
 PromptService.PromptTriggered:Connect(function(prompt, player)
 	if prompt and player then
-		print("Prompt Fired")
+		dprint("Prompt Fired")
 		local promptStatus = UIService:GetContextMenuProperty(prompt,"Context")
 		local promptState = UIService:GetContextMenuProperty(prompt,"ObjectText")
-		print("Status "..promptStatus)
-		print("State "..promptState)
+		dprint("Status "..promptStatus)
+		dprint("State "..promptState)
 		if promptStatus == "Pet" then
 			local chao = prompt.Parent.Parent
 			chao.Held.Value = true
@@ -25,8 +31,9 @@ PromptService.PromptTriggered:Connect(function(prompt, player)
 			if promptStatus == "Pick" then
 				local chao = prompt.Parent.Parent
 				chao.HumanoidRootPart.Held.Value = true
+				game.ReplicatedStorage.pickSig:FireClient(player,chao.Name,true)
 				chao.Parent = player.Character
-				print(prompt.Parent.Parent)
+				dprint(prompt.Parent.Parent)
 				--Load Carry Animation
 				--Weld to the player
 				local humroot = player.Character:FindFirstChild("HumanoidRootPart")
@@ -41,6 +48,7 @@ PromptService.PromptTriggered:Connect(function(prompt, player)
 				local chao = prompt.Parent.Parent
 				if chao:FindFirstChild("Weld") then
 					chao.HumanoidRootPart.Held.Value = false
+					game.ReplicatedStorage.pickSig:FireClient(player,chao.Name)
 					chao.Weld:Destroy()
 					chao.Parent = workspace
 				end

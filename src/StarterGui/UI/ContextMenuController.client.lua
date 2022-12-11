@@ -22,6 +22,12 @@ local function getScreenGui()
 	return screenGui
 end
 
+function dprint(text,i)
+    if workspace.Debug.Value == true or i then
+        print(text)
+    end
+end
+
 PromptService.PromptShown:Connect(function(prompt, inputType)
     --Get details about the prompt
     local promptStatus = UIService:GetContextMenuProperty(prompt,"Name")
@@ -29,7 +35,7 @@ PromptService.PromptShown:Connect(function(prompt, inputType)
     local gui = getScreenGui()
     if promptStatus == "OpenMenu" then
         --Assert that the prompt style is correct
-        print(UIService:GetContextMenuProperty(prompt,"Style"))
+        dprint(UIService:GetContextMenuProperty(prompt,"Style"))
         if UIService:GetContextMenuProperty(prompt,"Style") == Enum.ProximityPromptStyle.Custom then
             local proxprompt = game.Players.LocalPlayer.PlayerGui.ChaoPrompt
             if inputType == Enum.ProximityPromptInputType.Gamepad then
@@ -51,7 +57,7 @@ PromptService.PromptShown:Connect(function(prompt, inputType)
             end)
             update()
             prompt.PromptHidden:Connect(function()
-                print("Hidden")
+                dprint("Hidden")
                 proxprompt.Main.Visible = false
                 proxprompt.Main.ActionText.Visible = false
                 proxprompt.ButtonMain.Button.Visible = false

@@ -1,9 +1,15 @@
 local remote = game.ReplicatedStorage.Remotes.Eat
 local chaoModule = require(game.ReplicatedStorage.PublicDependancies.ChaoModule)
 
+function dprint(text,i)
+    if workspace.Debug.Value == true or i then
+        print(text)
+    end
+end
+
 remote.OnServerEvent:Connect(function(stat,value,chaoData,objClass,obj)
-	print("fired!")
-	print(objClass)
+	dprint("fired!")
+	dprint(objClass)
 	if objClass == "Drive" then
 		chaoModule.changeStat(stat,value,chaoData)
 	end

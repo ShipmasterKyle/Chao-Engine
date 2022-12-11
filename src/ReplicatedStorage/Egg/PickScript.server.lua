@@ -1,5 +1,12 @@
 --Makes it so you can pick up your chao and throw it
 local wait = task.wait
+
+function dprint(text,i)
+    if workspace.Debug.Value == true or i then
+        print(text)
+    end
+end
+
 --dependancies
 local UIService = require(game.ReplicatedStorage.PublicDependancies.UIService)
 UIService:GenerateContextMenu("Pick",script.Parent,Enum.KeyCode.E,Enum.KeyCode.ButtonX,"Pickup",true)
@@ -15,7 +22,7 @@ while wait(1) do
 		else
 			if script.Parent.Parent.Parent:FindFirstChild("HumanoidRootPart") then
 				local velo = script.Parent.Velocity.Magnitude
-				print("Velocity: "..velo)--Actually print the velocity.
+				dprint("Velocity: "..velo)--Actually print the velocity.
 				if velo >= 2 then
 					if pickupStatus ~= "Throw" then
 						UIService:UpdateContextMenu(script.Parent.OpenMenu,"Context","Throw")			
