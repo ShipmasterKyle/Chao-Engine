@@ -131,7 +131,7 @@ function stateChanged() --Handles state changes
 	if ChaoState.Value == "Held" then --Held is the highest priority since it needs to override the other states
 		dprint(chao.Name.." is being held.")
 		while wait(1) do
-			if script.Parent.HumanoidRootPart.Held.Value ~= true then
+			if script.Parent.HumanoidRootPart.Held.Value ~= false then
 				print("stil held")
 			end
 		end
