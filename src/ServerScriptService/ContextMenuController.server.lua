@@ -31,7 +31,6 @@ PromptService.PromptTriggered:Connect(function(prompt, player)
 			if promptStatus == "Pick" then
 				local chao = prompt.Parent.Parent
 				chao.HumanoidRootPart.Held.Value = true
-				game.ReplicatedStorage.pickSig:FireClient(player,chao.Name,true)
 				chao.Parent = player.Character
 				dprint(prompt.Parent.Parent)
 				--Load Carry Animation
@@ -43,14 +42,15 @@ PromptService.PromptTriggered:Connect(function(prompt, player)
 				weld.Part1 = chao.PrimaryPart
 				weld.Name = "Weld"
 				weld.Parent = chao
+				game.ReplicatedStorage.pickSig:FireClient(player,chao.Name)
 			end
 			if promptStatus == "Put" then
 				local chao = prompt.Parent.Parent
 				if chao:FindFirstChild("Weld") then
 					chao.HumanoidRootPart.Held.Value = false
-					game.ReplicatedStorage.pickSig:FireClient(player,chao.Name)
 					chao.Weld:Destroy()
 					chao.Parent = workspace
+					game.ReplicatedStorage.pickSig:FireClient(player,chao.Name)
 				end
 			end
 			if promptStatus == "Throw" then
