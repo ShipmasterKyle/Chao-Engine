@@ -101,10 +101,10 @@ end)
 
 plr.Character.ChildAdded:Connect(function(obj)
 	if obj:FindFirstChild("ChaoController") and garden.Value == "Garden" then
-		dprint("Chao Added: "..obj.Name)
+		dprint("Chao Added: "..obj.Name,true)
 		local chaoData = plr.Leaderstats[obj.Name]
 		if chaoData then
-			dprint("New Chao Found")
+			dprint("New Chao Found",true)
 			show = true
 			while show == true do
 				wait(1)
@@ -131,7 +131,7 @@ end)
 
 plr.Character.ChildRemoved:Connect(function(obj)
 	if obj:FindFirstChild("Held",true) then
-		dprint("Chao Removed")
+		dprint("Chao Removed",true)
 		wait(2)
 		show = false
 		script.Parent.ChaoMenu.Frame.Visible = false

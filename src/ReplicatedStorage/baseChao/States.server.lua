@@ -1,230 +1,190 @@
---! Everything in this is old. Will be depricated soon.
+--[[
+    States
+    Handles animation and behavior of the chao
+]]
 
--- --Collect the chao and the HumanoidObject
--- local chao = script.Parent
--- local hum = script.Parent.ChaoController
--- --Get the runtime.
--- local RS = game:GetService("RunService")
--- --run wait on task
--- local wait = task.wait
--- --ChaoState
--- local ChaoState = chao:GetAttribute("ChaoState")
--- NewState("Idle")
--- --define an empty player value
--- local plr
--- --Get ClassService so we can identify objects
--- local ClassService = require(game.ReplicatedStorage.PublicDependancies.ClassService)
--- --Get PathFindingService so we can make chao walk
--- local PFS = game:GetService("PathfindingService")
--- local path = PFS:CreatePath()
--- --A boolean for checking if the chao is eating
--- local isEating = false
--- --A boolean to check if a chao is chasing food
--- local isHunger = false
--- --Current Anim
--- local currentlyPlaying = nil
--- --Create an Animation Object
--- local anim = Instance.new("Animation")
+--Collect the chao and the HumanoidObject
+local chao = script.Parent
+local hum = script.Parent.ChaoController
+--run wait on task
+local wait = task.wait
+--initialize ChaoState
+local ChaoState = chao.ChaoState
+--get the player from their id stored from the server
+local plr = game.Players:GetPlayerByUserId(workspace.CurrentPlayerId.Value)
+--Get ClassService so we can identify objects
+local ClassService = require(game.ReplicatedStorage.PublicDependancies.ClassService)
+--Get PathFindingService so we can make chao walk
+local PFS = game:GetService("PathfindingService")
+--Initialize PFS
+local path = PFS:CreatePath()
+--A boolean for checking if the chao is eating
+--local isEating = false --todo: Gotta fix this
+--A boolean that says if we're still running
+local runningFinished = true
+--A boolean to check if a chao is chasing food
+local isHunger = false
+--Current Anim
+local currentlyPlaying = nil
+--Create an Animation Object
+local anim = Instance.new("Animation")
+--Event for handling saveData related things
+local eve = game.ReplicatedStorage.SaveData
 
--- local sicknesses = {
--- 	"Cold",
--- 	"Stomach Ache",
--- 	"Cough",
--- 	"Rash",
--- 	"Hiccups",
--- 	"Runny Nose",
--- }
+--list of sicknesses chao can get
+local sicknesses = {
+	"Cold",
+	"Stomach Ache",
+	"Cough",
+	"Rash",
+	"Hiccups",
+	"Runny Nose",
+}
 
--- game.Players.PlayerAdded:Connect(function(player)
--- 	--set the empty player value to a valid player
--- 	plr = player
--- end)
+--Debug Mode Printing
+function dprint(text,i)
+    if workspace.Debug.Value == true or i then
+        print(text)
+    end
+end
 
--- repeat wait() until script.Parent.Parent == workspace
--- -- wait(3)
--- --Make sure the chao is marked as hatched.
--- -- plr.Leaderstats[chao.Name].Hatched.Value = true
+--A function that changes states outside the main function. Exists since its used alot
+function NewState(state)
+	ChaoState.Value = state 
+	dprint(chao.Name.." changed it's state to "..ChaoState.Value,true)
+end
 
--- --A function that changes states outside the coroutine
--- function NewState(state)
--- 	NewState(state)
--- end
+--Create a coroutine for moving the chao
+function moveTp(pos)
+	local startPos = script.Parent.HumanoidRootPart.Position
+	local walls = workspace.Walls
+	local outsideForce = false --Determines if this function has manipulated the final output position
+	local goal
+	--Loop through walls
+	for i, v in pairs(walls:GetChildren()) do
+		local magnitude = (startPos.Magnitude - v.Position.Magnitude)
+		--Make sure nothing is blocking their path
+		if magnitude <= 50 then
+			--return them to the center
+			goal = Vector3.new(1.52, 150.598, 247.34) --This is technically not the center but its where they will return to.
+			outsideForce = true
+		end
+	end
+	if outsideForce == false then
+		goal = pos --If no manipulation, update the goal
+	end
+	--Move for each waypoint
+	local waypoints
+	local hum = script.Parent.ChaoController
+	local success, failed = pcall(function()
+		path:ComputeAsync(script.Parent.HumanoidRootPart.Position, goal)
+	end)
 
--- --Create a coroutine for sleeping chao
--- local chargeChao = coroutine.create(function()
--- 	plr.Leaderstats[chao.Name].isSleeping.Value = true
--- 	repeat
--- 		--Process takes about 15 minutes
--- 		wait(9)
--- 		plr.Leaderstats[chao.Name].Energy.Value += 1
--- 	until plr.Leaderstats[chao.Name].Energy.Value == 100
--- end)
+	if success and path.Status == Enum.PathStatus.Success then
+		waypoints = path:GetWaypoints()
+		local lastTrip = 0
+		for i, waypoint in pairs(waypoints) do --> Arrays don't start at zero. This is Lua. 
+			if script.Parent.HumanoidRootPart.Held.Value == false then
+				if waypoint.Action == Enum.PathWaypointAction.Jump then
+					wait(1) --make the chao pause before jumping
+					hum:ChangeState(Enum.HumanoidStateType.Jumping)
+				end
+				hum:MoveTo(waypoint.Position)
+				--Do a luck check to determine if a chao tripped.
+				local tripChance = math.random(1000) --Luck caps at 1000 for now
+				local didTrip = 900 - plr.Leaderstats[chao.Name].LuckXP.Value
+				if didTrip >= tripChance and lastTrip >= i - 2 --[[>Prevents tripping back to back<]] then
+					--They did trip
+					lastTrip = i
+					-- NewState("Tripped")
+					hum.MoveToFinished:Wait(3)
+				else
+					--They didn't trip
+					hum.MoveToFinished:Wait(1)
+				end
+			else
+				break
+			end
+		end
+		print("Held is true")
+		--Make chao Idle after running
+		NewState("Idle")
+		runningFinished = true
+	else
+		warn("Unable to compute path. "..tostring(failed))
+		--if for whatever reason the pathfinding breaks return to idle.
+		NewState("Idle")
+		runningFinished = true
+	end
+end
 
--- --Create a coroutine for moving the chao
--- local startMovement = coroutine.create(function(pos)
--- 	local startPos = script.Parent.HumanoidRootPart.Position
--- 	local walls = workspace.Walls
--- 	local outsideForce = false
--- 	local goal
--- 	--Loop through walls
--- 	for i, v in pairs(walls:GetChildren()) do
--- 		local magnitude = (startPos.Magnitude - v.Position.Magnitude)
--- 		--Make sure nothing is blocking their path
--- 		if magnitude <= 100 then
--- 			--return them to the center
--- 			goal = Vector3.new(0,0,0) --TODO: Update this number
--- 			outsideForce = true
--- 		end
--- 	end
--- 	if outsideForce == false then
--- 		goal = pos
--- 	end
--- 	--Move for each waypoint
--- 	local waypoints
--- 	local hum = script.Parent.ChaoController
--- 	local success, failed = pcall(function()
--- 		path:ComputeAsync(script.Parent.HumanoidRootPart.Position, goal)
--- 	end)
+--wrap the thread so we don't have to run coroutine.resume()
+local startMovement = coroutine.wrap(moveTp)
 
--- 	if success and path.Status == Enum.PathStatus.Success then
--- 		waypoints = path:GetWaypoints()
--- 		local lastTrip = 0 --> Arrays start at zero. Funny. Very funny. This is Lua. We don't do that here.
--- 		for i, waypoint in pairs(waypoints) do
--- 			if script.Parent.HumanoidRootPart.Held.Value == false then
--- 				if waypoint.Action == Enum.PathWaypointAction.Jump then
--- 					wait(1) --make the chao pause before jumping
--- 					hum:ChangeState(Enum.HumanoidStateType.Jumping)
--- 				end
--- 				hum:MoveTo(waypoint.Position)
--- 				--Do a luck check to determine if a chao tripped.
--- 				local tripChance = math.random(1000) --Luck caps at 1000 for now
--- 				local didTrip = 999 - plr.Leaderstats[chao.Name].LuckXP.Value
--- 				if didTrip >= tripChance and lastTrip >= i - 2 --[[>Prevents tripping back to back<]] then
--- 					--They did trip
--- 					lastTrip = i
--- 					NewState("Tripped")
--- 					hum.MoveToFinished:Wait(3)
--- 				else
--- 					--They didn't trip
--- 					hum.MoveToFinished:Wait(1)
--- 				end
--- 			else
--- 				--Setting the state to held is handled later on
--- 				break
--- 			end
--- 		end
--- 		--Make chao Idle after running
--- 		NewState("Idle")
--- 	else
--- 		warn("Unable to compute path. "..tostring(failed))
--- 		--if for whatever reason the pathfinding breaks return to idle.
--- 		NewState("Idle")
--- 	end
--- end)
+function stateChanged() --Handles state changes
+	print("Hey there.")
+	print(ChaoState.Value)
+	if ChaoState.Value == "Held" then --Held is the highest priority since it needs to override the other states
+		dprint(chao.Name.." is being held.")
+		repeat
+			wait(1)
+			print("stil held")
+		until script.Parent.HumanoidRootPart.Held.Value ~= true
+		NewState("Idle")
+		dprint("We should be Idle.")
+		stateChanged()
+	elseif ChaoState.Value == "Sleeping" then
+		--Send a sleep event so that the game knows that this chao is trying to sleep
+        eve:Fire(plr,"Sleep",chao)
+	elseif ChaoState.Value == "Idle" then --Idle is higher priority than thinking since it always comes first
+		dprint(chao.Name.." is idling.")
+		wait(3)
+		NewState("Thinking")
+		dprint("We should be thinking.")
+		stateChanged()
+	elseif ChaoState.Value == "Thinking" then
+		dprint(chao.Name.." is thinking.")
+		wait(2)
+		--This is where we can check if we want the chao to get sick.
+		local sickTick = math.random(10000)
+		if sickTick <= 45 then
+			--The chao got sick
+			local sickness = sicknesses[math.random(#sicknesses)]
+			dprint(sickness)
+			--Send a sick event so that the game knows that this chao is sick
+            eve:Fire(plr,"Sick",chao,sickness)
+		end
+		if script.Parent.HumanoidRootPart.Held.Value ~= false then
+			NewState("Held")
+			dprint("We should be held.")
+			stateChanged()
+		else
+			--TODO: Chao should look for food. This needs to be rescripted since the old way was bad.
+			--* Chao walk around
+			dprint("We're walkin")
+			local nextDest = Vector3.new(chao.HumanoidRootPart.Position.X+math.random(-100,100),chao.HumanoidRootPart.Position.Y,chao.HumanoidRootPart.Position.Z+math.random(-100,100))
+			dprint(nextDest)
+			NewState("Running")
+			stateChanged()
+			runningFinished = false
+			moveTp(nextDest)
+			repeat
+				wait()
+			until runningFinished == true
+			stateChanged()
+		end
+	end
+end
 
--- --Create a couroutine that runs while the main function runs
--- function stateChanged()
--- 	ChaoState = chao:GetAttribute("ChaoState")
--- 	print("Chao State Changed! NewState: "..chao:GetAttribute("ChaoState"))
--- 	print(ChaoState .." This should match the above.")
--- 	if ChaoState == "Idle" or ChaoState == "Sitting" then
--- 		print("Idling")
--- 		wait(5)
--- 		print("Finished")
--- 		NewState("Thinking")
--- 	end
--- 	if ChaoState == "Thinking" then
--- 		print("Hey There")
--- 		wait(2)
--- 		print("Still here bub")
--- 		--Do a random tick to decide if chao will get sick and if they do with what
--- 		local sickTick = math.random(10000)
--- 		if sickTick <= 45 then
--- 			--The chao got sick
--- 			local sickness = sicknesses[math.random(#sicknesses)]
--- 			print(sickness)
--- 			plr.Leaderstats[chao.Name].Condition.Value = sickness
--- 		end
--- 		if plr.Leaderstats[chao.Name].Hunger.Value <= 30 then
--- 			print("I'm Hungry")
--- 			--Loop through the player and see if they're holding food.
--- 			for i,v in pairs(plr.Character:GetDecendants()) do
--- 				if ClassService:GetItemsClass(v.Name) == "Food" then
--- 					coroutine.resume(startMovement,plr.Character.HumanoidRootPart.Position)
--- 					NewState("Running")
--- 					isHunger = true
--- 					break 
--- 				else end
--- 			end
--- 			--Just walk around
--- 			local nextDest = Vector3.new(chao.HumanoidRootPart.Position.X+math.random(-100,100),chao.HumanoidRootPart.Position.Y,chao.HumanoidRootPart.Position.Z+math.random(-100,100))
--- 			NewState("Running")
--- 			coroutine.resume(startMovement,nextDest)
--- 		elseif plr.Leaderstats[chao.Name].Energy <= 0 then
--- 			print("Sleepy")
--- 			--Make chao fall asleep
--- 			--Waiting on Alberto for anim
--- 			NewState("Sleeping")
--- 		else
--- 			--Just walk around
--- 			print("We're walkin")
--- 			local nextDest = Vector3.new(chao.HumanoidRootPart.Position.X+math.random(-100,100),chao.HumanoidRootPart.Position.Y,chao.HumanoidRootPart.Position.Z+math.random(-100,100))
--- 			print(nextDest)
--- 			NewState("Running")
--- 			coroutine.resume(startMovement,nextDest)
--- 		end
--- 	end
--- 	if ChaoState == "Sleeping" then
--- 		coroutine.resume(chargeChao)
--- 	end
--- 	if ChaoState == "Eating" then
--- 		isEating = true
--- 		isHunger = false
--- 		repeat wait() until isEating == false
--- 		if plr.Leaderstats[chao.Name].Energy <= 0 then
--- 			--Make chao fall asleep
--- 			--Waiting on Alberto for anim
--- 			NewState("Sleeping")
--- 		else
--- 			--Randomize next pos
--- 			local nextDest = Vector3.new(chao.HumanoidRootPart.Position.X+math.random(-100,100),chao.HumanoidRootPart.Position.Y,chao.HumanoidRootPart.Position.Z+math.random(-100,100))
--- 			NewState("Running")
--- 			coroutine.resume(startMovement,nextDest)
--- 		end
--- 	end
--- 	if ChaoState == "Held" then
--- 		repeat wait() until script.Parent.HumanoidRootPart.Held.Value == false
--- 	end
--- end
+--This should initialize stateChanged
+print("initializing...")
+NewState("Idle")
+stateChanged()
+ChaoState.Changed:Connect(NewState)
 
-
--- --Change the chao's state to swimming if they're touching a part named "Water"
--- chao.HumanoidRootPart.Touched:Connect(function(hit)
--- 	if hit.Name == "Water" and script.Parent.HumanoidRootPart.Held.Value == false then
--- 		NewState("Swimming")
--- 	end
--- end)
-
--- chao.HumanoidRootPart.Held.Changed:Connect(function()
--- 	if chao.HumanoidRootPart.Held.Value == true then
--- 		NewState("Held")
--- 	else
--- 		if ChaoState == "Held" then
--- 			NewState("Idle")
--- 		end
--- 	end
--- end)
-
-
--- chao:GetAttributeChangedSignal("ChaoState"):Connect(function()
--- 	print("Hey there! State Changed")
--- 	stateChanged()
--- end)
-
--- stateChanged()
--- --Runs on every frame.
+--Runs on every frame.
 -- RS.Heartbeat:Connect(function()
--- 	if ChaoState == "Thinking" then
+-- 	if ChaoState.Value == "Thinking" then
 -- 		if currentlyPlaying ~= "Thinking" then
 -- 			currentlyPlaying =  "Thinking"
 -- 			if anim.IsPlaying == true then
@@ -234,7 +194,7 @@
 -- 			hum.Animator:LoadAnimation(anim)
 -- 			anim:Play()
 -- 		end
--- 	elseif ChaoState == "Running" then
+-- 	elseif ChaoState.Value == "Running" then
 -- 		if currentlyPlaying ~= "Running" then
 -- 			currentlyPlaying =  "Running"
 -- 			if anim.IsPlaying == true then
@@ -256,8 +216,8 @@
 -- 				end
 -- 			end
 -- 		end
--- 	elseif ChaoState == "Sitting" or ChaoState == "Idle" or ChaoState == "Held" then
--- 		if ChaoState == "Sitting" then
+-- 	elseif ChaoState.Value == "Sitting" or ChaoState.Value == "Idle" or ChaoState.Value == "Held" then
+-- 		if ChaoState.Value == "Sitting" then
 -- 			if currentlyPlaying ~= "Sitting" then
 -- 				currentlyPlaying =  "Sitting"
 -- 				if anim.IsPlaying == true then
@@ -280,7 +240,7 @@
 -- 				end
 -- 			end
 -- 		end
--- 	elseif ChaoState == "Swimming" then
+-- 	elseif ChaoState.Value == "Swimming" then
 -- 		if currentlyPlaying ~= "Swimming" then
 -- 			currentlyPlaying =  "Swimming"
 -- 			if anim.IsPlaying == true then
@@ -291,7 +251,7 @@
 -- 			hum.Animator:LoadAnimation(anim)
 -- 			anim:Play()
 -- 		end
--- 	elseif ChaoState == "Eating" then
+-- 	elseif ChaoState.Value == "Eating" then
 -- 		if currentlyPlaying ~= "Eating" then
 -- 			currentlyPlaying =  "Eating"
 -- 			if anim.IsPlaying == true then

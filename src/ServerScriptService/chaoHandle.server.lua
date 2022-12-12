@@ -1,5 +1,10 @@
 local eve = game.ReplicatedStorage.SaveData
 
+game.Players.PlayerAdded:Connect(function(player)
+	local plrId = player.UserId
+	workspace.CurrentPlayerId.Value = plrId
+end)
+
 function sleep(plr,chao)
 	plr.Leaderstats[chao].isSleeping.Value = true
 	repeat
@@ -16,7 +21,7 @@ local function sick(plr,chao,sickness)
 	plr.Leaderstats[chao].Condition.Value = sickness
 end
 
-eve.OnServerEvent:Connect(function(plr,task,chao,data)
+eve.Event:Connect(function(plr,task,chao,data)
     if task == "Sleep" then
         chargeChao(plr,chao.Name)
     end
