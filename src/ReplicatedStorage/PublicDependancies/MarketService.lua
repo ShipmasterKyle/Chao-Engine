@@ -18,9 +18,8 @@ function service.GetArrayItem(array,item)
 	end
 end
 
-function service:Initialize(plr)
-	--Initialize the system
-	warn("This system is experimental. It does not save any data at all. Make sure you use everything as you will lose it upon leaving the game.")
+--Initialize the system
+function service:Initialize(plr)warn("This system is experimental. It does not save any data at all. Make sure you use everything as you will lose it upon leaving the game.")
 	if workspace:FindFirstChild(tostring(plr.Name.." Inventory")) then
 		warn("This player's data already exist. Overwriting with a new folder...")
 		workspace[plr.Name.." Inventory"]:Destroy()
@@ -31,8 +30,8 @@ function service:Initialize(plr)
 	folder.Name = tostring(plr.Name.." Inventory")
 end
 
+--loop through the marketplace and add all for sale items to the ui
 function service:LoadMarket(frame,template)
-	--loop through the marketplace and add all for sale items to the ui
 	if frame and template then
 		for i,v in pairs(market) do
 			if v.forSale == true then
@@ -59,8 +58,8 @@ function service:getItemDesc(item)
 	end
 end
 
+--Get the price of items.
 function service:getItemValue(item)
-	--Get the description of items.
 	local itemExist = service.GetArrayItem(market,item)
 	if itemExist then
 		return market[item].Price

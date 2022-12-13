@@ -39,7 +39,6 @@
                     Thinking
                         This is the state that chao will be in when they're choosing what
                         to do next. VisualService will make a "?" appear above their head.
-                    
                     Running
                         In this state chao will simply be walking around depnding on their 
                         animation. Once they finish they will return to the Thinking or Idle

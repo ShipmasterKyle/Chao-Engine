@@ -3,14 +3,15 @@
 	The main module for the garden. Handles stats
 ]]
 
-print("Alive!")
+--generates a new seed
 math.randomseed(tick())
 
+--|| Variables ||--
 local repl = game.ReplicatedStorage
 local visualService = require(script.Parent.VisualService)
 local module = {}
 
---Moved out of the createChao function since we need this in the rebirth.
+--list of possible personalities
 local personalityTable = {
 	--Adding more in the future.
 	"Gentle",
@@ -302,7 +303,7 @@ end
 
 --Create a chao with color data
 function module:CreateChao(color,isTwoTone,plr)
-	print("Ready!")
+	print("Creating new chao")
 	--generate stats
 	local folder = game.ReplicatedStorage.Folder:Clone()
 	local rng = math.random(5)
@@ -477,17 +478,6 @@ function module.Hatch(Egg,baseChao)
 	end
 end
 
---Return a stat
--- function module:GetStats(ChaoData,player, stat)
--- 	if player and stat then
--- 		if player:FindFirstChild(ChaoData) then
--- 			if player.Leaderstats[ChaoData]:FindFirstChild(stat) then
--- 				return player.Leaderstats[ChaoData][stat].Value
--- 			end
--- 		end
--- 	end
--- end
-
 --Chao Evolution
 function module:Evo(chaoData,chao,player)
 	if player and chao then
@@ -598,7 +588,7 @@ function module:BreedChao(chaoData1,chaoData2,chao1,chao2,plr)
 	chao2Stats[5] = chaoData2.StaminaRank.Value
 	local statTable = {}
 	for count = 1,5 do
-		local rand = math.random(2)
+		local rand = math.random(1,2)
 		if rand == 1 then
 			statTable[count] = chao1Stats[count]
 		elseif rand == 2 then
