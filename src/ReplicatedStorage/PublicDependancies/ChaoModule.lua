@@ -478,15 +478,15 @@ function module.Hatch(Egg,baseChao)
 end
 
 --Return a stat
-function module:GetStats(ChaoData,player, stat)
-	if player and stat then
-		if player:FindFirstChild(ChaoData) then
-			if player.Leaderstats[ChaoData]:FindFirstChild(stat) then
-				return player.Leaderstats[ChaoData][stat].Value
-			end
-		end
-	end
-end
+-- function module:GetStats(ChaoData,player, stat)
+-- 	if player and stat then
+-- 		if player:FindFirstChild(ChaoData) then
+-- 			if player.Leaderstats[ChaoData]:FindFirstChild(stat) then
+-- 				return player.Leaderstats[ChaoData][stat].Value
+-- 			end
+-- 		end
+-- 	end
+-- end
 
 --Chao Evolution
 function module:Evo(chaoData,chao,player)

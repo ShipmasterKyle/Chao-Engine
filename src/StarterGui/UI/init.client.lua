@@ -88,9 +88,9 @@ end)
 --	script.Parent.StartClassroom:Fire(ClassroomService:GetCurrentLesson(),chao)
 --end)
 
-workspace.kinder.MsgBoard.ClickDetector.MouseClick:Connect(function()
-	script.Parent.Bulletin.Board.Visible = true
-end)
+-- workspace.kinder.MsgBoard.ClickDetector.MouseClick:Connect(function()
+-- 	script.Parent.Bulletin.Board.Visible = true
+-- end)
 
 game.ReplicatedStorage.Remotes.Market.OnClientEvent:Connect(function()
 	local ourplate = script.Template
@@ -106,23 +106,23 @@ plr.Character.ChildAdded:Connect(function(obj)
 		if chaoData then
 			dprint("New Chao Found",true)
 			show = true
+			script.Parent.ChaoMenu.Frame.Visible = true
 			while show == true do
 				wait(1)
 				if workspace.currentGarden.Value == "Garden" then
-					script.Parent.ChaoMenu.Frame.Visible = true
 					local frame = script.Parent.ChaoMenu.Frame
-					frame.ChaoName.Text = chaoModule:GetStats(obj.Name,plr,"ChaoName")
+					frame.ChaoName.Text = obj.Name
 					local main = frame.MainFrame
-					main.SwimXP.Text = chaoModule:GetStats(obj.Name,plr,"SwimXP")
-					main.SwimLvl.Text = "Lv "..chaoModule:GetStats(obj.name,plr,"SwimLevel")
-					main.FlyXP.Text = chaoModule:GetStats(obj.Name,plr,"FlyXP")
-					main.FlyLvl.Text = "Lv "..chaoModule:GetStats(obj.name,plr,"FlyLevel")
-					main.RunXP.Text = chaoModule:GetStats(obj.Name,plr,"RunXP")
-					main.RunLvl.Text = "Lv "..chaoModule:GetStats(obj.name,plr,"RunLevel")
-					main.PowerXP.Text = chaoModule:GetStats(obj.Name,plr,"PowerXP")
-					main.PowerLvl.Text = "Lv "..chaoModule:GetStats(obj.name,plr,"PowerLevel")
-					main.StaminaXP.Text = chaoModule:GetStats(obj.Name,plr,"StaminaXP")
-					main.StaminaLvl.Text = "Lv "..chaoModule:GetStats(obj.name,plr,"StaminaLevel")
+					main.SwimXP.Text = chaoData.SwimXP.Value
+					main.SwimLvl.Text = "Lv "..chaoData.SwimLevel.Value
+					main.FlyXP.Text = chaoData.FlyXP.value
+					main.FlyLvl.Text = "Lv "..chaoData.FlyLevel.Value
+					main.RunXP.Text = chaoData.RunXP.Value
+					main.RunLvl.Text = "Lv"..chaoData.RunLevel.Value
+					main.PowerXP.Text = chaoData.PowerXP.Value
+					main.PowerLvl.Text = "Lv "..chaoData.PowerLevel.Value
+					main.StaminaXP.Text = chaoData.StaminaXP.Value
+					main.StaminaLvl.Text = "Lv "..chaoData.StaminaLevel.Value
 				end
 			end
 		end
@@ -132,7 +132,6 @@ end)
 plr.Character.ChildRemoved:Connect(function(obj)
 	if obj:FindFirstChild("Held",true) then
 		dprint("Chao Removed",true)
-		wait(2)
 		show = false
 		script.Parent.ChaoMenu.Frame.Visible = false
 	end

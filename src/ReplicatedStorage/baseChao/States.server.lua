@@ -51,7 +51,7 @@ end
 --A function that changes states outside the main function. Exists since its used alot
 function NewState(state)
 	ChaoState.Value = state 
-	dprint(chao.Name.." changed it's state to "..ChaoState.Value,true)
+	dprint(chao.Name.." changed it's state to "..ChaoState.Value)
 end
 
 --Create a coroutine for moving the chao
@@ -122,13 +122,13 @@ end
 local startMovement = coroutine.wrap(moveTp)
 
 function stateChanged() --Handles state changes
-	print("Hey there.")
-	print(ChaoState.Value)
+	dprint("Hey there.")
+	dprint(ChaoState.Value)
 	if ChaoState.Value == "Held" then --Held is the highest priority since it needs to override the other states
 		dprint(chao.Name.." is being held.")
 		repeat
 			wait(1)
-			print("stil held")
+			dprint("stil held")
 		until script.Parent.HumanoidRootPart.Held.Value ~= true
 		NewState("Idle")
 		dprint("We should be Idle.")

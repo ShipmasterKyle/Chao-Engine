@@ -42,7 +42,6 @@ PromptService.PromptTriggered:Connect(function(prompt, player)
 				weld.Part1 = chao.PrimaryPart
 				weld.Name = "Weld"
 				weld.Parent = chao
-				game.ReplicatedStorage.pickSig:FireClient(player,chao.Name)
 			end
 			if promptStatus == "Put" then
 				local chao = prompt.Parent.Parent
@@ -50,7 +49,6 @@ PromptService.PromptTriggered:Connect(function(prompt, player)
 					chao.HumanoidRootPart.Held.Value = false
 					chao.Weld:Destroy()
 					chao.Parent = workspace
-					game.ReplicatedStorage.pickSig:FireClient(player,chao.Name)
 				end
 			end
 			if promptStatus == "Throw" then
