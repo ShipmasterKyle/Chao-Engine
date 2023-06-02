@@ -1,20 +1,20 @@
-local classroomService = require(game.ReplicatedStorage.PublicDependancies.Classroom)
-local ms = require(game.ReplicatedStorage.PublicDependancies.MarketService)
-local logTime
+-- local classroomService = require(game.ReplicatedStorage.PublicDependancies.Classroom)
+-- local ms = require(game.ReplicatedStorage.PublicDependancies.MarketService)
+-- local logTime
 
-game.Players.PlayerAdded:Connect(function(player)
-	if player then
-		ms:Initialize(player)
-		local lastLogTime = player:WaitForChild("Leaderstats").lastLogTime
-		logTime = lastLogTime
-		if os.time() >= lastLogTime.Value + 14400 then
-			classroomService:ChangeClass()
-		end
-		while wait() do
-			if os.time() >= logTime then
-				logTime = os.time()
-				classroomService:ChangeClass()
-			end
-		end
-	end
-end)
+-- game.Players.PlayerAdded:Connect(function(player)
+-- 	if player then
+-- 		ms:Initialize(player)
+-- 		local lastLogTime = player:WaitForChild("Leaderstats").lastLogTime
+-- 		logTime = lastLogTime
+-- 		if os.time() >= lastLogTime.Value + 14400 then
+-- 			classroomService:ChangeClass()
+-- 		end
+-- 		while wait() do
+-- 			if os.time() >= logTime then
+-- 				logTime = os.time()
+-- 				classroomService:ChangeClass()
+-- 			end
+-- 		end
+-- 	end
+-- end)
