@@ -16,13 +16,13 @@ function service.GetArrayItem(array,item)
 		if v.Name == item then
 			return v
 		else end
-		return false
 	end
+	return false
 end
 
 --Clone and object and return it
 --TODO: Finish this. Bricks at line 41
-function service:GetItem(item,class)
+function service:GetItem(item)
 	if item == "Chao Drives" then
 		local myDrives = {}
 		for count = 1,10 do
@@ -31,7 +31,7 @@ function service:GetItem(item,class)
 			print(tostring(driveData[rng]))
 		end
 		for i,v in pairs(myDrives) do
-			local item = service.GetArrayItem(items[class],v)
+			local item = service.GetArrayItem(items,v)
 			if item then
 				local myItem = rawItems[v]:Clone()
 				return myItem
@@ -43,7 +43,7 @@ function service:GetItem(item,class)
 			end
 		end
 	else
-		local itemExist = service.GetArrayItem(items[class],item)
+		local itemExist = service.GetArrayItem(items,item)
 		if itemExist then
 			if rawItems:FindFirstChild(item) then
 				local myItem = rawItems[item]:Clone()
@@ -56,64 +56,41 @@ function service:GetItem(item,class)
 end
 
 --Return the description of an item
-function service:GetItemInfo(class,item)
-	local classExist = service.GetArrayItem(items,class)
-	if classExist then
-		local itemExist = service.GetArrayItem(items[class],item)
+function service:GetItemInfo(item)
+		local itemExist = service.GetArrayItem(items,item)
 		if itemExist then
-			return items[class][item].Desc
+			return items[item].Desc
 		else
 			return nil
 		end
-	else
-		return "Invalid Class"
-	end
 end
 
 --Return all members of a class
 function service:GetChildrenOfClass(class)
-	local classExist = service.GetArrayItem(items,class)
-	if classExist then
-		return items[class]
-	else
-		return "Invalid Class"
+	local children = {}
+	for i,v in pairs(items) do
+		if v.Class == class then
+			table.insert(v)
+		end
 	end
+	return children
 end
 
 --Return an items stats (such as isDecor)
-function service:GetItemDetails(class,item)
-	local classExist = service.GetArrayItem(items,class)
-	if classExist then
-		local itemExist = service.GetArrayItem(items[class],item)
-		if itemExist then
-			return items[class][item]
-		end
-	else
-		return "Invalid Class"
+function service:GetItemDetails(item)
+	local itemExist = service.GetArrayItem(items,item)
+	if itemExist then
+		return items[item]
 	end
 end
 
 --Returns the class an item belongs to.
 function service:GetItemsClass(item)
-	local class
-	if service.GetArrayItem(items.Chao,item) then
-		class = "Chao"
-	elseif service.GetArrayItem(items.Food,item) then
-		class = "Food"
-	elseif service.GetArrayItem(items.Animals.Animals,item) then
-		class = "Animals"
-	elseif service.GetArrayItem(items.Animals.Wisps,item) then
-		class = "Wisps"
-	elseif service.GetArrayItem(items.Animals.ChaoDrives,item) then
-		class = "Drive"
-	elseif service.GetArrayItem(items.Toys) then
-		class = "Toys"
-	elseif service.GetArrayItem(items.Medals,item) then
-		class = "Medals"
-	else
-		class = nil
+	local valve = service.GetArrayItem(items,item)
+	if valve then
+		return valve.Class
 	end
-	return class
+	return "Item's Class Not Found"
 end
 
 return service

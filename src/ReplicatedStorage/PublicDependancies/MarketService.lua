@@ -96,13 +96,11 @@ function service:PurchaseItem(item,plr)
 	local itemExist = service.GetArrayItem(market,item)
 	if item and plr and itemExist then
 		--Free Items for now.
-		local myItemClass = class:GetItemsClass(item)
-		print(item,myItemClass)
-		local myItem = class:GetItem(item,myItemClass)
+		local myItem = class:GetItem(itemExist.Name)
 		if myItem then
 			myItem.Parent = workspace[plr.Name.." Inventory"]
 		else
-			warn("Item not found in rawItems.")
+			warn("Item not found in rawItems.",itemExist.Name)
 		end
 	else
 		warn("PurchaseItem run error. Item: "..item.."plr "..plr.Name)
@@ -113,6 +111,10 @@ function service:SellItem(item,plr)
 	--Sell an item for 70% of its origin value.
 	local itemExist = service.GetArrayItem(market,item)
 	if itemExist then
+		local value = tonumber(itemExist.Value)
+		if value <= 0 then
+			return "Unsellable"
+		end
 		-- local salePrice = (market[item].Price * 70)/100
 		-- local money = plr.ChaoStats.Rings
 		-- money.Value += salePrice

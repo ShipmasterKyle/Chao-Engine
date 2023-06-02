@@ -3,183 +3,223 @@
     A simple class tree for every item in the game.
 ]]
 
+local classes = {
+	WoolHat = {
+		Name = "Wool Hat",
+		Desc = "A warm hat for your chao.",
+		isDecor = true,
+		Value = "1000",
+		Class = "Chao" --Class Name. It'll help us determine what to do with it at certain times.
+	},
+	WhiteEgg = {
+		Name = "White Egg",
+		Desc = "A White Egg",
+		isDecor = false,
+		Value = "400",
+		Class = "Chao"
+	},
+	RedEgg = {
+		Name = "Red Egg",
+		Desc = "A Red Egg",
+		isDecor = false,
+		Price = "500",
+		Class = "Chao"
+	},
+	YellowEgg = {
+		Name = "Yellow Egg",
+		Desc = "A Yellow Egg",
+		isDecor = false,
+		Price = "500", 
+		Class = "Chao"
+	},
+	BlueEgg = {
+		Name = "Blue Egg",
+		Desc = "A Blue Egg",
+		isDecor = false,
+		Price = "500", 
+		Class = "Chao"
+	},
+	SkyBlueEgg = {
+		Name = "Sky Blue Egg",
+		Desc = "A Sky Blue Egg",
+		isDecor = false,
+		Price = "600", Class = "Chao"
+	},
+	PinkEgg = {
+		Name = "Pink Egg",
+		Desc = "A Pink Egg",
+		isDecor = false,
+		Price = "600", 
+		Class = "Chao"
+	},
+	OrangeEgg = {
+		Name = "Orange Egg",
+		Desc = "A Orange Egg",
+		isDecor = false,
+		Price = "600", 
+		Class = "Chao"
+	},
+	PurpleEggs = {
+		Name = "Purple Egg",
+		Desc = "A Purple Egg",
+		isDecor = false,
+		Price = "600", 
+		Class = "Chao"
+	},
+	BrownEgg = {
+		Name = "Brown Egg",
+		Desc = "A Brown Egg",
+		isDecor = false,
+		Price = "800",
+		Class = "Chao"
+	},
+	GreenEgg = {
+		Name = "Green Egg",
+		Desc = "A Green Egg",
+		isDecor = false,
+		Price = "800",
+		Class = "Chao"
+	},
+	GreyEgg = {
+		Name = "Grey Egg",
+		Desc = "A Grey Egg",
+		isDecor = false,
+		Price = "1000",	
+		Class = "Chao"
+	},
+	LimeGreenEgg = {
+		Name = "Lime Green Egg",
+		Desc = "A Lime Green Egg",
+		isDecor = false,
+		Price = "1500",
+		Class = "Chao"
+	},
+	BlackEgg = {
+		Name = "Black Egg",
+		Desc = "A Black Egg",
+		isDecor = false,
+		Price = "2000",
+		Class = "Chao"
+	},
+	Fruit = {
+		Name = "Chao Fruit",
+		Desc = "A regular fruit.",
+		isDecor = false,
+		Value = "50",
+		Class = "Food",
+	},
+	SFruit = {
+		Name = "Square Fruit",
+		Desc = "A square shaped fruit. Some chao love this.",
+		isDecor = false,
+		Value = "100",
+		Class = "Food"
+	},
+	RFruit = {
+		Name = "Round Fruit",
+		Desc = "A round shaped fruit. Some chao love this.",
+		isDecor = false,
+		Value = "125",
+		Class = "Food"
+	},
+	TFruit = {
+		Name = "Triangle Fruit",
+		Desc = "A triangle shaped fruit. Some chao love this.",
+		isDecor = false,
+		Value = "150",
+		Class = "Food"
+	},
+	StFruit = {
+		Name = "Strong Fruit",
+		Desc = "Help your chao grow stronger. (Power +4)",
+		isDecor = false,
+		Value = "200",
+		Class = "Food"
+	},
+	TaFruit = {
+		Name = "Tasty Fruit",
+		Desc = "A tasty fruit that all chao love. Its great for their health too.",
+		isDecor = false,
+		Value = "350",
+		Class = "Food"
+	},
+	HFruit = {
+		Name = "Heart Fruit",
+		Desc = "A sweet tasting fruit that gets chao ready to mate.",
+		isDecor = false,
+		Value = "500",
+		Class = "Food"
+	},
+	SMFruit = {
+		Name = "Smart Fruit",
+		Desc = "A fruit with riveting flavor that helps your chao learn.",
+		isDecor = false,
+		Value = "500",
+		Class = "Food"
+	},
+	Mint = {
+		Name = "Mint Candy",
+		Desc = "A lucky piece of candy sure to give your chao tons of energy. (Luck +25)",
+		isDecor = false,
+		Value = "800",
+		Class = "Food"
+	},
+	rDrive = {
+		Name = "RunDrive",
+		Desc = "A chao drive",
+		isDecor = false,
+		Value = "1",
+		Class = "Drive"
+	},
+	sDrive = {
+		Name = "SwimDrive",
+		Desc = "A chao drive",
+		isDecor = false,
+		Value = "1",
+		Class = "Drive"
+	},
+	pDrive = {
+		Name = "PowerDrive",
+		Desc = "A chao drive",
+		isDecor = false,
+		Value = "1",
+		Class = "Drive"
+	},
+	fDrive = {
+		Name = "FlyDrive",
+		Desc = "A chao drive",
+		isDecor = false,
+		Value = "1",
+		Class = "Drive"
+	},
+	Car = {
+		Name = "Toy Car",
+		Desc = "A Toy Car that can be won from Chao Races",
+		isDecor = false,
+		Value = "-1000",
+		Class = "Toys"
+	}
+}
+--[[
 local tree = {
 	Chao = {
 		Name = "Chao",
-		WoolHat = {
-			Name = "Wool Hat",
-			Desc = "A warm hat for your chao.",
-			isDecor = true,
-			Value = "1000",
-		},
-		WhiteEgg = {
-			Name = "White Egg",
-			Desc = "A White Egg",
-			isDecor = false,
-			Price = "400",
-		},
-		RedEgg = {
-			Name = "Red Egg",
-			Desc = "A Red Egg",
-			isDecor = false,
-			Price = "500",
-		},
-		YellowEgg = {
-			Name = "Yellow Egg",
-			Desc = "A Yellow Egg",
-			isDecor = false,
-			Price = "500",
-		},
-		BlueEgg = {
-			Name = "Blue Egg",
-			Desc = "A Blue Egg",
-			isDecor = false,
-			Price = "500",
-		},
-		SkyBlueEgg = {
-			Name = "Sky Blue Egg",
-			Desc = "A Sky Blue Egg",
-			isDecor = false,
-			Price = "600",
-		},
-		PinkEgg = {
-			Name = "Pink Egg",
-			Desc = "A Pink Egg",
-			isDecor = false,
-			Price = "600",
-		},
-		OrangeEgg = {
-			Name = "Orange Egg",
-			Desc = "A Orange Egg",
-			isDecor = false,
-			Price = "600",
-		},
-		BrownEgg = {
-			Name = "Brown Egg",
-			Desc = "A Brown Egg",
-			isDecor = false,
-			Price = "800",
-		},
-		PurpleEggs = {
-			Name = "Purple Egg",
-			Desc = "A Purple Egg",
-			isDecor = false,
-			Price = "600",
-		},
-		GreenEgg = {
-			Name = "Green Egg",
-			Desc = "A Green Egg",
-			isDecor = false,
-			Price = "800",
-		},
-		GreyEgg = {
-			Name = "Grey Egg",
-			Desc = "A Grey Egg",
-			isDecor = false,
-			Price = "1000",	
-		},
-		LimeGreenEgg = {
-			Name = "Lime Green Egg",
-			Desc = "A Lime Green Egg",
-			isDecor = false,
-			Price = "1500",
-		},
-		BlackEgg = {
-			Name = "Black Egg",
-			Desc = "A Black Egg",
-			isDecor = false,
-			Price = "2000",
-		},
+		
+		
+		
+		
+		
+
 	},
 	Food = {
 		Name = "Food",
-		Fruit = {
-			Name = "Garden Fruit",
-			Desc = "A regular fruit.",
-			isDecor = false,
-			Value = "50",
-		},
-		SFruit = {
-			Name = "Square Fruit",
-			Desc = "A square shaped fruit. Some chao love this.",
-			isDecor = false,
-			Value = "100"
-		},
-		RFruit = {
-			Name = "Round Fruit",
-			Desc = "A round shaped fruit. Some chao love this.",
-			isDecor = false,
-			Value = "125"
-		},
-		TFruit = {
-			Name = "Triangle Fruit",
-			Desc = "A triangle shaped fruit. Some chao love this.",
-			isDecor = false,
-			Value = "150"
-		},
-		StFruit = {
-			Name = "Strong Fruit",
-			Desc = "Help your chao grow stronger. (Power +4)",
-			isDecor = false,
-			Value = "200",
-		},
-		TaFruit = {
-			Name = "Tasty Fruit",
-			Desc = "A tasty fruit that all chao love. Its great for their health too.",
-			isDecor = false,
-			Value = "350",
-		},
-		HFruit = {
-			Name = "Heart Fruit",
-			Desc = "A sweet tasting fruit that gets chao ready to mate.",
-			isDecor = false,
-			Value = "500",
-		},
-		SMFruit = {
-			Name = "Smart Fruit",
-			Desc = "A fruit with riveting flavor that helps your chao learn.",
-			isDecor = false,
-			Value = "500",
-		},
-		Mint = {
-			Name = "Mint Candy",
-			Desc = "A lucky piece of candy sure to give your chao tons of energy. (Luck +25)",
-			isDecor = false,
-			Value = "800"
-		},
-		rDrive = {
-			Name = "RunDrive",
-			Desc = "A chao drive",
-			isDecor = false,
-			Value = "1"
-		},
-		sDrive = {
-			Name = "SwimDrive",
-			Desc = "A chao drive",
-			isDecor = false,
-			Value = "1"
-		},
-		pDrive = {
-			Name = "PowerDrive",
-			Desc = "A chao drive",
-			isDecor = false,
-			Value = "1"
-		},
-		fDrive = {
-			Name = "FlyDrive",
-			Desc = "A chao drive",
-			isDecor = false,
-			Value = "1"
-		},
+		
+		
+		
 	},
 	Toys = {
 		Name = "Toys",
-		Car = {
-			Name = "Toy Car",
-			Desc = "A Toy Car that can be won from Chao Races",
-			isDecor = false,
-			Value = "-1000"
-		}
+		
 	},
 	Animals = {
 		Name = "Animal",
@@ -317,5 +357,6 @@ local tree = {
 		Name = "Medals"
 	}
 }
+]]--
 
-return tree
+return classes
