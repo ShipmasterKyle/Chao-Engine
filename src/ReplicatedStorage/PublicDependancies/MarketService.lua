@@ -14,12 +14,13 @@ function service.GetArrayItem(array,item)
 		if v.Name == item then
 			return v
 		else end
-		return false
 	end
+	return false
 end
 
 --Initialize the system
-function service:Initialize(plr)warn("This system is experimental. It does not save any data at all. Make sure you use everything as you will lose it upon leaving the game.")
+function service:Initialize(plr)
+	warn("This system is experimental. It does not save any data at all. Make sure you use everything as you will lose it upon leaving the game.")
 	if workspace:FindFirstChild(tostring(plr.Name.." Inventory")) then
 		warn("This player's data already exist. Overwriting with a new folder...")
 		workspace[plr.Name.." Inventory"]:Destroy()
@@ -52,7 +53,7 @@ function service:getItemDesc(item)
 	--Get the description of items.
 	local itemExist = service.GetArrayItem(market,item)
 	if itemExist then
-		return market[item].desc
+		return itemExist.desc
 	else
 		return nil
 	end
@@ -62,8 +63,9 @@ end
 function service:getItemValue(item)
 	local itemExist = service.GetArrayItem(market,item)
 	if itemExist then
-		return market[item].Price
+		return itemExist.Price
 	else
+		warn("Item "..item.." does not exist in the market data.")
 		return nil
 	end
 end
@@ -94,8 +96,14 @@ function service:PurchaseItem(item,plr)
 	local itemExist = service.GetArrayItem(market,item)
 	if item and plr and itemExist then
 		--Free Items for now.
-		local myItem = class:GetItem(item)
-		myItem.Parent = workspace[plr.Name.." Inventory"]
+		local myItemClass = class:GetItemsClass(item)
+		print(item,myItemClass)
+		local myItem = class:GetItem(item,myItemClass)
+		if myItem then
+			myItem.Parent = workspace[plr.Name.." Inventory"]
+		else
+			warn("Item not found in rawItems.")
+		end
 	else
 		warn("PurchaseItem run error. Item: "..item.."plr "..plr.Name)
 	end

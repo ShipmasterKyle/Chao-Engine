@@ -3,6 +3,14 @@ local service = {}
 local items = require(game.ReplicatedStorage.MarketPlace.Class)
 local rawItems = game.ReplicatedStorage.MarketPlace.rawItems
 
+--Define chao drive names for future reference
+local driveData = {
+	"RunDrive",
+	"SwimDrive",
+	"PowerDrive",
+	"FlyDrive"
+}
+
 function service.GetArrayItem(array,item)
 	for i,v in pairs(array) do
 		if v.Name == item then
@@ -13,15 +21,37 @@ function service.GetArrayItem(array,item)
 end
 
 --Clone and object and return it
-function service:GetItem(item)
-	local itemExist = service.GetArrayItem(items,item)
-	if itemExist then
-		if rawItems:FindFirstChild(item) then
-			local myItem = rawItems[item]:Clone()
-			return myItem
+--TODO: Finish this. Bricks at line 41
+function service:GetItem(item,class)
+	if item == "Chao Drives" then
+		local myDrives = {}
+		for count = 1,10 do
+			local rng = math.random(#driveData)
+			table.insert(myDrives, driveData[rng])
+			print(tostring(driveData[rng]))
+		end
+		for i,v in pairs(myDrives) do
+			local item = service.GetArrayItem(items[class],v)
+			if item then
+				local myItem = rawItems[v]:Clone()
+				return myItem
+			else
+				print(v)
+				print(myDrives)
+				warn("Something is wrong on our part.")
+				return
+			end
 		end
 	else
-		return nil
+		local itemExist = service.GetArrayItem(items[class],item)
+		if itemExist then
+			if rawItems:FindFirstChild(item) then
+				local myItem = rawItems[item]:Clone()
+				return myItem
+			end
+		else
+			return nil
+		end
 	end
 end
 

@@ -4,6 +4,13 @@
 ]]
 
 market = {
+	cDrives = {
+		Name = "Chao Drives",
+		isDecor = false,
+		Price = "10",
+		forSale = true,
+		desc = "A set of 10 chao drives",
+	},
 	Fruit = {
 		Name = "Chao Fruit",
 		isDecor = false,
@@ -16,21 +23,21 @@ market = {
 		desc = "A square shaped fruit. Some chao love this.",
 		isDecor = false,
 		Price = "100",
-		forSale = true
+		forSale = false
 	},
 	RFruit = {
 		Name = "Round Fruit",
 		desc = "A round shaped fruit. Some chao love this.",
 		isDecor = false,
 		Price = "125",
-		forSale = true
+		forSale = false
 	},
 	TFruit = {
 		Name = "Triangle Fruit",
 		desc = "A triangle shaped fruit. Some chao love this.",
 		isDecor = false,
 		Price = "150",
-		forSale = true
+		forSale = false
 	},
 	StFruit = {
 		Name = "Strong Fruit",

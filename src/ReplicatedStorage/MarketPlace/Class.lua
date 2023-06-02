@@ -146,7 +146,31 @@ local tree = {
 			Desc = "A lucky piece of candy sure to give your chao tons of energy. (Luck +25)",
 			isDecor = false,
 			Value = "800"
-		}
+		},
+		rDrive = {
+			Name = "RunDrive",
+			Desc = "A chao drive",
+			isDecor = false,
+			Value = "1"
+		},
+		sDrive = {
+			Name = "SwimDrive",
+			Desc = "A chao drive",
+			isDecor = false,
+			Value = "1"
+		},
+		pDrive = {
+			Name = "PowerDrive",
+			Desc = "A chao drive",
+			isDecor = false,
+			Value = "1"
+		},
+		fDrive = {
+			Name = "FlyDrive",
+			Desc = "A chao drive",
+			isDecor = false,
+			Value = "1"
+		},
 	},
 	Toys = {
 		Name = "Toys",

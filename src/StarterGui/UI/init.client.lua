@@ -4,6 +4,7 @@ local MarketService = require(game.ReplicatedStorage.PublicDependancies.MarketSe
 local ClassroomService = require(game.ReplicatedStorage.PublicDependancies.Classroom)
 local CamService = require(game.ReplicatedStorage.PublicDependancies.CamService)
 local Player = game:GetService("Players")
+local RS = game:GetService("RunService")
 
 --> For Garden Transitions
 local ui = script.Parent.ScreenGui.Frame.GardenLogo
@@ -99,32 +100,15 @@ game.ReplicatedStorage.Remotes.Market.OnClientEvent:Connect(function()
 	script.Parent.Market.ImageLabel.Visible = true
 end)
 
+local chaoData = nil
+
 plr.Character.ChildAdded:Connect(function(obj)
 	if obj:FindFirstChild("ChaoController") and garden.Value == "Garden" then
 		dprint("Chao Added: "..obj.Name,true)
-		local chaoData = plr.Leaderstats[obj.Name]
+		chaoData = plr.Leaderstats[obj.Name]
 		if chaoData then
 			dprint("New Chao Found",true)
 			show = true
-			script.Parent.ChaoMenu.Frame.Visible = true
-			while show == true do
-				wait(1)
-				if workspace.currentGarden.Value == "Garden" then
-					local frame = script.Parent.ChaoMenu.Frame
-					frame.ChaoName.Text = obj.Name
-					local main = frame.MainFrame
-					main.SwimXP.Text = chaoData.SwimXP.Value
-					main.SwimLvl.Text = "Lv "..chaoData.SwimLevel.Value
-					main.FlyXP.Text = chaoData.FlyXP.value
-					main.FlyLvl.Text = "Lv "..chaoData.FlyLevel.Value
-					main.RunXP.Text = chaoData.RunXP.Value
-					main.RunLvl.Text = "Lv"..chaoData.RunLevel.Value
-					main.PowerXP.Text = chaoData.PowerXP.Value
-					main.PowerLvl.Text = "Lv "..chaoData.PowerLevel.Value
-					main.StaminaXP.Text = chaoData.StaminaXP.Value
-					main.StaminaLvl.Text = "Lv "..chaoData.StaminaLevel.Value
-				end
-			end
 		end
 	end
 end)
@@ -133,6 +117,33 @@ plr.Character.ChildRemoved:Connect(function(obj)
 	if obj:FindFirstChild("Held",true) then
 		dprint("Chao Removed",true)
 		show = false
+		chaoData = nil
 		script.Parent.ChaoMenu.Frame.Visible = false
 	end
+end)
+
+--? RenderStepped should make the UI less laggy.
+RS.RenderStepped:Connect(function()
+	if chaoData ~= nil and show == true then
+		if workspace.currentGarden.Value == "Garden" then
+			script.Parent.ChaoMenu.Frame.Visible = true
+			local frame = script.Parent.ChaoMenu.Frame
+			frame.ChaoName.Text = chaoData.Name
+			local main = frame.MainFrame
+			main.SwimXP.Text = chaoData.SwimXP.Value
+			main.SwimLvl.Text = "Lv "..chaoData.SwimLevel.Value
+			main.FlyXP.Text = chaoData.FlyXP.value
+			main.FlyLvl.Text = "Lv "..chaoData.FlyLevel.Value
+			main.RunXP.Text = chaoData.RunXP.Value
+			main.RunLvl.Text = "Lv"..chaoData.RunLevel.Value
+			main.PowerXP.Text = chaoData.PowerXP.Value
+			main.PowerLvl.Text = "Lv "..chaoData.PowerLevel.Value
+			main.StaminaXP.Text = chaoData.StaminaXP.Value
+			main.StaminaLvl.Text = "Lv "..chaoData.StaminaLevel.Value
+		end
+	end
+end)
+
+Player.LocalPlayer.PlayerGui:WaitForChild("Market").ImageLabel.ReadyPurchase.Event:Connect(function()
+	Player.LocalPlayer.PlayerGui.Market.ImageLabel.Frame.Visible = true
 end)
